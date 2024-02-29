@@ -22,4 +22,7 @@ public interface StudentMapper {
     @Select("SELECT * FROM students1 WHERE name LIKE CONCAT(#{prefix}, '%')")
     List<Student> findByStudents1StartingWith(String prefix);
 
+    @Select("SELECT * FROM students2 WHERE id LIKE CONCAT(#{id}, '%')")
+    List<Student> findByStudents2id(int id);
+
 }
