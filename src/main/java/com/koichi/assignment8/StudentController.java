@@ -30,5 +30,10 @@ public class StudentController {
         return studentMapper.findAll3();
     }
 
+    @GetMapping("/students4")
+    public List<Student> findAll4() {
+        return studentMapper.findAll4();
+    }
+
 
 }
