@@ -35,5 +35,10 @@ public class StudentController {
         return studentMapper.findAll4();
     }
 
+    @GetMapping("/students5")
+    public List<Student> findByNameStartingWith(@RequestParam String startsWith) {
+        return studentMapper.findByStudents1StartingWith(startsWith);
+    }
+
 
 }
