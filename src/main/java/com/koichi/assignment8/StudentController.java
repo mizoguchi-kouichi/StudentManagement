@@ -50,4 +50,9 @@ public class StudentController {
         return studentMapper.findByStudents3birthplace(birthplace);
     }
 
+    @GetMapping("/students8")
+    public List<Student> findByStudent123id(@RequestParam int id) {
+        return studentMapper.findByStudents123id(id);
+    }
+
 }
