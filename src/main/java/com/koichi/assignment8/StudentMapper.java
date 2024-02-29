@@ -13,4 +13,7 @@ public interface StudentMapper {
     @Select("SELECT * FROM students2")
     List<Student> findAll2();
 
+    @Select("SELECT * FROM students3")
+    List<Student> findAll3();
+
 }

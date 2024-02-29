@@ -25,4 +25,10 @@ public class StudentController {
         return studentMapper.findAll2();
     }
 
+    @GetMapping("/students3")
+    public List<Student> findAll3() {
+        return studentMapper.findAll3();
+    }
+
+
 }
