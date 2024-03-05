@@ -26,10 +26,11 @@ public class StudentController {
     }
 
 
-    @GetMapping("/students3")
-    public List<Student> findAll3() {
-        return studentMapper.findAll3();
+    @GetMapping("/students/thirdgrade")
+    public List<Student> findAll_thirdgrade() {
+        return studentMapper.findAll_thidgrade();
     }
+
 
     @GetMapping("/students4")
     public List<Student> findAll4() {

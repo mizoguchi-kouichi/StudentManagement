@@ -13,8 +13,10 @@ public interface StudentMapper {
     @Select("SELECT * FROM students_second_grade")
     List<Student> findAll_secondgrade();
 
-    @Select("SELECT * FROM students3")
-    List<Student> findAll3();
+    @Select("SELECT * FROM students_third_grade")
+    List<Student> findAll_thidgrade();
+
+
 
     @Select("SELECT * FROM students1 UNION SELECT * FROM students2 UNION SELECT * FROM students3")
     List<Student> findAll4();
