@@ -49,10 +49,11 @@ public class StudentController {
     }
 
 
-    @GetMapping("/students7")
-    public List<Student> findByStudents3birthplace(@RequestParam String birthplace) {
-        return studentMapper.findByStudents3birthplace(birthplace);
+    @GetMapping("/students/thirdgrade/birthplace")
+    public List<Student> findBythirdgradebirthplace(@RequestParam String birthplace) {
+        return studentMapper.findBythirdgradebirthplace(birthplace);
     }
+
 
     @GetMapping("/students8")
     public List<Student> findByStudent123id(@RequestParam int id) {
