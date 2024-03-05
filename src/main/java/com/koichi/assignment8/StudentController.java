@@ -66,9 +66,10 @@ public class StudentController {
         return studentMapper.findByallstudentname(startsWith);
     }
 
-    @GetMapping("/students10")
-    public List<Student> findByStudent123birthplace(@RequestParam String birthplace) {
-        return studentMapper.findByStudents123birthplace(birthplace);
+    @GetMapping("/students/allgrade/birthplace_search")
+    public List<Student> findByallstudentbirthplace(@RequestParam String birthplace) {
+        return studentMapper.findByallstudentbirthplace(birthplace);
     }
+
 
 }

@@ -48,6 +48,11 @@ public interface StudentMapper {
     List<Student> findByallstudentname(String name);
 
 
-    @Select("SELECT * FROM students1 WHERE birthplace LIKE CONCAT(#{birthplace}, '%') UNION SELECT * FROM students2 WHERE birthplace LIKE CONCAT(#{birthplace}, '%') UNION SELECT * FROM students3 WHERE birthplace LIKE CONCAT(#{birthplace}, '%')")
-    List<Student> findByStudents123birthplace(String birthplace);
+    @Select("SELECT * FROM students_first_grade WHERE birthplace LIKE CONCAT(#{birthplace}, '%') " +
+            "UNION SELECT * FROM students_second_grade WHERE birthplace LIKE CONCAT(#{birthplace}, '%') " +
+            "UNION SELECT * FROM students_third_grade WHERE birthplace LIKE CONCAT(#{birthplace}, '%')")
+    List<Student> findByallstudentbirthplace(String birthplace);
+
+
+
 }
