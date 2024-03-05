@@ -32,9 +32,9 @@ public class StudentController {
     }
 
 
-    @GetMapping("/students4")
-    public List<Student> findAll4() {
-        return studentMapper.findAll4();
+    @GetMapping("/students/allgrade")
+    public List<Student> findAll_allstudent() {
+        return studentMapper.findAll_allstudent();
     }
 
     @GetMapping("/students5")

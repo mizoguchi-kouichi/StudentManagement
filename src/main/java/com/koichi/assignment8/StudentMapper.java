@@ -18,8 +18,10 @@ public interface StudentMapper {
 
 
 
-    @Select("SELECT * FROM students1 UNION SELECT * FROM students2 UNION SELECT * FROM students3")
-    List<Student> findAll4();
+    @Select("SELECT * FROM students_first_grade " +
+            "UNION SELECT * FROM students_second_grade " +
+            "UNION SELECT * FROM students_third_grade")
+    List<Student> findAll_allstudent();
 
     @Select("SELECT * FROM students1 WHERE name LIKE CONCAT(#{prefix}, '%')")
     List<Student> findByStudents1StartingWith(String prefix);
