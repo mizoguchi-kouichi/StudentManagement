@@ -15,9 +15,9 @@ public class StudentController {
         this.studentMapper = studentMapper;
     }
 
-    @GetMapping("/students1")
-    public List<Student>findAll(){
-        return  studentMapper.findAll1();
+    @GetMapping("/students/firstgrade")
+    public List<Student>findAll_firstgrade(){
+        return  studentMapper.findAll_firstgrade();
     }
 
     @GetMapping("/students2")

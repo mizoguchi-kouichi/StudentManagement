@@ -7,8 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface StudentMapper {
-    @Select("SELECT * FROM students1")
-    List<Student>findAll1();
+    @Select("SELECT * FROM students_first_grade")
+    List<Student>findAll_firstgrade();
 
     @Select("SELECT * FROM students2")
     List<Student> findAll2();
