@@ -16,15 +16,15 @@ public interface StudentMapper {
     @Select("SELECT * FROM students_third_grade")
     List<Student> findAll_thidgrade();
 
-
-
     @Select("SELECT * FROM students_first_grade " +
             "UNION SELECT * FROM students_second_grade " +
             "UNION SELECT * FROM students_third_grade")
     List<Student> findAll_allstudent();
 
-    @Select("SELECT * FROM students1 WHERE name LIKE CONCAT(#{prefix}, '%')")
-    List<Student> findByStudents1StartingWith(String prefix);
+    @Select("SELECT * FROM students_first_grade" +
+            " WHERE name LIKE CONCAT(#{prefix}, '%')")
+    List<Student> findByfirstgradeStartingWith(String prefix);
+
 
     @Select("SELECT * FROM students2 WHERE id LIKE CONCAT(#{id}, '%')")
     List<Student> findByStudents2id(int id);

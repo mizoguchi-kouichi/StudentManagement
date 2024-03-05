@@ -37,10 +37,11 @@ public class StudentController {
         return studentMapper.findAll_allstudent();
     }
 
-    @GetMapping("/students5")
-    public List<Student> findByNameStartingWith(@RequestParam String startsWith) {
-        return studentMapper.findByStudents1StartingWith(startsWith);
+    @GetMapping("/students/firstgrade/name")
+    public List<Student> findByfirstgradeStartingWith(@RequestParam String startsWith) {
+        return studentMapper.findByfirstgradeStartingWith(startsWith);
     }
+
 
     @GetMapping("/students6")
     public List<Student> findByStudents2id(@RequestParam int id) {
