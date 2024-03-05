@@ -20,10 +20,11 @@ public class StudentController {
         return  studentMapper.findAll_firstgrade();
     }
 
-    @GetMapping("/students2")
-    public List<Student> findAll2() {
-        return studentMapper.findAll2();
+    @GetMapping("/students/secondgrade")
+    public List<Student> findAll_secondgrade() {
+        return studentMapper.findAll_secondgrade();
     }
+
 
     @GetMapping("/students3")
     public List<Student> findAll3() {
