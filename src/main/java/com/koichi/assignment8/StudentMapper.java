@@ -11,8 +11,9 @@ public interface StudentMapper {
             "WHERE schoolyear IN ('1年生')")
     List<Student>findAll_firstgrade();
 
-    @Select("SELECT * FROM students_second_grade")
-    List<Student> findAll_secondgrade();
+    @Select("SELECT *  from students "+
+            "WHERE schoolyear IN ('2年生')")
+    List<Student>findAll_scondgrade();
 
     @Select("SELECT * FROM students_third_grade")
     List<Student> findAll_thidgrade();
