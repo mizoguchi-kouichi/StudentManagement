@@ -26,9 +26,9 @@ public class StudentController {
     }
 
 
-    @GetMapping("/students/thirdgrade")
+    @GetMapping("/students/third-grade")
     public List<Student> findAll_thirdgrade() {
-        return studentMapper.findAll_thidgrade();
+        return studentMapper.findAll_thirdgrade();
     }
 
 
