@@ -21,19 +21,6 @@ public interface StudentMapper {
     @Select("SELECT * FROM students" )
     List<Student> findAll_students();
 
-    @Select("SELECT * FROM students_first_grade" +
-            " WHERE name LIKE CONCAT(#{prefix}, '%')")
-    List<Student> findByfirstgradeStartingWith(String prefix);
-
-
-    @Select("SELECT * FROM students_second_grade" +
-            " WHERE id LIKE CONCAT(#{id}, '%')")
-    List<Student> findBysecondgradeid(int id);
-
-
-    @Select("SELECT * FROM students_third_grade " +
-            "WHERE birthplace LIKE CONCAT(#{birthplace}, '%')")
-    List<Student> findBythirdgradebirthplace(String birthplace);
 
 
     @Select("SELECT * FROM students_first_grade WHERE id LIKE CONCAT(#{id}, '%') " +

@@ -37,23 +37,6 @@ public class StudentController {
         return studentMapper.findAll_students();
     }
 
-    @GetMapping("/students/firstgrade/name")
-    public List<Student> findByfirstgradeStartingWith(@RequestParam String startsWith) {
-        return studentMapper.findByfirstgradeStartingWith(startsWith);
-    }
-
-
-    @GetMapping("/students/secondgrade/id")
-    public List<Student> findBysecondgradeid(@RequestParam int id) {
-        return studentMapper.findBysecondgradeid(id);
-    }
-
-
-    @GetMapping("/students/thirdgrade/birthplace")
-    public List<Student> findBythirdgradebirthplace(@RequestParam String birthplace) {
-        return studentMapper.findBythirdgradebirthplace(birthplace);
-    }
-
 
     @GetMapping("/students/allgrade/id_search")
     public List<Student> findByallstudentid(@RequestParam int id)
