@@ -7,26 +7,23 @@ import java.util.List;
 
 @Mapper
 public interface StudentMapper {
-    @Select("SELECT *  from students "+
+    @Select("SELECT *  from students " +
             "WHERE schoolyear IN ('1年生')")
-    List<Student>findAll_firstgrade();
+    List<Student> findAll_firstgrade();
 
-    @Select("SELECT *  from students "+
+    @Select("SELECT *  from students " +
             "WHERE schoolyear IN ('2年生')")
-    List<Student>findAll_scondgrade();
+    List<Student> findAll_scondgrade();
 
-    @Select("SELECT *  from students "+
+    @Select("SELECT *  from students " +
             "WHERE schoolyear IN ('3年生')")
-    List<Student>findAll_thirdgrade();
-    @Select("SELECT * FROM students" )
+    List<Student> findAll_thirdgrade();
+
+    @Select("SELECT * FROM students")
     List<Student> findAll_students();
 
-
-
-    @Select("SELECT * FROM students_first_grade WHERE id LIKE CONCAT(#{id}, '%') " +
-            "UNION SELECT * FROM students_second_grade WHERE id LIKE CONCAT(#{id}, '%') " +
-            "UNION SELECT * FROM students_third_grade WHERE id LIKE CONCAT(#{id}, '%')")
-    List<Student> findByallstudentid(int id);
+    @Select("SELECT * FROM students WHERE id LIKE CONCAT(#{id}, '%') ")
+    List<Student> findBystudentsid(Integer id);
 
 
     @Select("SELECT * FROM students_first_grade WHERE name LIKE CONCAT(#{name}, '%') " +
@@ -39,7 +36,6 @@ public interface StudentMapper {
             "UNION SELECT * FROM students_second_grade WHERE birthplace LIKE CONCAT(#{birthplace}, '%') " +
             "UNION SELECT * FROM students_third_grade WHERE birthplace LIKE CONCAT(#{birthplace}, '%')")
     List<Student> findByallstudentbirthplace(String birthplace);
-
 
 
 }
