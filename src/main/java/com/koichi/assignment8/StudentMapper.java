@@ -18,10 +18,8 @@ public interface StudentMapper {
     @Select("SELECT *  from students "+
             "WHERE schoolyear IN ('3年生')")
     List<Student>findAll_thirdgrade();
-    @Select("SELECT * FROM students_first_grade " +
-            "UNION SELECT * FROM students_second_grade " +
-            "UNION SELECT * FROM students_third_grade")
-    List<Student> findAll_allstudent();
+    @Select("SELECT * FROM students" )
+    List<Student> findAll_students();
 
     @Select("SELECT * FROM students_first_grade" +
             " WHERE name LIKE CONCAT(#{prefix}, '%')")
