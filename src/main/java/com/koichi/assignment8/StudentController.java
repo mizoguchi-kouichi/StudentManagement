@@ -33,19 +33,16 @@ public class StudentController {
 
 
     @GetMapping("/students")
-    public List<Student> findAll_students(@RequestParam(required = false) Integer id, String startsWith) {
+    public List<Student> findAll_students(@RequestParam(required = false) Integer id, String startsWith, String birthplace) {
         if (id != null) {
             return studentMapper.findBystudentsid(id);
         } else if (startsWith != null) {
             return studentMapper.findBystudentsname(startsWith);
+        } else if (birthplace != null) {
+            return studentMapper.findBystudentsbirthplace(birthplace);
         } else {
             return studentMapper.findAll_students();
         }
-    }
-
-    @GetMapping("/students/allgrade/birthplace_search")
-    public List<Student> findByallstudentbirthplace(@RequestParam String birthplace) {
-        return studentMapper.findByallstudentbirthplace(birthplace);
     }
 
 
