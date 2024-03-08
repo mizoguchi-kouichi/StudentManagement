@@ -7,17 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface StudentMapper {
-    @Select("SELECT *  from students " +
-            "WHERE schoolyear IN ('1年生')")
-    List<Student> findAll_firstgrade();
-
-    @Select("SELECT *  from students " +
-            "WHERE schoolyear IN ('2年生')")
-    List<Student> findAll_scondgrade();
-
-    @Select("SELECT *  from students " +
-            "WHERE schoolyear IN ('3年生')")
-    List<Student> findAll_thirdgrade();
+    @Select("SELECT *  from students WHERE school_year LIKE CONCAT(#{grade}, '%') ")
+    List<Student> findByGrade(Integer grade);
 
     @Select("SELECT * FROM students")
     List<Student> findAll_students();

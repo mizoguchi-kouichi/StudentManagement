@@ -15,26 +15,11 @@ public class StudentController {
         this.studentMapper = studentMapper;
     }
 
-    @GetMapping("/students/first-grade")
-    public List<Student> findAll_firstgrade() {
-        return studentMapper.findAll_firstgrade();
-    }
-
-    @GetMapping("/students/second-grade")
-    public List<Student> findAll_secondgrade() {
-        return studentMapper.findAll_scondgrade();
-    }
-
-
-    @GetMapping("/students/third-grade")
-    public List<Student> findAll_thirdgrade() {
-        return studentMapper.findAll_thirdgrade();
-    }
-
-
     @GetMapping("/students")
-    public List<Student> findAll_students(@RequestParam(required = false) Integer id, String startsWith, String birthplace) {
-        if (id != null) {
+    public List<Student> findAll_students(@RequestParam(required = false) Integer id, Integer grade, String startsWith, String birthplace) {
+        if (grade != null) {
+            return studentMapper.findByGrade(grade);
+        } else if (id != null) {
             return studentMapper.findBystudentsid(id);
         } else if (startsWith != null) {
             return studentMapper.findBystudentsname(startsWith);
@@ -44,6 +29,4 @@ public class StudentController {
             return studentMapper.findAll_students();
         }
     }
-
-
 }
