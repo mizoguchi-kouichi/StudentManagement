@@ -11,18 +11,15 @@ public interface StudentMapper {
     List<Student> findByGrade(Integer grade);
 
     @Select("SELECT * FROM students")
-    List<Student> findAll_students();
+    List<Student> findAllStudents();
 
     @Select("SELECT * FROM students WHERE id LIKE CONCAT(#{id}, '%') ")
-    List<Student> findBystudentsid(Integer id);
-
+    List<Student> findById(Integer id);
 
     @Select("SELECT * FROM students WHERE name LIKE CONCAT(#{startsWith}, '%') ")
-    List<Student> findBystudentsname(String startsWith);
-
+    List<Student> findByName(String startsWith);
 
     @Select("SELECT * FROM students WHERE birthplace LIKE CONCAT(#{birthplace}, '%') ")
-    List<Student> findBystudentsbirthplace(String birthplace);
-
+    List<Student> findByBirthPlace(String birthPlace);
 
 }
