@@ -4,15 +4,16 @@ public class Student {
     private int id;
     private String name;
 
-    private String schoolyear;
+    private String schoolYear;
 
-    private String birthplace;
+    private String birthPlace;
 
-    public Student(int id, String name, String schoolyear, String birthplace) {
+
+    public Student(int id, String name, String schoolYear, String birthPlace) {
         this.id = id;
         this.name = name;
-        this.schoolyear = schoolyear;
-        this.birthplace = birthplace;
+        this.schoolYear = schoolYear;
+        this.birthPlace = birthPlace;
     }
 
     public int getId() {
@@ -23,11 +24,11 @@ public class Student {
         return name;
     }
 
-    public String getSchoolyear() {
-        return schoolyear;
+    public String getSchoolYear() {
+        return schoolYear;
     }
 
-    public String getBirthplace() {
-        return birthplace;
+    public String getBirthPlace() {
+        return birthPlace;
     }
 }
