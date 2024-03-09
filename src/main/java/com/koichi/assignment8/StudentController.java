@@ -16,7 +16,7 @@ public class StudentController {
     }
 
     @GetMapping("/students")
-    public List<Student> findAll_students(@RequestParam(required = false) Integer grade, String startsWith, String birthPlace) {
+    public List<Student> findAllStudents(@RequestParam(required = false) Integer grade, String startsWith, String birthPlace) {
         if (grade != null) {
             return studentMapper.findByGrade(grade);
         } else if (startsWith != null) {
