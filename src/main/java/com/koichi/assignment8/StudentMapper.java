@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface StudentMapper {
@@ -14,7 +15,7 @@ public interface StudentMapper {
     List<Student> findAllStudents();
 
     @Select("SELECT * FROM students WHERE id LIKE CONCAT(#{id}, '%') ")
-    List<Student> findById(Integer id);
+    Optional<Student> findById(Integer id);
 
     @Select("SELECT * FROM students WHERE name LIKE CONCAT(#{startsWith}, '%') ")
     List<Student> findByName(String startsWith);
