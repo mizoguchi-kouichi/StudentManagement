@@ -8,14 +8,14 @@ import java.util.Optional;
 
 @Mapper
 public interface StudentMapper {
-    @Select("SELECT *  from students WHERE school_year LIKE CONCAT(#{grade}, '%') ")
-    List<Student> findByGrade(Integer grade);
-
-    @Select("SELECT * FROM students")
-    List<Student> findAllStudents();
-
     @Select("SELECT * FROM students WHERE id LIKE CONCAT(#{id}, '%') ")
     Optional<Student> findById(Integer id);
+
+    @Select("SELECT * FROM students")
+    Optional<Student> findAllStudents();
+
+    @Select("SELECT *  from students WHERE school_year LIKE CONCAT(#{grade}, '%') ")
+    Optional<Student> findByGrade(Integer grade);
 
     @Select("SELECT * FROM students WHERE name LIKE CONCAT(#{startsWith}, '%') ")
     List<Student> findByName(String startsWith);

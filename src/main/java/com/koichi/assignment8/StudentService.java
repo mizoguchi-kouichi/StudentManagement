@@ -14,11 +14,13 @@ public class StudentService {
     }
 
     public Student findById(Integer id) {
-        Optional<Student> student = this.studentMapper.findById(id);
-        if (student.isPresent()) {
-            return student.get();
+        Optional<Student> findById = this.studentMapper.findById(id);
+        if (findById.isPresent()) {
+            return findById.get();
         } else {
             throw new StudentNotFoundException("user not found");
         }
     }
+
+
 }

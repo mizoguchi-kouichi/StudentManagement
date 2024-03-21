@@ -23,6 +23,8 @@ public class StudentControllerAdvice {
                 "path", request.getRequestURI());
         return new ResponseEntity(body, HttpStatus.NOT_FOUND);
     }
+
+   
 }
 
 
