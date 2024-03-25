@@ -20,7 +20,7 @@ public interface StudentMapper {
     @Select("SELECT * FROM students WHERE name LIKE CONCAT(#{startsWith}, '%') ")
     List<Student> findByName(String startsWith);
 
-    @Select("SELECT * FROM students WHERE birthplace LIKE CONCAT(#{birthplace}, '%') ")
+    @Select("SELECT * FROM students WHERE birth_place LIKE CONCAT(#{birthplace}, '%') ")
     List<Student> findByBirthPlace(String birthPlace);
 
 }

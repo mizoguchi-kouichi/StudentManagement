@@ -24,6 +24,13 @@ public class StudentController {
 
     @GetMapping("/students")
     public Optional<List<Student>> getAllStudents(@RequestParam(required = false) Integer grade, String startsWith, String birthPlace) {
+        if (grade != null) {
+            return studentService.GetByGrade(grade);
+        } else if (startsWith != null) {
+            return studentService.getByStartsWith(startsWith);
+        } else if (birthPlace != null) {
+            return studentService.getByBirthPlace(birthPlace);
+        }
         return studentService.getAllStudent();
     }
 }

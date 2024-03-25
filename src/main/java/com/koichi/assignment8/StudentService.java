@@ -28,4 +28,18 @@ public class StudentService {
         return Optional.ofNullable(getAllStudents);
     }
 
+    public Optional<List<Student>> GetByGrade(Integer grade) {
+        List<Student> GetByGrade = this.studentMapper.findByGrade(grade);
+        return Optional.ofNullable(GetByGrade);
+    }
+
+    public Optional<List<Student>> getByStartsWith(String startsWith) {
+        List<Student> getByStartsWith = this.studentMapper.findByName(startsWith);
+        return Optional.ofNullable(getByStartsWith);
+    }
+
+    public Optional<List<Student>> getByBirthPlace(String birthPlace) {
+        List<Student> getByBirthPlace = this.studentMapper.findByBirthPlace(birthPlace);
+        return Optional.ofNullable(getByBirthPlace);
+    }
 }
