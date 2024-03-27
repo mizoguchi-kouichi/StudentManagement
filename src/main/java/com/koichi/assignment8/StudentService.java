@@ -29,16 +29,27 @@ public class StudentService {
         List<Student> getByStartWith = this.studentMapper.findByName(startsWith);
         List<Student> getByBirthPlace = this.studentMapper.findByBirthPlace(birthPlace);
 
-        if (grade == null && startsWith == null && birthPlace == null) {
-            return getAllStudent;
-        } else if (startsWith == null && birthPlace == null) {
+        int cont = 0;
+        if (grade != null) {
+            cont = cont + 1;
+        }
+        if (startsWith != null) {
+            cont = cont + 1;
+        }
+
+        if (birthPlace != null) {
+            cont = cont + 1;
+        }
+        if (cont >= 2) {
+            throw new MultipleMethodsException("カラムはgrade・startsWith・birthPlaceの一つを選んでください");
+        } else if (grade != null) {
             return getByGrade;
-        } else if (grade == null && birthPlace == null) {
+        } else if (startsWith != null) {
             return getByStartWith;
-        } else if (grade == null && startsWith == null) {
+        } else if (birthPlace != null) {
             return getByBirthPlace;
         } else {
-            throw new MultipleMethodsException("カラムはgrade・startsWith・birthPlaceの一つを選んでください");
+            return getAllStudent;
         }
     }
 }
