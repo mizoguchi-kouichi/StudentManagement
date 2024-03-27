@@ -23,23 +23,22 @@ public class StudentService {
         }
     }
 
-    public Optional<List<Student>> getAllStudent() {
-        List<Student> getAllStudents = this.studentMapper.findAllStudents();
-        return Optional.ofNullable(getAllStudents);
-    }
-
-    public Optional<List<Student>> GetByGrade(Integer grade) {
-        List<Student> GetByGrade = this.studentMapper.findByGrade(grade);
-        return Optional.ofNullable(GetByGrade);
-    }
-
-    public Optional<List<Student>> getByStartsWith(String startsWith) {
-        List<Student> getByStartsWith = this.studentMapper.findByName(startsWith);
-        return Optional.ofNullable(getByStartsWith);
-    }
-
-    public Optional<List<Student>> getByBirthPlace(String birthPlace) {
+    public Optional<List<Student>> findAllStudents(Integer grade, String startsWith, String birthPlace) {
+        List<Student> getAllStudent = this.studentMapper.findAllStudents();
+        List<Student> getByGrade = this.studentMapper.findByGrade(grade);
+        List<Student> getByStartWith = this.studentMapper.findByName(startsWith);
         List<Student> getByBirthPlace = this.studentMapper.findByBirthPlace(birthPlace);
-        return Optional.ofNullable(getByBirthPlace);
+
+        if (grade == null && startsWith == null && birthPlace == null) {
+            return Optional.ofNullable(getAllStudent);
+        } else if (startsWith == null && birthPlace == null) {
+            return Optional.ofNullable(getByGrade);
+        } else if (grade == null && birthPlace == null) {
+            return Optional.ofNullable(getByStartWith);
+        } else if (grade == null && startsWith == null) {
+            return Optional.ofNullable(getByBirthPlace);
+        } else {
+            throw new MultipleMethodsException("カラムはgrade・startsWith・birthPlaceの一つを選んでください");
+        }
     }
 }

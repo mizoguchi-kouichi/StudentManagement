@@ -22,5 +22,4 @@ public interface StudentMapper {
 
     @Select("SELECT * FROM students WHERE birth_place LIKE CONCAT(#{birthplace}, '%') ")
     List<Student> findByBirthPlace(String birthPlace);
-
 }
