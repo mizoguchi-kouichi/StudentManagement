@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class StudentController {
@@ -23,7 +22,7 @@ public class StudentController {
     }
 
     @GetMapping("/students")
-    public Optional<List<Student>> getAllStudents(@RequestParam(required = false) Integer grade, String startsWith, String birthPlace) {
+    public List<Student> getAllStudents(@RequestParam(required = false) Integer grade, String startsWith, String birthPlace) {
         return studentService.findAllStudents(grade, startsWith, birthPlace);
     }
 
