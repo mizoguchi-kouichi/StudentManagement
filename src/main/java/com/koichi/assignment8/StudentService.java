@@ -29,18 +29,20 @@ public class StudentService {
         List<Student> getByStartWith = this.studentMapper.findByName(startsWith);
         List<Student> getByBirthPlace = this.studentMapper.findByBirthPlace(birthPlace);
 
-        int cont = 0;
+        int count = 0;
+
         if (grade != null) {
-            cont = cont + 1;
+            count++;
         }
         if (startsWith != null) {
-            cont = cont + 1;
+            count++;
         }
 
         if (birthPlace != null) {
-            cont = cont + 1;
+            count++;
         }
-        if (cont >= 2) {
+
+        if (count >= 2) {
             throw new MultipleMethodsException("カラムはgrade・startsWith・birthPlaceの一つを選んでください");
         } else if (grade != null) {
             return getByGrade;
@@ -52,4 +54,5 @@ public class StudentService {
             return getAllStudent;
         }
     }
+
 }
