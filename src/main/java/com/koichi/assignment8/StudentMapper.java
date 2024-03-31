@@ -1,6 +1,8 @@
 package com.koichi.assignment8;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -22,4 +24,9 @@ public interface StudentMapper {
 
     @Select("SELECT * FROM students WHERE birth_place LIKE CONCAT(#{birthplace}, '%') ")
     List<Student> findByBirthPlace(String birthPlace);
+
+    //INSERT用のMapper
+    @Insert("INSERT INTO students (name,school_year,birth_place) VALUES (#{name}, #{school_year},#{birth_place})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    void insert(Student student);
 }
