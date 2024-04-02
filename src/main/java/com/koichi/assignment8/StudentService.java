@@ -55,4 +55,9 @@ public class StudentService {
         }
     }
 
+    public Student insert(String name, String schoolYear, String birthPlace) {
+        Student student = new Student(name, schoolYear, birthPlace);
+        studentMapper.insert(student);
+        return student;
+    }
 }
