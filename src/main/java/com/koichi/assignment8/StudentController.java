@@ -1,11 +1,11 @@
 package com.koichi.assignment8;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -26,5 +26,12 @@ public class StudentController {
         return studentService.findAllStudents(grade, startsWith, birthPlace);
     }
 
+    @PostMapping("/students")
+    public ResponseEntity<StudentResponse> insert(@RequestBody StudentRequest studentRequest, UriComponentsBuilder uriBuilder) {
+        Student student = studentService.insert(studentRequest.getName(), studentRequest.getSchoolYear(), studentRequest.getBirthPlace());
+        URI location = uriBuilder.path("/students/{id}").buildAndExpand(student.getId()).toUri();
+        StudentResponse body = new StudentResponse("student created");
+        return ResponseEntity.created(location).body(body);
+    }
 
 }
