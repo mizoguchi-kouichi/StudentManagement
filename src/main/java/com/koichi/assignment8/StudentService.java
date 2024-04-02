@@ -56,8 +56,8 @@ public class StudentService {
     }
 
     //INSERT用のService
-    public Student insert(String name, String schoolYear, String birthPlace) {
-        Student student = new Student(name, schoolYear, birthPlace);
+    public Student insert(String name, Integer grade, String birthPlace) {
+        Student student = new Student(name, grade, birthPlace);
         studentMapper.insert(student);
         return student;
     }

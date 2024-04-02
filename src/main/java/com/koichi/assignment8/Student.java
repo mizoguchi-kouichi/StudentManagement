@@ -4,22 +4,21 @@ public class Student {
     private Integer id;
     private String name;
 
-    private String schoolYear;
+    private Integer grade;
 
     private String birthPlace;
 
-
-    public Student(Integer id, String name, String schoolYear, String birthPlace) {
+    public Student(Integer id, String name, Integer grade, String birthPlace) {
         this.id = id;
         this.name = name;
-        this.schoolYear = schoolYear;
+        this.grade = grade;
         this.birthPlace = birthPlace;
     }
 
-    public Student(String name, String schoolYear, String birthPlace) {
+    public Student(String name, Integer grade, String birthPlace) {
         this.id = null;
         this.name = name;
-        this.schoolYear = schoolYear;
+        this.grade = grade;
         this.birthPlace = birthPlace;
     }
 
@@ -31,8 +30,8 @@ public class Student {
         return name;
     }
 
-    public String getSchoolYear() {
-        return schoolYear;
+    public Integer getGrade() {
+        return grade;
     }
 
     public String getBirthPlace() {

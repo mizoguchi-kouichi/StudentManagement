@@ -3,13 +3,13 @@ package com.koichi.assignment8;
 public class StudentRequest {
     private String name;
 
-    private String schoolYear;
+    private Integer grade;
 
     private String birthPlace;
 
-    public StudentRequest(String name, String schoolYear, String birthPlace) {
+    public StudentRequest(String name, Integer grade, String birthPlace) {
         this.name = name;
-        this.schoolYear = schoolYear;
+        this.grade = grade;
         this.birthPlace = birthPlace;
     }
 
@@ -17,8 +17,8 @@ public class StudentRequest {
         return name;
     }
 
-    public String getSchoolYear() {
-        return schoolYear;
+    public Integer getGrade() {
+        return grade;
     }
 
     public String getBirthPlace() {

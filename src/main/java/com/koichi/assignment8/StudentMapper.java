@@ -16,7 +16,7 @@ public interface StudentMapper {
     @Select("SELECT * FROM students")
     List<Student> findAllStudents();
 
-    @Select("SELECT *  from students WHERE school_year LIKE CONCAT(#{grade}, '%') ")
+    @Select("SELECT *  from students WHERE grade LIKE CONCAT(#{grade}, '%') ")
     List<Student> findByGrade(Integer grade);
 
     @Select("SELECT * FROM students WHERE name LIKE CONCAT(#{startsWith}, '%') ")
@@ -27,7 +27,7 @@ public interface StudentMapper {
 
 
     //INSERT用のMapper
-    @Insert("INSERT INTO students (name,school_year,birth_place) VALUES (#{name}, #{schoolYear},#{birthPlace})")
+    @Insert("INSERT INTO students (name,grade,birth_place) VALUES (#{name}, #{grade},#{birthPlace})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Student student);
 

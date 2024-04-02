@@ -28,7 +28,7 @@ public class StudentController {
 
     @PostMapping("/students")
     public ResponseEntity<StudentResponse> insert(@RequestBody StudentRequest studentRequest, UriComponentsBuilder uriBuilder) {
-        Student student = studentService.insert(studentRequest.getName(), studentRequest.getSchoolYear(), studentRequest.getBirthPlace());
+        Student student = studentService.insert(studentRequest.getName(), studentRequest.getGrade(), studentRequest.getBirthPlace());
         URI location = uriBuilder.path("/students/{id}").buildAndExpand(student.getId()).toUri();
         StudentResponse body = new StudentResponse("student created");
         return ResponseEntity.created(location).body(body);
