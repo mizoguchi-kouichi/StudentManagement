@@ -57,8 +57,23 @@ public class StudentService {
 
     //INSERT用のService
     public Student insert(String name, Integer grade, String birthPlace) {
-        Student student = new Student(name, grade, birthPlace);
-        studentMapper.insert(student);
-        return student;
+        int count = 0;
+
+        if (name == "") {
+            count++;
+        }
+
+        if (birthPlace == "") {
+            count++;
+        }
+
+        if (count >= 1) {
+            throw new AnyItemIsNullException("どれかの項目が記入されてないです");
+        } else {
+            Student student = new Student(name, grade, birthPlace);
+            studentMapper.insert(student);
+            return student;
+        }
+
     }
 }

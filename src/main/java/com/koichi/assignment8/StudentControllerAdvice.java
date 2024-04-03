@@ -35,6 +35,18 @@ public class StudentControllerAdvice {
                 "path", request.getRequestURI());
         return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(value = AnyItemIsNullException.class)
+    public ResponseEntity<Map<String, String>> AnyItemIsNullExceptionException(
+            AnyItemIsNullException e, HttpServletRequest request) {
+        Map<String, String> body = Map.of(
+                "timestamp", ZonedDateTime.now().toString(),
+                "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
+                "error", HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                "message", e.getMessage(),
+                "path", request.getRequestURI());
+        return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
+    }
 }
 
 
