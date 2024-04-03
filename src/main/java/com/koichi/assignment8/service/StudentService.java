@@ -63,7 +63,6 @@ public class StudentService {
     /**
      * INSERT用のService
      */
-
     public Student insert(String name, Integer grade, String birthPlace) {
         int count = 0;
 
