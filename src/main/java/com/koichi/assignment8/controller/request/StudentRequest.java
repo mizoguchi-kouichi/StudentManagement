@@ -24,4 +24,5 @@ public class StudentRequest {
     public String getBirthPlace() {
         return birthPlace;
     }
+
 }

@@ -10,4 +10,5 @@ public class StudentResponse {
     public String getMessage() {
         return message;
     }
+
 }

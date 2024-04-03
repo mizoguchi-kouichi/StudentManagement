@@ -5,4 +5,5 @@ public class MultipleMethodsException extends RuntimeException {
     public MultipleMethodsException(String message) {
         super(message);
     }
+
 }
