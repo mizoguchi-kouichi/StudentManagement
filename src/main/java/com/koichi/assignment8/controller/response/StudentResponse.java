@@ -1,4 +1,4 @@
-package com.koichi.assignment8;
+package com.koichi.assignment8.controller.response;
 
 public class StudentResponse {
     private String message;

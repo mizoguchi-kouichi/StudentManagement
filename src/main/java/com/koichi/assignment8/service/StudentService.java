@@ -1,5 +1,10 @@
-package com.koichi.assignment8;
+package com.koichi.assignment8.service;
 
+import com.koichi.assignment8.entity.Student;
+import com.koichi.assignment8.excption.AnyItemIsNullException;
+import com.koichi.assignment8.excption.MultipleMethodsException;
+import com.koichi.assignment8.excption.StudentNotFoundException;
+import com.koichi.assignment8.mapper.StudentMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,7 +60,10 @@ public class StudentService {
         }
     }
 
-    //INSERT用のService
+    /**
+     * INSERT用のService
+     */
+
     public Student insert(String name, Integer grade, String birthPlace) {
         int count = 0;
 

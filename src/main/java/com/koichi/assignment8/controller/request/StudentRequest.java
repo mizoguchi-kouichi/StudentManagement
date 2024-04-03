@@ -1,4 +1,4 @@
-package com.koichi.assignment8;
+package com.koichi.assignment8.controller.request;
 
 public class StudentRequest {
     private String name;

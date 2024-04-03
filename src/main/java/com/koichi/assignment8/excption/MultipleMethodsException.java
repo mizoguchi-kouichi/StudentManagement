@@ -1,4 +1,4 @@
-package com.koichi.assignment8;
+package com.koichi.assignment8.excption;
 
 public class MultipleMethodsException extends RuntimeException {
 

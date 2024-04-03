@@ -1,4 +1,4 @@
-package com.koichi.assignment8;
+package com.koichi.assignment8.excption;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

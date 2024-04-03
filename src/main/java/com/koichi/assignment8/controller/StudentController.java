@@ -1,6 +1,10 @@
-package com.koichi.assignment8;
+package com.koichi.assignment8.controller;
 
 
+import com.koichi.assignment8.controller.request.StudentRequest;
+import com.koichi.assignment8.controller.response.StudentResponse;
+import com.koichi.assignment8.entity.Student;
+import com.koichi.assignment8.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -25,6 +29,10 @@ public class StudentController {
     public List<Student> getAllStudents(@RequestParam(required = false) Integer grade, String startsWith, String birthPlace) {
         return studentService.findAllStudents(grade, startsWith, birthPlace);
     }
+
+    /**
+     * INSERT用のController
+     */
 
     @PostMapping("/students")
     public ResponseEntity<StudentResponse> insert(@RequestBody StudentRequest studentRequest, UriComponentsBuilder uriBuilder) {

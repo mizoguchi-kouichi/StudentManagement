@@ -1,4 +1,4 @@
-package com.koichi.assignment8;
+package com.koichi.assignment8.entity;
 
 public class Student {
     private Integer id;

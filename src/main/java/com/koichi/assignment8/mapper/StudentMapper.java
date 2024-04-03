@@ -1,5 +1,6 @@
-package com.koichi.assignment8;
+package com.koichi.assignment8.mapper;
 
+import com.koichi.assignment8.entity.Student;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -26,7 +27,10 @@ public interface StudentMapper {
     List<Student> findByBirthPlace(String birthPlace);
 
 
-    //INSERT用のMapper
+    /**
+     * INSERT用のMapper
+     */
+
     @Insert("INSERT INTO students (name,grade,birth_place) VALUES (#{name}, #{grade},#{birthPlace})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Student student);
