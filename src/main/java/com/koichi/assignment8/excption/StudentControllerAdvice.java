@@ -36,9 +36,9 @@ public class StudentControllerAdvice {
         return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = AnyItemIsNullException.class)
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> AnyItemIsNullExceptionException(
-            AnyItemIsNullException e, HttpServletRequest request) {
+            MethodArgumentNotValidException e, HttpServletRequest request) {
         Map<String, String> body = Map.of(
                 "timestamp", ZonedDateTime.now().toString(),
                 "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
