@@ -8,7 +8,7 @@ public class StudentRequest {
     private String name;
     @ValidGrade
     private Integer grade;
-    @NotBlank
+    @NotBlank(message = "birthPlaceを入力してください")
     private String birthPlace;
 
     public StudentRequest(String name, Integer grade, String birthPlace) {
