@@ -1,6 +1,9 @@
-package com.koichi.assignment8;
+package com.koichi.assignment8.mapper;
 
+import com.koichi.assignment8.entity.Student;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -14,7 +17,7 @@ public interface StudentMapper {
     @Select("SELECT * FROM students")
     List<Student> findAllStudents();
 
-    @Select("SELECT *  from students WHERE school_year LIKE CONCAT(#{grade}, '%') ")
+    @Select("SELECT *  from students WHERE grade LIKE CONCAT(#{grade}, '%') ")
     List<Student> findByGrade(Integer grade);
 
     @Select("SELECT * FROM students WHERE name LIKE CONCAT(#{startsWith}, '%') ")
@@ -22,4 +25,13 @@ public interface StudentMapper {
 
     @Select("SELECT * FROM students WHERE birth_place LIKE CONCAT(#{birthplace}, '%') ")
     List<Student> findByBirthPlace(String birthPlace);
+
+
+    /**
+     * INSERT用のMapper
+     */
+    @Insert("INSERT INTO students (name,grade,birth_place) VALUES (#{name}, #{grade},#{birthPlace})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    void insert(Student student);
+
 }
