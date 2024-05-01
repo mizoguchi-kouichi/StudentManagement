@@ -1,10 +1,7 @@
 package com.koichi.assignment8.mapper;
 
 import com.koichi.assignment8.entity.Student;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,5 +30,13 @@ public interface StudentMapper {
     @Insert("INSERT INTO students (name,grade,birth_place) VALUES (#{name}, #{grade},#{birthPlace})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Student student);
+
+
+    /**
+     * PATCH用のMapper
+     */
+    @Update("UPDATE students SET name = #{name}, grade = #{grade},birth_Place = #{birthPlace} WHERE id =#{id}")
+    void updateStudent(Student student);
+
 
 }

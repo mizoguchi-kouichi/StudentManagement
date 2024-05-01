@@ -2,9 +2,11 @@ package com.koichi.assignment8.controller;
 
 
 import com.koichi.assignment8.controller.request.StudentRequest;
+import com.koichi.assignment8.controller.request.StudentUpdateRequest;
 import com.koichi.assignment8.controller.response.StudentResponse;
 import com.koichi.assignment8.entity.Student;
 import com.koichi.assignment8.service.StudentService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -42,5 +44,14 @@ public class StudentController {
         StudentResponse body = new StudentResponse("student created");
         return ResponseEntity.created(location).body(body);
     }
+
+    @PatchMapping("/students/{id}")
+    public ResponseEntity<StudentResponse> update(@PathVariable("id") Integer id, @RequestBody @Validated StudentUpdateRequest studentUpdateRequest) {
+        studentService.updateStudent(id, studentUpdateRequest.getName(), studentUpdateRequest.getGrade(), studentUpdateRequest.getBirthPlace());
+        StudentResponse body = new StudentResponse("Student updated");
+        return ResponseEntity.status(HttpStatus.OK).body(body);
+
+    }
+
 
 }

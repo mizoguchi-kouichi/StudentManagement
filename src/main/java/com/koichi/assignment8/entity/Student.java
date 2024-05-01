@@ -1,7 +1,7 @@
 package com.koichi.assignment8.entity;
 
 public class Student {
-    
+
     private Integer id;
 
     private String name;
@@ -40,4 +40,19 @@ public class Student {
         return birthPlace;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
+    }
+
+    public void setBirthPlace(String birthPlace) {
+        this.birthPlace = birthPlace;
+    }
 }
