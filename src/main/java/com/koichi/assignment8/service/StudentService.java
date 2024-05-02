@@ -68,4 +68,21 @@ public class StudentService {
         return student;
     }
 
+    public Student updateStudent(Integer id, String name, Integer grade, String birthPlace) {
+        Optional<Student> optionalStudent = studentMapper.findById(id);
+
+        if (optionalStudent.isPresent()) {
+            Student student = optionalStudent.get();
+            student.setName(name);
+            student.setGrade(grade);
+            student.setBirthPlace(birthPlace);
+            studentMapper.updateStudent(student);
+
+            return student;
+        } else {
+            throw new StudentNotFoundException("student not found");
+        }
+
+    }
+
 }
