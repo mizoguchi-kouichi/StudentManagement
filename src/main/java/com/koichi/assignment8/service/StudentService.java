@@ -68,6 +68,11 @@ public class StudentService {
         return student;
     }
 
+    /**
+     * PATCH用のService
+     * 指定したidのstudentの name,grade,birthplaceを更新するREAD処理
+     */
+
     public Student updateStudent(Integer id, String name, Integer grade, String birthPlace) {
         Optional<Student> optionalStudent = studentMapper.findById(id);
 
@@ -82,6 +87,16 @@ public class StudentService {
         } else {
             throw new StudentNotFoundException("student not found");
         }
+    }
+
+    public List<Student> updateGrade(Integer grade, Integer newGrade) {
+        List<Student> updateGradeStudents = studentMapper.findByGrade(grade);
+
+        for (Student student : updateGradeStudents) {
+            student.setGrade(newGrade);
+            studentMapper.updateGrade(student);
+        }
+        return updateGradeStudents;
 
     }
 

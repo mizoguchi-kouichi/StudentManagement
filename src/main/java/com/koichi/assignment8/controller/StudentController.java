@@ -3,6 +3,7 @@ package com.koichi.assignment8.controller;
 
 import com.koichi.assignment8.controller.request.StudentRequest;
 import com.koichi.assignment8.controller.request.StudentUpdateRequest;
+import com.koichi.assignment8.controller.request.UpdateGradeRequest;
 import com.koichi.assignment8.controller.response.StudentResponse;
 import com.koichi.assignment8.entity.Student;
 import com.koichi.assignment8.service.StudentService;
@@ -45,13 +46,22 @@ public class StudentController {
         return ResponseEntity.created(location).body(body);
     }
 
+    /**
+     * PATCH用のController
+     * 指定したidのstudentの name,grade,birthplaceを更新するREAD処理
+     */
     @PatchMapping("/students/{id}")
     public ResponseEntity<StudentResponse> update(@PathVariable("id") Integer id, @RequestBody @Validated StudentUpdateRequest studentUpdateRequest) {
         studentService.updateStudent(id, studentUpdateRequest.getName(), studentUpdateRequest.getGrade(), studentUpdateRequest.getBirthPlace());
         StudentResponse body = new StudentResponse("Student updated");
         return ResponseEntity.status(HttpStatus.OK).body(body);
-
     }
 
+    @PatchMapping("/students/grade/{grade}")
+    public ResponseEntity<StudentResponse> updateGrade(@PathVariable("grade") Integer grade, @RequestBody @Validated UpdateGradeRequest studentUpdateGrade) {
+        studentService.updateGrade(grade, studentUpdateGrade.getNewGrade());
+        StudentResponse body = new StudentResponse("Student updated");
+        return ResponseEntity.status(HttpStatus.OK).body(body);
+    }
 
 }

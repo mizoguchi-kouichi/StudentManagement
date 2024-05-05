@@ -11,8 +11,4 @@ public class UpdateGradeRequest {
     public Integer getNewGrade() {
         return newGrade;
     }
-
-    public void setNewGrade(Integer newGrade) {
-        this.newGrade = newGrade;
-    }
 }
