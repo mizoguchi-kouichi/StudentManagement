@@ -18,6 +18,10 @@ public class StudentService {
         this.studentMapper = studentMapper;
     }
 
+    /**
+     * SELECT用のService
+     * 指定したidのstudentのデータを全て取得します。
+     */
     public Student findStudent(Integer id) {
         Optional<Student> findById = this.studentMapper.findById(id);
         if (findById.isPresent()) {
@@ -27,6 +31,11 @@ public class StudentService {
         }
     }
 
+    /**
+     * SELECT用のMapper
+     * クエリパラメータで指定したgrade,startWith,birthPlaceの
+     * studentのデータを全ての取得します。
+     */
     public List<Student> findAllStudents(Integer grade, String startsWith, String birthPlace) {
         List<Student> getAllStudent = this.studentMapper.findAllStudents();
         List<Student> getByGrade = this.studentMapper.findByGrade(grade);
@@ -82,13 +91,16 @@ public class StudentService {
             student.setGrade(grade);
             student.setBirthPlace(birthPlace);
             studentMapper.updateStudent(student);
-
             return student;
         } else {
             throw new StudentNotFoundException("student not found");
         }
     }
 
+    /**
+     * PATCH用のService
+     * 指定したgradeのstudentをnewGradeに更新するREAD処理
+     */
     public List<Student> updateGrade(Integer grade, Integer newGrade) {
         List<Student> updateGradeStudents = studentMapper.findByGrade(grade);
 

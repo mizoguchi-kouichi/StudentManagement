@@ -1,13 +1,17 @@
 package com.koichi.assignment8.entity;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class Student {
 
     private Integer id;
 
+    @NotBlank(message = "nameを入力してください")
     private String name;
 
     private Integer grade;
 
+    @NotBlank(message = "birthPlaceを入力してください")
     private String birthPlace;
 
     private Integer newGrade;
@@ -59,7 +63,7 @@ public class Student {
         this.birthPlace = birthPlace;
     }
 
-    
+
     public void setNewGrade(Integer newGrade) {
         this.newGrade = newGrade;
     }
