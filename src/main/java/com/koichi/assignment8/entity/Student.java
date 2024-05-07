@@ -10,6 +10,8 @@ public class Student {
 
     private String birthPlace;
 
+    private Integer newGrade;
+
     public Student(Integer id, String name, Integer grade, String birthPlace) {
         this.id = id;
         this.name = name;
@@ -48,11 +50,17 @@ public class Student {
         this.grade = grade;
     }
 
+
     public String getBirthPlace() {
         return birthPlace;
     }
 
     public void setBirthPlace(String birthPlace) {
         this.birthPlace = birthPlace;
+    }
+
+    
+    public void setNewGrade(Integer newGrade) {
+        this.newGrade = newGrade;
     }
 }

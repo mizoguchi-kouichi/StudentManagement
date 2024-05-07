@@ -60,7 +60,7 @@ public class StudentController {
     @PatchMapping("/students/grade/{grade}")
     public ResponseEntity<StudentResponse> updateGrade(@PathVariable("grade") Integer grade, @RequestBody @Validated UpdateGradeRequest studentUpdateGrade) {
         studentService.updateGrade(grade, studentUpdateGrade.getNewGrade());
-        StudentResponse body = new StudentResponse("Student updated");
+        StudentResponse body = new StudentResponse("Grade updated");
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 

@@ -93,7 +93,7 @@ public class StudentService {
         List<Student> updateGradeStudents = studentMapper.findByGrade(grade);
 
         for (Student student : updateGradeStudents) {
-            student.setGrade(newGrade);
+            student.setNewGrade(newGrade);
             studentMapper.updateGrade(student);
         }
         return updateGradeStudents;
