@@ -34,12 +34,11 @@ public class StudentController {
     }
 
     /**
-     * SELECT用のMapper
-     * クエリパラメータで指定したgrade,startWith,birthPlaceの
-     * studentのデータを全ての取得します。
+     * SELECT用のController
+     * 指定した検索パラメータに一致するstudentのデータを取得します。
      */
     @GetMapping("/students")
-    public List<Student> getAllStudents(@RequestParam(required = false) Integer grade, String startsWith, String birthPlace) {
+    public List<Student> getStudents(@RequestParam(required = false) Integer grade, String startsWith, String birthPlace) {
         return studentService.findAllStudents(grade, startsWith, birthPlace);
     }
 
@@ -57,7 +56,7 @@ public class StudentController {
 
     /**
      * PATCH用のController
-     * 指定したidのstudentの name,grade,birthplaceを更新するREAD処理
+     * 指定したidのstudentの name,grade,birthplaceを更新します。
      */
     @PatchMapping("/students/{id}")
     public ResponseEntity<StudentResponse> update(@PathVariable("id") Integer id, @RequestBody @Validated StudentUpdateRequest studentUpdateRequest) {
@@ -68,7 +67,7 @@ public class StudentController {
 
     /**
      * PATCH用のController
-     * 指定したgradeのstudentをnewGradeに更新するREAD処理
+     * 指定したgradeのstudentをnewGradeに更新します。
      */
     @PatchMapping("/students/grade/{grade}")
     public ResponseEntity<StudentResponse> updateGrade(@PathVariable("grade") Integer grade, @RequestBody @Validated UpdateGradeRequest studentUpdateGrade) {

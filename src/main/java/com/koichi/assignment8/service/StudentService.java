@@ -33,8 +33,8 @@ public class StudentService {
 
     /**
      * SELECT用のMapper
-     * クエリパラメータで指定したgrade,startWith,birthPlaceの
-     * studentのデータを全ての取得します。
+     * 指定した検索パラメータに一致するstudentのデータを取得します。
+     * 指定するパラメータがない場合、全てのstudentのデータを取得します。
      */
     public List<Student> findAllStudents(Integer grade, String startsWith, String birthPlace) {
         List<Student> getAllStudent = this.studentMapper.findAllStudents();
@@ -79,7 +79,7 @@ public class StudentService {
 
     /**
      * PATCH用のService
-     * 指定したidのstudentの name,grade,birthplaceを更新するREAD処理
+     * 指定したidのstudentの name,grade,birthplaceを更新します。
      */
 
     public Student updateStudent(Integer id, String name, Integer grade, String birthPlace) {
@@ -99,7 +99,7 @@ public class StudentService {
 
     /**
      * PATCH用のService
-     * 指定したgradeのstudentをnewGradeに更新するREAD処理
+     * 指定したgradeのstudentをnewGradeに更新します。
      */
     public List<Student> updateGrade(Integer grade, Integer newGrade) {
         List<Student> updateGradeStudents = studentMapper.findByGrade(grade);

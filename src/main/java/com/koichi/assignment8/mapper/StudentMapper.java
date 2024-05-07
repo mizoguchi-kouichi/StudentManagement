@@ -55,14 +55,14 @@ public interface StudentMapper {
 
     /**
      * PATCH用のMapper
-     * 指定したidのstudentの name,grade,birthplaceを更新するREAD処理
+     * 指定したidのstudentの name,grade,birthplaceを更新します。
      */
     @Update("UPDATE students SET name = #{name}, grade = #{grade},birth_Place = #{birthPlace} WHERE id =#{id}")
     void updateStudent(Student student);
 
     /**
      * PATCH用のMapper
-     * 指定したgradeのstudentをnewGradeに更新するREAD処理
+     * 指定したgradeのstudentをnewGradeに更新します。
      */
     @Update("UPDATE students SET grade = #{newGrade} WHERE grade =#{grade} ")
     void updateGrade(Student student);
