@@ -112,6 +112,10 @@ public class StudentService {
 
     }
 
+    /**
+     * DELETE用のService
+     * 指定したidのstudentのデータを削除します。
+     */
     public void deleteStudent(Integer id) {
         Optional<Student> findById = this.studentMapper.findById(id);
 
@@ -121,8 +125,6 @@ public class StudentService {
         } else {
             throw new StudentNotFoundException("student not found");
         }
-
-
     }
 
 }

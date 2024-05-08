@@ -68,6 +68,10 @@ public interface StudentMapper {
     void updateGrade(Student student);
 
 
+    /**
+     * DELETE用のMapper
+     * 指定したidのstudentのデータを削除します。
+     */
     @Delete(" DELETE FROM students WHERE id =#{id}")
     void deleteStudent(Student student);
 }

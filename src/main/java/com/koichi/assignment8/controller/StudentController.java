@@ -76,6 +76,10 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
+    /**
+     * DELETE用のController
+     * 指定したidのstudentのデータを削除します。
+     */
     @DeleteMapping("/students/{id}")
     public ResponseEntity<StudentResponse> deleteStudent(@PathVariable("id") Integer id) {
         studentService.deleteStudent(id);
