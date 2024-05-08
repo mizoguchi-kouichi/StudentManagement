@@ -18,6 +18,10 @@ public class StudentService {
         this.studentMapper = studentMapper;
     }
 
+    /**
+     * SELECT用のService
+     * 指定したidのstudentのデータを全て取得します。
+     */
     public Student findStudent(Integer id) {
         Optional<Student> findById = this.studentMapper.findById(id);
         if (findById.isPresent()) {
@@ -27,6 +31,11 @@ public class StudentService {
         }
     }
 
+    /**
+     * SELECT用のMapper
+     * 指定した検索パラメータに一致するstudentのデータを取得します。
+     * 指定するパラメータがない場合、全てのstudentのデータを取得します。
+     */
     public List<Student> findAllStudents(Integer grade, String startsWith, String birthPlace) {
         List<Student> getAllStudent = this.studentMapper.findAllStudents();
         List<Student> getByGrade = this.studentMapper.findByGrade(grade);
@@ -68,6 +77,11 @@ public class StudentService {
         return student;
     }
 
+    /**
+     * PATCH用のService
+     * 指定したidのstudentの name,grade,birthplaceを更新します。
+     */
+
     public Student updateStudent(Integer id, String name, Integer grade, String birthPlace) {
         Optional<Student> optionalStudent = studentMapper.findById(id);
 
@@ -77,11 +91,24 @@ public class StudentService {
             student.setGrade(grade);
             student.setBirthPlace(birthPlace);
             studentMapper.updateStudent(student);
-
             return student;
         } else {
             throw new StudentNotFoundException("student not found");
         }
+    }
+
+    /**
+     * PATCH用のService
+     * 指定したgradeのstudentをnewGradeに更新します。
+     */
+    public List<Student> updateGrade(Integer grade, Integer newGrade) {
+        List<Student> updateGradeStudents = studentMapper.findByGrade(grade);
+
+        for (Student student : updateGradeStudents) {
+            student.setNewGrade(newGrade);
+            studentMapper.updateGrade(student);
+        }
+        return updateGradeStudents;
 
     }
 

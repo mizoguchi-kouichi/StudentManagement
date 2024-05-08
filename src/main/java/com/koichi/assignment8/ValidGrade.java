@@ -9,6 +9,9 @@ import jakarta.validation.constraints.NotNull;
 
 import java.lang.annotation.*;
 
+/**
+ * Gradeの範囲を1~3に指定するバリデーション
+ */
 @Documented
 @Constraint(validatedBy = {})
 @Target(ElementType.FIELD)
