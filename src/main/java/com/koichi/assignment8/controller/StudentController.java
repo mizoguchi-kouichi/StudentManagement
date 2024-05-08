@@ -75,4 +75,11 @@ public class StudentController {
         StudentResponse body = new StudentResponse("Grade updated");
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
+
+    @DeleteMapping("/students/{id}")
+    public ResponseEntity<StudentResponse> deleteStudent(@PathVariable("id") Integer id) {
+        studentService.deleteStudent(id);
+        StudentResponse body = new StudentResponse("Student deleted");
+        return ResponseEntity.ok(body);
+    }
 }

@@ -68,4 +68,6 @@ public interface StudentMapper {
     void updateGrade(Student student);
 
 
+    @Delete(" DELETE FROM students WHERE id =#{id}")
+    void deleteStudent(Student student);
 }
