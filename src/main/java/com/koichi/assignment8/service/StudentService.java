@@ -118,13 +118,8 @@ public class StudentService {
      */
     public void deleteStudent(Integer id) {
         Optional<Student> findById = this.studentMapper.findById(id);
-
-        if (findById.isPresent()) {
-            Student deleteStudent = findById.get();
-            studentMapper.deleteStudent(deleteStudent);
-        } else {
-            throw new StudentNotFoundException("student not found");
-        }
+        Student deleteStudent = findById.orElseThrow(() -> new StudentNotFoundException("student not found"));
+        studentMapper.deleteStudent(deleteStudent);
     }
 
 }
