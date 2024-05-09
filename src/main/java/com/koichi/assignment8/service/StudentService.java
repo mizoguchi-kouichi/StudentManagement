@@ -119,7 +119,7 @@ public class StudentService {
     public void deleteStudent(Integer id) {
         Optional<Student> findById = this.studentMapper.findById(id);
         Student deleteStudent = findById.orElseThrow(() -> new StudentNotFoundException("student not found"));
-        studentMapper.deleteStudent(deleteStudent);
+        studentMapper.deleteStudent(id);
     }
 
 }

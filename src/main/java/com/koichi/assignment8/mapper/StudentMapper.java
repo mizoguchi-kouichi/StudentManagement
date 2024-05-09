@@ -73,5 +73,5 @@ public interface StudentMapper {
      * 指定したidのstudentのデータを削除します。
      */
     @Delete(" DELETE FROM students WHERE id =#{id}")
-    void deleteStudent(Student student);
+    void deleteStudent(Integer id);
 }
