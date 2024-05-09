@@ -82,19 +82,14 @@ public class StudentService {
      * 指定したidのstudentの name,grade,birthplaceを更新します。
      */
 
-    public Student updateStudent(Integer id, String name, Integer grade, String birthPlace) {
+    public void updateStudent(Integer id, String name, Integer grade, String birthPlace) {
         Optional<Student> optionalStudent = studentMapper.findById(id);
 
-        if (optionalStudent.isPresent()) {
-            Student student = optionalStudent.get();
-            student.setName(name);
-            student.setGrade(grade);
-            student.setBirthPlace(birthPlace);
-            studentMapper.updateStudent(student);
-            return student;
-        } else {
-            throw new StudentNotFoundException("student not found");
-        }
+        Student student = optionalStudent.orElseThrow(() -> new StudentNotFoundException("student not found"));
+        student.setName(name);
+        student.setGrade(grade);
+        student.setBirthPlace(birthPlace);
+        studentMapper.updateStudent(student);
     }
 
     /**
@@ -109,7 +104,6 @@ public class StudentService {
             studentMapper.updateGrade(student);
         }
         return updateGradeStudents;
-
     }
 
     /**
