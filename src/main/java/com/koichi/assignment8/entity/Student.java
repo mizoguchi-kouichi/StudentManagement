@@ -9,26 +9,27 @@ public class Student {
     @NotBlank(message = "nameを入力してください")
     private String name;
 
-    private Integer grade;
+    private String grade;
 
     @NotBlank(message = "birthPlaceを入力してください")
     private String birthPlace;
 
-    private Integer newGrade;
+    private String newGrade;
 
-    public Student(Integer id, String name, Integer grade, String birthPlace) {
+    public Student(Integer id, String name, String grade, String birthPlace) {
         this.id = id;
         this.name = name;
         this.grade = grade;
         this.birthPlace = birthPlace;
     }
 
-    public Student(String name, Integer grade, String birthPlace) {
+    public Student(String name, String grade, String birthPlace) {
         this.id = null;
         this.name = name;
         this.grade = grade;
         this.birthPlace = birthPlace;
     }
+
 
     public Integer getId() {
         return id;
@@ -46,14 +47,13 @@ public class Student {
         this.name = name;
     }
 
-    public Integer getGrade() {
+    public String getGrade() {
         return grade;
     }
 
-    public void setGrade(Integer grade) {
+    public void setGrade(String grade) {
         this.grade = grade;
     }
-
 
     public String getBirthPlace() {
         return birthPlace;
@@ -64,7 +64,7 @@ public class Student {
     }
 
 
-    public void setNewGrade(Integer newGrade) {
+    public void setNewGrade(String newGrade) {
         this.newGrade = newGrade;
     }
 }

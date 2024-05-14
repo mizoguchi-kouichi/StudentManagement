@@ -13,7 +13,7 @@ public interface StudentMapper {
      * SELECT用のMapper
      * 指定したidのstudentのデータを全て取得します。
      */
-    @Select("SELECT * FROM students WHERE id LIKE CONCAT(#{id}, '%') ")
+    @Select("SELECT * FROM students WHERE id = #{id} ")
     Optional<Student> findById(Integer id);
 
     /**
@@ -27,8 +27,8 @@ public interface StudentMapper {
      * SELECT用のMapper
      * 指定した学年のstudentのデータを全て取得します。
      */
-    @Select("SELECT *  from students WHERE grade LIKE CONCAT(#{grade}, '%') ")
-    List<Student> findByGrade(Integer grade);
+    @Select("SELECT *  from students WHERE grade = #{grade} ")
+    List<Student> findByGrade(String grade);
 
     /**
      * SELECT用のMapper
@@ -41,7 +41,7 @@ public interface StudentMapper {
      * SELECT用のMapper
      * 指定した出身地のstudentのデータを全て取得します。
      */
-    @Select("SELECT * FROM students WHERE birth_place LIKE CONCAT(#{birthplace}, '%') ")
+    @Select("SELECT * FROM students WHERE birth_place = #{birthplace}")
     List<Student> findByBirthPlace(String birthPlace);
 
 
