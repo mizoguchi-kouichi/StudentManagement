@@ -78,6 +78,20 @@ public class StudentService {
     }
 
     /**
+     * PATCH用のService
+     * 指定したidのstudentの name,grade,birthplaceを更新します。
+     */
+    public void updateStudent(Integer id, String name, String grade, String birthPlace) {
+        Optional<Student> optionalStudent = studentMapper.findById(id);
+
+        Student student = optionalStudent.orElseThrow(() -> new StudentNotFoundException("student not found"));
+        student.setName(name);
+        student.setGrade(grade);
+        student.setBirthPlace(birthPlace);
+        studentMapper.updateStudent(student);
+    }
+
+    /**
      * DELETE用のService
      * 指定したidのstudentのデータを削除します。
      */
