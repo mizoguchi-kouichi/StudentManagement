@@ -3,6 +3,7 @@ package com.koichi.assignment8.controller;
 
 import com.koichi.assignment8.controller.request.StudentPostRequest;
 import com.koichi.assignment8.controller.request.StudentUpdateRequest;
+import com.koichi.assignment8.controller.request.UpdateGradeRequest;
 import com.koichi.assignment8.controller.response.StudentResponse;
 import com.koichi.assignment8.entity.Student;
 import com.koichi.assignment8.service.StudentService;
@@ -64,6 +65,17 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
+
+    /**
+     * PATCH用のController
+     * 指定したgradeのstudentをnewGradeに更新します。
+     */
+    @PatchMapping("/students/grade/{grade}")
+    public ResponseEntity<StudentResponse> updateGrade(@PathVariable("grade") String grade, @RequestBody @Validated UpdateGradeRequest studentUpdateGrade) {
+        studentService.updateGrade(grade, studentUpdateGrade.getNewGrade());
+        StudentResponse body = new StudentResponse("Grade updated");
+        return ResponseEntity.status(HttpStatus.OK).body(body);
+    }
 
     /**
      * DELETE用のController

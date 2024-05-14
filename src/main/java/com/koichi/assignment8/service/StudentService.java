@@ -92,6 +92,21 @@ public class StudentService {
     }
 
     /**
+     * PATCH用のService
+     * 指定したgradeのstudentをnewGradeに更新します。
+     */
+    public List<Student> updateGrade(String grade, String newGrade) {
+        List<Student> updateGradeStudents = studentMapper.findByGrade(grade);
+        
+
+        for (Student student : updateGradeStudents) {
+            student.setNewGrade(newGrade);
+            studentMapper.updateGrade(student);
+        }
+        return updateGradeStudents;
+    }
+
+    /**
      * DELETE用のService
      * 指定したidのstudentのデータを削除します。
      */
