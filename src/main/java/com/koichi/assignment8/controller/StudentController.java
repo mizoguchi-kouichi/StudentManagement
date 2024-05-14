@@ -1,12 +1,16 @@
 package com.koichi.assignment8.controller;
 
 
+import com.koichi.assignment8.controller.request.StudentPostRequest;
 import com.koichi.assignment8.controller.response.StudentResponse;
 import com.koichi.assignment8.entity.Student;
 import com.koichi.assignment8.service.StudentService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -39,7 +43,13 @@ public class StudentController {
     /**
      * INSERT用のController
      */
-
+    @PostMapping("/students")
+    public ResponseEntity<StudentResponse> insert(@RequestBody @Validated StudentPostRequest studentPostRequest, UriComponentsBuilder uriBuilder) {
+        Student student = studentService.insert(studentPostRequest.getName(), studentPostRequest.getGrade(), studentPostRequest.getBirthPlace());
+        URI location = uriBuilder.path("/students/{id}").buildAndExpand(student.getId()).toUri();
+        StudentResponse body = new StudentResponse("student created");
+        return ResponseEntity.created(location).body(body);
+    }
 
     /**
      * DELETE用のController

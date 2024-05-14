@@ -71,6 +71,11 @@ public class StudentService {
     /**
      * INSERT用のService
      */
+    public Student insert(String name, String grade, String birthPlace) {
+        Student student = new Student(name, grade, birthPlace);
+        studentMapper.insert(student);
+        return student;
+    }
 
     /**
      * DELETE用のService

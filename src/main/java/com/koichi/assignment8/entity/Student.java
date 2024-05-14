@@ -67,4 +67,6 @@ public class Student {
     public void setNewGrade(String newGrade) {
         this.newGrade = newGrade;
     }
+
+
 }
