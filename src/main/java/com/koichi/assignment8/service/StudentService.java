@@ -1,6 +1,7 @@
 package com.koichi.assignment8.service;
 
 import com.koichi.assignment8.entity.Student;
+import com.koichi.assignment8.excption.IncorrectGradeException;
 import com.koichi.assignment8.excption.MultipleMethodsException;
 import com.koichi.assignment8.excption.StudentNotFoundException;
 import com.koichi.assignment8.mapper.StudentMapper;
@@ -96,13 +97,26 @@ public class StudentService {
      * PATCH用のService
      * 指定したgradeのstudentをnewGradeに更新します。
      */
-    public List<Student> updateGrade(String grade, String newGrade) {
+    public List<Student> updateGrade(String grade) {
         List<Student> updateGradeStudents = studentMapper.findByGrade(grade);
 
-
-        for (Student student : updateGradeStudents) {
-            student.setNewGrade(newGrade);
-            studentMapper.updateGrade(student);
+        if (grade.equals("一年生")) {
+            for (Student student : updateGradeStudents) {
+                student.setNewGrade("二年生");
+                studentMapper.updateGrade(student);
+            }
+        } else if (grade.equals("二年生")) {
+            for (Student student : updateGradeStudents) {
+                student.setNewGrade("三年生");
+                studentMapper.updateGrade(student);
+            }
+        } else if (grade.equals("三年生")) {
+            for (Student student : updateGradeStudents) {
+                student.setNewGrade("卒業生");
+                studentMapper.updateGrade(student);
+            }
+        } else {
+            throw new IncorrectGradeException("有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。");
         }
         return updateGradeStudents;
     }
