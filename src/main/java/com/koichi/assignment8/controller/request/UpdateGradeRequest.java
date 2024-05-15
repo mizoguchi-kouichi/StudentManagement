@@ -35,7 +35,7 @@ public class UpdateGradeRequest {
         卒業生;
 
         public static UpdateGradeRequest.Grade from(String value) {
-            return Optional.of(UpdateGradeRequest.Grade.valueOf(value.toUpperCase())).orElseThrow(() -> new IllegalArgumentException("有効な学年を指定してください（一年生, 二年生, 三年生,卒業生のいずれか）。"));
+            return Optional.of(UpdateGradeRequest.Grade.valueOf(value.toUpperCase())).orElseThrow(() -> new IllegalArgumentException("有効な学年を指定してください（二年生, 三年生,卒業生のいずれか）。"));
         }
     }
 
@@ -47,7 +47,7 @@ public class UpdateGradeRequest {
     @Target({ElementType.FIELD})
     @Retention(RetentionPolicy.RUNTIME)
     public @interface ValidGrade {
-        String message() default "有効な学年を指定してください（一年生, 二年生, 三年生,卒業生のいずれか）。";
+        String message() default "有効な学年を指定してください（二年生, 三年生,卒業生のいずれか）。";
 
         Class<?>[] groups() default {};
 

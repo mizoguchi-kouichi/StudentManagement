@@ -51,6 +51,7 @@ public class StudentService {
             count++;
         }
 
+
         if (birthPlace != null) {
             count++;
         }
@@ -97,7 +98,7 @@ public class StudentService {
      */
     public List<Student> updateGrade(String grade, String newGrade) {
         List<Student> updateGradeStudents = studentMapper.findByGrade(grade);
-        
+
 
         for (Student student : updateGradeStudents) {
             student.setNewGrade(newGrade);
