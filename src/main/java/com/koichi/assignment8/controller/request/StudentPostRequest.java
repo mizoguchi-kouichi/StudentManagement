@@ -52,7 +52,7 @@ public class StudentPostRequest {
     }
 
     /**
-     * カラーのバリデーション用アノテーション
+     * 学年のバリデーション用アノテーション
      */
     @Documented
     @Constraint(validatedBy = GradeValidator.class)
@@ -67,7 +67,7 @@ public class StudentPostRequest {
     }
 
     /**
-     * Colorのバリデータ
+     * 学年のバリデータ
      */
     public static class GradeValidator implements ConstraintValidator<ValidGrade, String> {
 
@@ -84,7 +84,7 @@ public class StudentPostRequest {
             try {
                 Grade.from(value);
                 return true;
-            } catch (IllegalArgumentException e) { // 有効なカラーでない場合はバリデーションエラー
+            } catch (IllegalArgumentException e) { // 有効な学年でない場合はバリデーションエラー
                 return false;
             }
         }
