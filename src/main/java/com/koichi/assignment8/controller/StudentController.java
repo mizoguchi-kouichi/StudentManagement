@@ -67,7 +67,7 @@ public class StudentController {
 
     /**
      * PATCH用のController
-     * 指定したgradeのstudentをnewGradeに更新します。
+     * 指定したgradeを進級します。
      */
     @PatchMapping("/students/grade/{grade}:batchUpdate")
     public ResponseEntity<StudentResponse> updateGrade(@PathVariable("grade") String grade) {

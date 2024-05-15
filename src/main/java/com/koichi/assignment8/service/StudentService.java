@@ -95,7 +95,7 @@ public class StudentService {
 
     /**
      * PATCH用のService
-     * 指定したgradeのstudentをnewGradeに更新します。
+     * 指定したgradeを進級します。
      */
     public List<Student> updateGrade(String grade) {
         List<Student> updateGradeStudents = studentMapper.findByGrade(grade);

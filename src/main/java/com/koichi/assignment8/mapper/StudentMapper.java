@@ -62,7 +62,7 @@ public interface StudentMapper {
 
     /**
      * PATCH用のMapper
-     * 指定したgradeのstudentをnewGradeに更新します。
+     * 指定したgradeを進級します。
      */
     @Update("UPDATE students SET grade = #{newGrade} WHERE grade =#{grade} ")
     void updateGrade(Student student);
