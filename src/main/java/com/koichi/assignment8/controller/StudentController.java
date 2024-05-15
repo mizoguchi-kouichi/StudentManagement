@@ -38,7 +38,7 @@ public class StudentController {
      * 指定した検索パラメータに一致するstudentのデータを取得します。
      */
     @GetMapping("/students")
-    public List<Student> getStudents(@RequestParam(required = false) Integer grade, String startsWith, String birthPlace) {
+    public List<Student> getStudents(@RequestParam(required = false) String grade, String startsWith, String birthPlace) {
         return studentService.findAllStudents(grade, startsWith, birthPlace);
     }
 
@@ -59,18 +59,19 @@ public class StudentController {
      * 指定したidのstudentの name,grade,birthplaceを更新します。
      */
     @PatchMapping("/students/{id}")
-    public ResponseEntity<StudentResponse> update(@PathVariable("id") Integer id, @RequestBody @Validated StudentUpdateRequest studentUpdateRequest) {
+    public ResponseEntity<StudentResponse> updateStudent(@PathVariable("id") Integer id, @RequestBody @Validated StudentUpdateRequest studentUpdateRequest) {
         studentService.updateStudent(id, studentUpdateRequest.getName(), studentUpdateRequest.getGrade(), studentUpdateRequest.getBirthPlace());
         StudentResponse body = new StudentResponse("Student updated");
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
+
 
     /**
      * PATCH用のController
      * 指定したgradeのstudentをnewGradeに更新します。
      */
     @PatchMapping("/students/grade/{grade}")
-    public ResponseEntity<StudentResponse> updateGrade(@PathVariable("grade") Integer grade, @RequestBody @Validated UpdateGradeRequest studentUpdateGrade) {
+    public ResponseEntity<StudentResponse> updateGrade(@PathVariable("grade") String grade, @RequestBody @Validated UpdateGradeRequest studentUpdateGrade) {
         studentService.updateGrade(grade, studentUpdateGrade.getNewGrade());
         StudentResponse body = new StudentResponse("Grade updated");
         return ResponseEntity.status(HttpStatus.OK).body(body);

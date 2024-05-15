@@ -36,7 +36,7 @@ public class StudentService {
      * 指定した検索パラメータに一致するstudentのデータを取得します。
      * 指定するパラメータがない場合、全てのstudentのデータを取得します。
      */
-    public List<Student> findAllStudents(Integer grade, String startsWith, String birthPlace) {
+    public List<Student> findAllStudents(String grade, String startsWith, String birthPlace) {
         List<Student> getAllStudent = this.studentMapper.findAllStudents();
         List<Student> getByGrade = this.studentMapper.findByGrade(grade);
         List<Student> getByStartWith = this.studentMapper.findByName(startsWith);
@@ -50,6 +50,7 @@ public class StudentService {
         if (startsWith != null) {
             count++;
         }
+
 
         if (birthPlace != null) {
             count++;
@@ -71,7 +72,7 @@ public class StudentService {
     /**
      * INSERT用のService
      */
-    public Student insert(String name, Integer grade, String birthPlace) {
+    public Student insert(String name, String grade, String birthPlace) {
         Student student = new Student(name, grade, birthPlace);
         studentMapper.insert(student);
         return student;
@@ -81,8 +82,7 @@ public class StudentService {
      * PATCH用のService
      * 指定したidのstudentの name,grade,birthplaceを更新します。
      */
-
-    public void updateStudent(Integer id, String name, Integer grade, String birthPlace) {
+    public void updateStudent(Integer id, String name, String grade, String birthPlace) {
         Optional<Student> optionalStudent = studentMapper.findById(id);
 
         Student student = optionalStudent.orElseThrow(() -> new StudentNotFoundException("student not found"));
@@ -96,8 +96,9 @@ public class StudentService {
      * PATCH用のService
      * 指定したgradeのstudentをnewGradeに更新します。
      */
-    public List<Student> updateGrade(Integer grade, Integer newGrade) {
+    public List<Student> updateGrade(String grade, String newGrade) {
         List<Student> updateGradeStudents = studentMapper.findByGrade(grade);
+
 
         for (Student student : updateGradeStudents) {
             student.setNewGrade(newGrade);
