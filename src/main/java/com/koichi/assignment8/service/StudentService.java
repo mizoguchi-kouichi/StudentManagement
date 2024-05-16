@@ -124,7 +124,7 @@ public class StudentService {
                 studentMapper.updateGrade(student);
             }
         } else {
-            throw new IncorrectGradeException("有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。");
+            throw new IncorrectGradeException("有効な学年を指定してください（1,2,3のいずれか）。");
         }
         return updateGradeStudents;
     }
