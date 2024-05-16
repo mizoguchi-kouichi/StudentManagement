@@ -7,7 +7,9 @@ import com.koichi.assignment8.excption.StudentNotFoundException;
 import com.koichi.assignment8.mapper.StudentMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -97,20 +99,26 @@ public class StudentService {
      * PATCH用のService
      * 指定したgradeを進級します。
      */
-    public List<Student> updateGrade(String grade) {
-        List<Student> updateGradeStudents = studentMapper.findByGrade(grade);
+    public List<Student> updateGrade(Integer schoolYear) {
 
-        if (grade.equals("一年生")) {
+        Map<Integer, String> grade = new HashMap<>();
+        grade.put(1, "一年生");
+        grade.put(2, "二年生");
+        grade.put(3, "三年生");
+
+        List<Student> updateGradeStudents = studentMapper.findByGrade(grade.get(schoolYear));
+
+        if (schoolYear == 1) {
             for (Student student : updateGradeStudents) {
                 student.setNewGrade("二年生");
                 studentMapper.updateGrade(student);
             }
-        } else if (grade.equals("二年生")) {
+        } else if (schoolYear == 2) {
             for (Student student : updateGradeStudents) {
                 student.setNewGrade("三年生");
                 studentMapper.updateGrade(student);
             }
-        } else if (grade.equals("三年生")) {
+        } else if (schoolYear == 3) {
             for (Student student : updateGradeStudents) {
                 student.setNewGrade("卒業生");
                 studentMapper.updateGrade(student);

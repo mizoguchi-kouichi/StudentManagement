@@ -69,9 +69,9 @@ public class StudentController {
      * PATCH用のController
      * 指定したgradeを進級します。
      */
-    @PatchMapping("/students/grade/{grade}:batchUpdate")
-    public ResponseEntity<StudentResponse> updateGrade(@PathVariable("grade") String grade) {
-        studentService.updateGrade(grade);
+    @PatchMapping("/students/grade/{schoolYear}:batchUpdate")
+    public ResponseEntity<StudentResponse> updateGrade(@PathVariable("schoolYear") Integer schoolYear) {
+        studentService.updateGrade(schoolYear);
         StudentResponse body = new StudentResponse("Grade updated");
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
