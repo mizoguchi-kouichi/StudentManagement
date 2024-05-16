@@ -37,8 +37,8 @@ public class StudentController {
      * 指定した検索パラメータに一致するstudentのデータを取得します。
      */
     @GetMapping("/students")
-    public List<Student> getStudents(@RequestParam(required = false) String grade, String startsWith, String birthPlace) {
-        return studentService.findAllStudents(grade, startsWith, birthPlace);
+    public List<Student> getStudents(@RequestParam(required = false) Integer schoolYear, String startsWith, String birthPlace) {
+        return studentService.findAllStudents(schoolYear, startsWith, birthPlace);
     }
 
 
