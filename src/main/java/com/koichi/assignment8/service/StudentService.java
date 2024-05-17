@@ -115,17 +115,17 @@ public class StudentService {
 
         List<Student> updateGradeStudents = studentMapper.findByGrade(grade.get(schoolYear));
 
-        if (schoolYear == 1) {
+        if (grade.get(schoolYear).equals("一年生")) {
             for (Student student : updateGradeStudents) {
                 student.setNewGrade("二年生");
                 studentMapper.updateGrade(student);
             }
-        } else if (schoolYear == 2) {
+        } else if (grade.get(schoolYear).equals("二年生")) {
             for (Student student : updateGradeStudents) {
                 student.setNewGrade("三年生");
                 studentMapper.updateGrade(student);
             }
-        } else if (schoolYear == 3) {
+        } else if (grade.get(schoolYear).equals("三年生")) {
             for (Student student : updateGradeStudents) {
                 student.setNewGrade("卒業生");
                 studentMapper.updateGrade(student);
