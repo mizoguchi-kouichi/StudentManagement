@@ -1,9 +1,9 @@
 package com.koichi.assignment8.service;
 
 import com.koichi.assignment8.entity.Student;
-import com.koichi.assignment8.excption.IncorrectGradeException;
 import com.koichi.assignment8.excption.MultipleMethodsException;
 import com.koichi.assignment8.excption.StudentNotFoundException;
+import com.koichi.assignment8.excption.UpdateFailedException;
 import com.koichi.assignment8.mapper.StudentMapper;
 import org.springframework.stereotype.Service;
 
@@ -108,33 +108,32 @@ public class StudentService {
      */
     public List<Student> updateGrade(Integer schoolYear) {
 
-        Map<Integer, String> grade = new HashMap<>();
-        grade.put(1, "一年生");
-        grade.put(2, "二年生");
-        grade.put(3, "三年生");
-
-        List<Student> updateGradeStudents = studentMapper.findByGrade(grade.get(schoolYear));
-
-        if (grade.get(schoolYear).equals("一年生")) {
+        List<Student> updateGradeStudents = studentMapper.findAllStudents();
+        if (schoolYear == 1) {
             for (Student student : updateGradeStudents) {
-                student.setNewGrade("二年生");
-                studentMapper.updateGrade(student);
+                if (student.getGrade().equals("三年生")) {
+                    student.setNewGrade("卒業生");
+                    studentMapper.updateGrade(student);
+                }
             }
-        } else if (grade.get(schoolYear).equals("二年生")) {
             for (Student student : updateGradeStudents) {
-                student.setNewGrade("三年生");
-                studentMapper.updateGrade(student);
+                if (student.getGrade().equals("二年生")) {
+                    student.setNewGrade("三年生");
+                    studentMapper.updateGrade(student);
+                }
             }
-        } else if (grade.get(schoolYear).equals("三年生")) {
             for (Student student : updateGradeStudents) {
-                student.setNewGrade("卒業生");
-                studentMapper.updateGrade(student);
+                if (student.getGrade().equals("一年生")) {
+                    student.setNewGrade("二年生");
+                    studentMapper.updateGrade(student);
+                }
             }
         } else {
-            throw new IncorrectGradeException("有効な学年を指定してください（1,2,3のいずれか）。");
+            throw new UpdateFailedException("進級する際は、このパス（http://localhost:8080/students/grade/1:batchUpdate）を使用してください");
         }
         return updateGradeStudents;
     }
+
 
     /**
      * DELETE用のService

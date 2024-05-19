@@ -40,9 +40,9 @@ public class StudentControllerAdvice {
         return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = IncorrectGradeException.class)
+    @ExceptionHandler(value = UpdateFailedException.class)
     public ResponseEntity<Map<String, String>> NoStudentArePromotedException(
-            IncorrectGradeException e, HttpServletRequest request) {
+            UpdateFailedException e, HttpServletRequest request) {
         Map<String, String> body = Map.of(
                 "timestamp", ZonedDateTime.now().toString(),
                 "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
