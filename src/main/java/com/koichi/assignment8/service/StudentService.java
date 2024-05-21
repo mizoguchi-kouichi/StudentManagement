@@ -106,34 +106,16 @@ public class StudentService {
      * PATCH用のService
      * 指定したgradeを進級します。
      */
-    public List<Student> updateGrade(Integer schoolYear) {
+    public void updateGrade(Integer schoolYear) {
 
-        List<Student> updateGradeStudents = studentMapper.findAllStudents();
         if (schoolYear == 1) {
-            for (Student student : updateGradeStudents) {
-                if (student.getGrade().equals("三年生")) {
-                    student.setNewGrade("卒業生");
-                    studentMapper.updateGrade(student);
-                }
-            }
-            for (Student student : updateGradeStudents) {
-                if (student.getGrade().equals("二年生")) {
-                    student.setNewGrade("三年生");
-                    studentMapper.updateGrade(student);
-                }
-            }
-            for (Student student : updateGradeStudents) {
-                if (student.getGrade().equals("一年生")) {
-                    student.setNewGrade("二年生");
-                    studentMapper.updateGrade(student);
-                }
-            }
+            studentMapper.updateGrade("卒業生", "三年生");
+            studentMapper.updateGrade("三年生", "二年生");
+            studentMapper.updateGrade("二年生", "一年生");
         } else {
             throw new UpdateFailedException("進級する際は、このパス（http://localhost:8080/students/grade/1:batchUpdate）を使用してください");
         }
-        return updateGradeStudents;
     }
-
 
     /**
      * DELETE用のService

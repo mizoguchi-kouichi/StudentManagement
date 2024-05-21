@@ -65,7 +65,7 @@ public interface StudentMapper {
      * 指定したgradeを進級します。
      */
     @Update("UPDATE students SET grade = #{newGrade} WHERE grade =#{grade} ")
-    void updateGrade(Student student);
+    void updateGrade(String newGrade, String grade);
 
 
     /**
