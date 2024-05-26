@@ -3,7 +3,6 @@ package com.koichi.assignment8.service;
 import com.koichi.assignment8.entity.Student;
 import com.koichi.assignment8.excption.MultipleMethodsException;
 import com.koichi.assignment8.excption.StudentNotFoundException;
-import com.koichi.assignment8.excption.UpdateFailedException;
 import com.koichi.assignment8.mapper.StudentMapper;
 import org.springframework.stereotype.Service;
 
@@ -106,15 +105,10 @@ public class StudentService {
      * PATCH用のService
      * 指定したgradeを進級します。
      */
-    public void updateGrade(Integer schoolYear) {
-
-        if (schoolYear == 1) {
-            studentMapper.updateGrade("卒業生", "三年生");
-            studentMapper.updateGrade("三年生", "二年生");
-            studentMapper.updateGrade("二年生", "一年生");
-        } else {
-            throw new UpdateFailedException("進級する際は、このパス（http://localhost:8080/students/grade/1:batchUpdate）を使用してください");
-        }
+    public void updateGrade() {
+        studentMapper.updateGrade("卒業生", "三年生");
+        studentMapper.updateGrade("三年生", "二年生");
+        studentMapper.updateGrade("二年生", "一年生");
     }
 
     /**
