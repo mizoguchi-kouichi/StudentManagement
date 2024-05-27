@@ -5,6 +5,7 @@ import com.koichi.assignment8.excption.MultipleMethodsException;
 import com.koichi.assignment8.excption.StudentNotFoundException;
 import com.koichi.assignment8.mapper.StudentMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -105,6 +106,7 @@ public class StudentService {
      * PATCH用のService
      * 指定したgradeを進級します。
      */
+    @Transactional()
     public void updateGrade() {
         studentMapper.updateGrade("卒業生", "三年生");
         studentMapper.updateGrade("三年生", "二年生");
