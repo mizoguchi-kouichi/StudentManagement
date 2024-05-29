@@ -41,14 +41,14 @@ public class StudentService {
      */
     public List<Student> findAllStudents(Integer grade, String startsWith, String birthPlace) {
 
-        Map<Integer, String> GradeConvertedToString = new HashMap<>();
-        GradeConvertedToString.put(1, "一年生");
-        GradeConvertedToString.put(2, "二年生");
-        GradeConvertedToString.put(3, "三年生");
-        GradeConvertedToString.put(4, "卒業生");
+        Map<Integer, String> gradeConvertedToString = new HashMap<>();
+        gradeConvertedToString.put(1, "一年生");
+        gradeConvertedToString.put(2, "二年生");
+        gradeConvertedToString.put(3, "三年生");
+        gradeConvertedToString.put(4, "卒業生");
 
         List<Student> getAllStudent = this.studentMapper.findAllStudents();
-        List<Student> getByGrade = this.studentMapper.findByGrade(GradeConvertedToString.get(grade));
+        List<Student> getByGrade = this.studentMapper.findByGrade(gradeConvertedToString.get(grade));
         List<Student> getByStartWith = this.studentMapper.findByName(startsWith);
         List<Student> getByBirthPlace = this.studentMapper.findByBirthPlace(birthPlace);
 
