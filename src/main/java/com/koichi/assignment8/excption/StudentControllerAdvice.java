@@ -40,7 +40,6 @@ public class StudentControllerAdvice {
         return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
     }
 
-
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> MethodArgumentNotValidException(MethodArgumentNotValidException e) {
         List<Map<String, String>> errors = new ArrayList<>();

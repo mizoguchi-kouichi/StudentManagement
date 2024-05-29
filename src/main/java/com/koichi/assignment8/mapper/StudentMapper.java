@@ -44,14 +44,12 @@ public interface StudentMapper {
     @Select("SELECT * FROM students WHERE birth_place = #{birthplace}")
     List<Student> findByBirthPlace(String birthPlace);
 
-
     /**
      * INSERT用のMapper
      */
     @Insert("INSERT INTO students (name,grade,birth_place) VALUES (#{name}, #{grade},#{birthPlace})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Student student);
-
 
     /**
      * PATCH用のMapper
@@ -66,7 +64,6 @@ public interface StudentMapper {
      */
     @Update("UPDATE students SET grade = #{newGrade} WHERE grade =#{grade} ")
     void updateGrade(String newGrade, String grade);
-
 
     /**
      * DELETE用のMapper

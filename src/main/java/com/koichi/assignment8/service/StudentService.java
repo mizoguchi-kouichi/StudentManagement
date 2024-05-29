@@ -39,22 +39,22 @@ public class StudentService {
      * 指定した検索パラメータに一致するstudentのデータを取得します。
      * 指定するパラメータがない場合、全てのstudentのデータを取得します。
      */
-    public List<Student> findAllStudents(Integer schoolYear, String startsWith, String birthPlace) {
+    public List<Student> findAllStudents(Integer grade, String startsWith, String birthPlace) {
 
-        Map<Integer, String> grade = new HashMap<>();
-        grade.put(1, "一年生");
-        grade.put(2, "二年生");
-        grade.put(3, "三年生");
-        grade.put(4, "卒業生");
+        Map<Integer, String> GradeConvertedToString = new HashMap<>();
+        GradeConvertedToString.put(1, "一年生");
+        GradeConvertedToString.put(2, "二年生");
+        GradeConvertedToString.put(3, "三年生");
+        GradeConvertedToString.put(4, "卒業生");
 
         List<Student> getAllStudent = this.studentMapper.findAllStudents();
-        List<Student> getByGrade = this.studentMapper.findByGrade(grade.get(schoolYear));
+        List<Student> getByGrade = this.studentMapper.findByGrade(GradeConvertedToString.get(grade));
         List<Student> getByStartWith = this.studentMapper.findByName(startsWith);
         List<Student> getByBirthPlace = this.studentMapper.findByBirthPlace(birthPlace);
 
         int count = 0;
 
-        if (schoolYear != null) {
+        if (grade != null) {
             count++;
         }
         if (startsWith != null) {
@@ -68,7 +68,7 @@ public class StudentService {
 
         if (count >= 2) {
             throw new MultipleMethodsException("カラムはgrade・startsWith・birthPlaceの一つを選んでください");
-        } else if (schoolYear != null) {
+        } else if (grade != null) {
             return getByGrade;
         } else if (startsWith != null) {
             return getByStartWith;
