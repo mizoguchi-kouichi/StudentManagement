@@ -14,8 +14,6 @@ public class Student {
     @NotBlank(message = "birthPlaceを入力してください")
     private String birthPlace;
 
-    private String newGrade;
-
     public Student(Integer id, String name, String grade, String birthPlace) {
         this.id = id;
         this.name = name;
@@ -30,13 +28,8 @@ public class Student {
         this.birthPlace = birthPlace;
     }
 
-
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -62,11 +55,5 @@ public class Student {
     public void setBirthPlace(String birthPlace) {
         this.birthPlace = birthPlace;
     }
-
-
-    public void setNewGrade(String newGrade) {
-        this.newGrade = newGrade;
-    }
-
 
 }

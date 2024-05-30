@@ -5,8 +5,11 @@ import com.koichi.assignment8.excption.MultipleMethodsException;
 import com.koichi.assignment8.excption.StudentNotFoundException;
 import com.koichi.assignment8.mapper.StudentMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -36,9 +39,16 @@ public class StudentService {
      * 指定した検索パラメータに一致するstudentのデータを取得します。
      * 指定するパラメータがない場合、全てのstudentのデータを取得します。
      */
-    public List<Student> findAllStudents(String grade, String startsWith, String birthPlace) {
+    public List<Student> findAllStudents(Integer grade, String startsWith, String birthPlace) {
+
+        Map<Integer, String> gradeConvertedToString = new HashMap<>();
+        gradeConvertedToString.put(1, "一年生");
+        gradeConvertedToString.put(2, "二年生");
+        gradeConvertedToString.put(3, "三年生");
+        gradeConvertedToString.put(4, "卒業生");
+
         List<Student> getAllStudent = this.studentMapper.findAllStudents();
-        List<Student> getByGrade = this.studentMapper.findByGrade(grade);
+        List<Student> getByGrade = this.studentMapper.findByGrade(gradeConvertedToString.get(grade));
         List<Student> getByStartWith = this.studentMapper.findByName(startsWith);
         List<Student> getByBirthPlace = this.studentMapper.findByBirthPlace(birthPlace);
 
@@ -94,17 +104,13 @@ public class StudentService {
 
     /**
      * PATCH用のService
-     * 指定したgradeのstudentをnewGradeに更新します。
+     * 指定したgradeを進級します。
      */
-    public List<Student> updateGrade(String grade, String newGrade) {
-        List<Student> updateGradeStudents = studentMapper.findByGrade(grade);
-
-
-        for (Student student : updateGradeStudents) {
-            student.setNewGrade(newGrade);
-            studentMapper.updateGrade(student);
-        }
-        return updateGradeStudents;
+    @Transactional()
+    public void updateGrade() {
+        studentMapper.updateGrade("卒業生", "三年生");
+        studentMapper.updateGrade("三年生", "二年生");
+        studentMapper.updateGrade("二年生", "一年生");
     }
 
     /**

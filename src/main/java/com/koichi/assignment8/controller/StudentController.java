@@ -1,9 +1,7 @@
 package com.koichi.assignment8.controller;
 
-
 import com.koichi.assignment8.controller.request.StudentPostRequest;
 import com.koichi.assignment8.controller.request.StudentUpdateRequest;
-import com.koichi.assignment8.controller.request.UpdateGradeRequest;
 import com.koichi.assignment8.controller.response.StudentResponse;
 import com.koichi.assignment8.entity.Student;
 import com.koichi.assignment8.service.StudentService;
@@ -38,7 +36,7 @@ public class StudentController {
      * 指定した検索パラメータに一致するstudentのデータを取得します。
      */
     @GetMapping("/students")
-    public List<Student> getStudents(@RequestParam(required = false) String grade, String startsWith, String birthPlace) {
+    public List<Student> getStudents(@RequestParam(required = false) Integer grade, String startsWith, String birthPlace) {
         return studentService.findAllStudents(grade, startsWith, birthPlace);
     }
 
@@ -65,14 +63,13 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
-
     /**
      * PATCH用のController
-     * 指定したgradeのstudentをnewGradeに更新します。
+     * 指定したgradeを進級します。
      */
-    @PatchMapping("/students/grade/{grade}")
-    public ResponseEntity<StudentResponse> updateGrade(@PathVariable("grade") String grade, @RequestBody @Validated UpdateGradeRequest studentUpdateGrade) {
-        studentService.updateGrade(grade, studentUpdateGrade.getNewGrade());
+    @PatchMapping("/students/grade:batchUpdate")
+    public ResponseEntity<StudentResponse> updateGrade() {
+        studentService.updateGrade();
         StudentResponse body = new StudentResponse("Grade updated");
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }

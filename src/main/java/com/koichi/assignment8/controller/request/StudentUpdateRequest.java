@@ -13,7 +13,6 @@ import java.util.Optional;
  * 指定したidのstudentの name,grade,birthplaceを更新するREAD処理
  * で使用するRequestです。
  */
-
 public class StudentUpdateRequest {
 
     @NotBlank(message = "nameを入力してください")
