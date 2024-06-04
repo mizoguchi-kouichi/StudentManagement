@@ -33,11 +33,10 @@ class StudentServiceTest {
     }
 
     @Test
-    public void 指定したIDの学生がいなかったときに例外処理が返される事() throws StudentNotFoundException {
+    public void 指定したIDの学生がいなかったときに例外処理が返される事() {
         doReturn(Optional.empty()).when(studentMapper).findById(1);
         assertThatThrownBy(() -> studentService.findStudent(1))
                 .isInstanceOf(StudentNotFoundException.class)
                 .hasMessage("student not found");
     }
-
 }
