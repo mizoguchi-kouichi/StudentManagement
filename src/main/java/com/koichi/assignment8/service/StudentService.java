@@ -30,9 +30,10 @@ public class StudentService {
         if (findById.isPresent()) {
             return findById.get();
         } else {
-            throw new StudentNotFoundException("user not found");
+            throw new StudentNotFoundException("student not found");
         }
     }
+
 
     /**
      * SELECT用のMapper
