@@ -25,11 +25,10 @@ class StudentServiceTest {
     StudentMapper studentMapper;
 
     @Test
-    public void 存在する学生のIDをしてしたときに正常にユーザーが返される事() {
+    public void IDに該当する学生が一件取得できること() {
         doReturn(Optional.of(new Student(1, "溝口光一", "一年生", "大分県"))).when(studentMapper).findById(1);
         Student actual = studentService.findStudent(1);
         assertThat(actual).isEqualTo(new Student(1, "溝口光一", "一年生", "大分県"));
-
     }
 
     @Test
