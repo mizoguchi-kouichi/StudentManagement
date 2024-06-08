@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,5 +38,15 @@ class StudentServiceTest {
         assertThatThrownBy(() -> studentService.findStudent(1))
                 .isInstanceOf(StudentNotFoundException.class)
                 .hasMessage("student not found");
+    }
+
+    @Test
+    public void 全ての学生を取得すること() {
+        List<Student> findAllStudents = List.of(new Student(1, "溝口光一", "一年生", "大分県"),
+                new Student(2, "中野乃蒼", "二年生", "福岡県"),
+                new Student(3, "安藤健", "三年生", "熊本県"));
+        doReturn(findAllStudents).when(studentMapper).findAllStudents();
+        List<Student> actualList = studentService.findAllStudents(null, null, null);
+        assertThat(actualList).isEqualTo(findAllStudents);
     }
 }
