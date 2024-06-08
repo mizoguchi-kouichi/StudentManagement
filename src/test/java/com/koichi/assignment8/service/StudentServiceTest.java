@@ -57,12 +57,20 @@ class StudentServiceTest {
         List<Student> actualList = studentService.findAllStudents(1, null, null);
         assertThat(actualList).isEqualTo(getByGrade);
     }
-    
+
     @Test
     public void 接頭辞が溝である学生をクエリパラメータの検索を使用して取得すること() {
         List<Student> getByStartWith = List.of(new Student(1, "溝口光一", "一年生", "大分県"));
         doReturn(getByStartWith).when(studentMapper).findByName("溝");
         List<Student> actualList = studentService.findAllStudents(null, "溝", null);
         assertThat(actualList).isEqualTo(getByStartWith);
+    }
+
+    @Test
+    public void 大分県出身の学生をクエリパラメータの検索を使用して取得すること() {
+        List<Student> getByBirthPlace = List.of(new Student(1, "溝口光一", "一年生", "大分県"));
+        doReturn(getByBirthPlace).when(studentMapper).findByBirthPlace("大分県");
+        List<Student> actualList = studentService.findAllStudents(null, null, "大分県");
+        assertThat(actualList).isEqualTo(getByBirthPlace);
     }
 }
