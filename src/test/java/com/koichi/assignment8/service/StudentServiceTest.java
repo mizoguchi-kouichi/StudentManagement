@@ -49,4 +49,12 @@ class StudentServiceTest {
         List<Student> actualList = studentService.findAllStudents(null, null, null);
         assertThat(actualList).isEqualTo(findAllStudents);
     }
+
+    @Test
+    public void 一年生の学生をクエリパラメータの検索を使用して取得すること() {
+        List<Student> getByGrade = List.of(new Student(1, "溝口光一", "一年生", "大分県"));
+        doReturn(getByGrade).when(studentMapper).findByGrade("一年生");
+        List<Student> actualList = studentService.findAllStudents(1, null, null);
+        assertThat(actualList).isEqualTo(getByGrade);
+    }
 }
