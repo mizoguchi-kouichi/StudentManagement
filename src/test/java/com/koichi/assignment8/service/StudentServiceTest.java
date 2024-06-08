@@ -1,6 +1,7 @@
 package com.koichi.assignment8.service;
 
 import com.koichi.assignment8.entity.Student;
+import com.koichi.assignment8.excption.MultipleMethodsException;
 import com.koichi.assignment8.excption.StudentNotFoundException;
 import com.koichi.assignment8.mapper.StudentMapper;
 import org.junit.jupiter.api.Test;
@@ -72,5 +73,14 @@ class StudentServiceTest {
         doReturn(getByBirthPlace).when(studentMapper).findByBirthPlace("大分県");
         List<Student> actualList = studentService.findAllStudents(null, null, "大分県");
         assertThat(actualList).isEqualTo(getByBirthPlace);
+    }
+
+    @Test
+    public void クエリパラメータで複数のカラムを検索する時にカラムはgradestartsWithbirthPlaceの一つを選んでくださいというメッセージを返却すること() {
+        List<Student> findAllStudents = List.of(new Student(1, "溝口光一", "一年生", "大分県"));
+        doReturn(findAllStudents).when(studentMapper).findAllStudents();
+        assertThatThrownBy(() -> studentService.findAllStudents(null, "溝", "大分県"))
+                .isInstanceOf(MultipleMethodsException.class)
+                .hasMessage("カラムはgrade・startsWith・birthPlaceの一つを選んでください");
     }
 }
