@@ -60,8 +60,8 @@ class StudentServiceTest {
     }
 
     @Test
-    public void 接頭辞が溝である学生をクエリパラメータの検索を使用して取得すること() {
-        List<Student> getByStartWith = List.of(new Student(1, "溝口光一", "一年生", "大分県"));
+    public void 人名の頭文字が溝である学生をクエリパラメータの検索を使用して複数取得することを修正() {
+        List<Student> getByStartWith = studentMapper.findByName("溝");
         doReturn(getByStartWith).when(studentMapper).findByName("溝");
         List<Student> actualList = studentService.findAllStudents(null, "溝", null);
         assertThat(actualList).isEqualTo(getByStartWith);
