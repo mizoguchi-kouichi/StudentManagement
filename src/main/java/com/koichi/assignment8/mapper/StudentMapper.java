@@ -49,7 +49,7 @@ public interface StudentMapper {
      */
     @Insert("INSERT INTO students (name,grade,birth_place) VALUES (#{name}, #{grade},#{birthPlace})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    void insert(Student student);
+    void insertStudent(Student student);
 
     /**
      * PATCH用のMapper
