@@ -16,6 +16,8 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class StudentServiceTest {
@@ -82,5 +84,12 @@ class StudentServiceTest {
         assertThatThrownBy(() -> studentService.findAllStudents(null, "溝", "大分県"))
                 .isInstanceOf(MultipleMethodsException.class)
                 .hasMessage("カラムはgrade・startsWith・birthPlaceの一つを選んでください");
+    }
+
+    @Test
+    public void 新しい学生を登録すること() {
+        Student newStudent = new Student("溝口光一", "一年生", "大分県");
+        studentService.insertStudent("溝口光一", "一年生", "大分県");
+        verify(studentMapper, times(1)).insertStudent(newStudent);
     }
 }
