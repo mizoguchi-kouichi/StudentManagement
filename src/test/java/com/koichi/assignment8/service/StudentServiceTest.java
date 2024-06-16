@@ -83,4 +83,10 @@ class StudentServiceTest {
                 .isInstanceOf(MultipleMethodsException.class)
                 .hasMessage("カラムはgrade・startsWith・birthPlaceの一つを選んでください");
     }
+
+    @Test
+    public void IDに該当する学生のデータを更新出来ること() {
+
+
+    }
 }
