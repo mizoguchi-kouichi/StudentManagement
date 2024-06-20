@@ -45,8 +45,8 @@ public class StudentController {
      * INSERT用のController
      */
     @PostMapping("/students")
-    public ResponseEntity<StudentResponse> insert(@RequestBody @Validated StudentPostRequest studentPostRequest, UriComponentsBuilder uriBuilder) {
-        Student student = studentService.insert(studentPostRequest.getName(), studentPostRequest.getGrade(), studentPostRequest.getBirthPlace());
+    public ResponseEntity<StudentResponse> insertStudent(@RequestBody @Validated StudentPostRequest studentPostRequest, UriComponentsBuilder uriBuilder) {
+        Student student = studentService.insertStudent(studentPostRequest.getName(), studentPostRequest.getGrade(), studentPostRequest.getBirthPlace());
         URI location = uriBuilder.path("/students/{id}").buildAndExpand(student.getId()).toUri();
         StudentResponse body = new StudentResponse("student created");
         return ResponseEntity.created(location).body(body);
