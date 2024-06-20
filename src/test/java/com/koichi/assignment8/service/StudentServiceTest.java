@@ -109,7 +109,7 @@ class StudentServiceTest {
         String name = "溝上航";
         String grade = "一年生";
         String birthPlace = "大分県";
-        
+
         doReturn(Optional.empty()).when(studentMapper).findById(999);
         assertThatThrownBy(() -> studentService.updateStudent(999, "溝上航", "一年生", "福岡県"))
                 .isInstanceOf(StudentNotFoundException.class)
