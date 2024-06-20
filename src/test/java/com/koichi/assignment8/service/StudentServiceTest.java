@@ -16,6 +16,8 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class StudentServiceTest {
@@ -87,6 +89,19 @@ class StudentServiceTest {
     @Test
     public void IDに該当する学生のデータを更新出来ること() {
 
+        String name = "溝上航";
+        String grade = "一年生";
+        String birthPlace = "大分県";
 
+        Student expectedStudents = new Student(1, "内藤友美", "一年生", "福岡県");
+        doReturn(Optional.of(expectedStudents)).when(studentMapper).findById(1);
+        studentService.updateStudent(1, name, grade, birthPlace);
+
+        assertThat(expectedStudents.getName()).isEqualTo(name);
+        assertThat(expectedStudents.getGrade()).isEqualTo(grade);
+        assertThat(expectedStudents.getBirthPlace()).isEqualTo(birthPlace);
+        verify(studentMapper, times(1)).updateStudent(expectedStudents);
     }
+
+
 }
