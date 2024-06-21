@@ -87,9 +87,38 @@ class StudentServiceTest {
     }
 
     @Test
-    public void 新しい学生を登録すること() {
+  　public void 新しい学生を登録すること() {
         Student newStudent = new Student("溝口光一", "一年生", "大分県");
         studentService.insertStudent("溝口光一", "一年生", "大分県");
         verify(studentMapper, times(1)).insertStudent(newStudent);
+
+    @Test 
+    public void IDに該当する学生のデータを更新出来ること() {
+
+        String name = "溝上航";
+        String grade = "一年生";
+        String birthPlace = "大分県";
+
+        Student expectedStudents = new Student(1, "内藤友美", "一年生", "福岡県");
+        doReturn(Optional.of(expectedStudents)).when(studentMapper).findById(1);
+        studentService.updateStudent(1, name, grade, birthPlace);
+
+        assertThat(expectedStudents.getName()).isEqualTo(name);
+        assertThat(expectedStudents.getGrade()).isEqualTo(grade);
+        assertThat(expectedStudents.getBirthPlace()).isEqualTo(birthPlace);
+        verify(studentMapper, times(1)).updateStudent(expectedStudents);
+    }
+
+    @Test
+    public void 学生のデータを更新する際にIDに該当する学生がいない場合studentnotfoundというメッセージが返却されること() {
+
+        String name = "溝上航";
+        String grade = "一年生";
+        String birthPlace = "大分県";
+
+        doReturn(Optional.empty()).when(studentMapper).findById(999);
+        assertThatThrownBy(() -> studentService.updateStudent(999, "溝上航", "一年生", "福岡県"))
+                .isInstanceOf(StudentNotFoundException.class)
+                .hasMessage("student not found");
     }
 }
