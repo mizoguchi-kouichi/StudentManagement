@@ -87,12 +87,13 @@ class StudentServiceTest {
     }
 
     @Test
-  　public void 新しい学生を登録すること() {
+    public void 新しい学生を登録すること() {
         Student newStudent = new Student("溝口光一", "一年生", "大分県");
         studentService.insertStudent("溝口光一", "一年生", "大分県");
         verify(studentMapper, times(1)).insertStudent(newStudent);
+    }
 
-    @Test 
+    @Test
     public void IDに該当する学生のデータを更新出来ること() {
 
         String name = "溝上航";
