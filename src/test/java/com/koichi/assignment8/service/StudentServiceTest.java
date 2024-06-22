@@ -132,4 +132,12 @@ class StudentServiceTest {
         verify(studentMapper, times(1)).deleteStudent(1);
     }
 
+    @Test
+    public void 学生のデータを削除する際にIDに該当する学生がいない場合studentnotfoundというメッセージが返却されること() {
+
+        doReturn(Optional.empty()).when(studentMapper).findById(999);
+        assertThatThrownBy(() -> studentService.deleteStudent(999))
+                .isInstanceOf(StudentNotFoundException.class)
+                .hasMessage("student not found");
+    }
 }
