@@ -122,4 +122,13 @@ class StudentServiceTest {
                 .isInstanceOf(StudentNotFoundException.class)
                 .hasMessage("student not found");
     }
+
+    @Test
+    public void 学生の学年を進級させること() {
+
+        studentService.updateGrade();
+        verify(studentMapper, times(1)).updateGrade("卒業生", "三年生");
+        verify(studentMapper, times(1)).updateGrade("三年生", "二年生");
+        verify(studentMapper, times(1)).updateGrade("二年生", "一年生");
+    }
 }
