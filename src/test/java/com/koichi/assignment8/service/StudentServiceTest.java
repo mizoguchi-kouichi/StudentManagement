@@ -122,4 +122,14 @@ class StudentServiceTest {
                 .isInstanceOf(StudentNotFoundException.class)
                 .hasMessage("student not found");
     }
+
+    @Test
+    public void IDに該当する学生のデータを削除出来ること() {
+
+        Student expectedStudents = new Student(1, "内藤友美", "一年生", "福岡県");
+        doReturn(Optional.of(expectedStudents)).when(studentMapper).findById(1);
+        studentService.deleteStudent(1);
+        verify(studentMapper, times(1)).deleteStudent(1);
+    }
+
 }
