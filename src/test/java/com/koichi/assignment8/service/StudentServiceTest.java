@@ -124,6 +124,15 @@ class StudentServiceTest {
     }
 
     @Test
+    public void 学生の学年を進級させること() {
+
+        studentService.updateGrade();
+        verify(studentMapper, times(1)).updateGrade("卒業生", "三年生");
+        verify(studentMapper, times(1)).updateGrade("三年生", "二年生");
+        verify(studentMapper, times(1)).updateGrade("二年生", "一年生");
+    }
+
+    @Test
     public void IDに該当する学生のデータを削除出来ること() {
 
         Student expectedStudents = new Student(1, "内藤友美", "一年生", "福岡県");
@@ -139,5 +148,6 @@ class StudentServiceTest {
         assertThatThrownBy(() -> studentService.deleteStudent(999))
                 .isInstanceOf(StudentNotFoundException.class)
                 .hasMessage("student not found");
+
     }
 }
