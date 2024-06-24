@@ -32,4 +32,13 @@ class StudentMapperTest {
         );
     }
 
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @Transactional
+    public void IDに該当する学生がいない場合空のOptionalを返すこと() {
+
+        Optional<Student> findById = studentMapper.findById(999);
+        assertThat(findById).isEmpty();
+    }
+
 }
