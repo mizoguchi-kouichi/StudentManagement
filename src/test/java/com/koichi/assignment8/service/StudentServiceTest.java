@@ -130,8 +130,9 @@ class StudentServiceTest {
         verify(studentMapper, times(1)).updateGrade("卒業生", "三年生");
         verify(studentMapper, times(1)).updateGrade("三年生", "二年生");
         verify(studentMapper, times(1)).updateGrade("二年生", "一年生");
-      
-    @Test  
+    }
+
+    @Test
     public void IDに該当する学生のデータを削除出来ること() {
 
         Student expectedStudents = new Student(1, "内藤友美", "一年生", "福岡県");
