@@ -82,4 +82,16 @@ class StudentMapperTest {
         );
     }
 
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @Transactional
+    public void 大分県出身の学生をクエリパラメータの検索を使用して取得すること() {
+
+        List<Student> findByBirthPlace = studentMapper.findByBirthPlace("大分県");
+        assertThat(findByBirthPlace).contains(
+                new Student(1, "清⽔圭吾", "一年生", "大分県"),
+                new Student(3, "岡崎徹", "二年生", "大分県")
+        );
+    }
 }
