@@ -69,4 +69,6 @@ class StudentMapperTest {
                 new Student(2, "田中圭", "一年生", "福岡県")
         );
     }
+
+
 }
