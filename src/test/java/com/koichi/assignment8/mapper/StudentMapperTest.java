@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,6 +40,22 @@ class StudentMapperTest {
 
         Optional<Student> findById = studentMapper.findById(999);
         assertThat(findById).isEmpty();
+    }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @Transactional
+    public void 全ての学生を取得すること() {
+
+        List<Student> findAllStudents = studentMapper.findAllStudents();
+        assertThat(findAllStudents).contains(
+                new Student(1, "清⽔圭吾", "一年生", "大分県"),
+                new Student(2, "田中圭", "一年生", "福岡県"),
+                new Student(3, "岡崎徹", "二年生", "大分県"),
+                new Student(4, "溝口光一", "二年生", "熊本県"),
+                new Student(5, "溝谷望", "三年生", "熊本県"),
+                new Student(6, "安藤孝弘", "三年生", "福岡県")
+        );
     }
 
 }
