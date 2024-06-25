@@ -1,0 +1,9 @@
+cacheConnection: false
+cacheTableNames: false
+properties:
+  schema: students_database
+caseInsensitiveStrategy: LOWERCASE
+connectionConfig:
+  url: "jdbc:mysql://localhost:3307/students_database" # MySQLの場合
+  user: "user"
+  password: "password"
