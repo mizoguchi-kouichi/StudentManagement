@@ -58,4 +58,15 @@ class StudentMapperTest {
         );
     }
 
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @Transactional
+    public void 一年生の学生をクエリパラメータの検索を使用して取得すること() {
+
+        List<Student> findByGrade = studentMapper.findByGrade("一年生");
+        assertThat(findByGrade).contains(
+                new Student(1, "清⽔圭吾", "一年生", "大分県"),
+                new Student(2, "田中圭", "一年生", "福岡県")
+        );
+    }
 }
