@@ -70,5 +70,16 @@ class StudentMapperTest {
         );
     }
 
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @Transactional
+    public void 人名の頭文字が溝である学生をクエリパラメータの検索を使用して複数取得すること() {
+
+        List<Student> getByStartWith = studentMapper.findByStartWith("溝");
+        assertThat(getByStartWith).contains(
+                new Student(4, "溝口光一", "二年生", "熊本県"),
+                new Student(5, "溝谷望", "三年生", "熊本県")
+        );
+    }
 
 }
