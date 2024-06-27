@@ -23,3 +23,7 @@ students:
     name: "安藤孝弘"
     grade: "三年生"
     birth_place: "福岡県"
+  - id: 7
+    name: "中田健太"
+    grade: "一年生"
+    birth_place: "福岡県"
