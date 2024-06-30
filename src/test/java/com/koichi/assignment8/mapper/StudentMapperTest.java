@@ -1,7 +1,8 @@
 package com.koichi.assignment8.mapper;
 
 import com.github.database.rider.core.api.dataset.DataSet;
-import com.github.database.rider.junit5.api.DBRider;
+import com.github.database.rider.core.api.dataset.ExpectedDataSet;
+import com.github.database.rider.spring.api.DBRider;
 import com.koichi.assignment8.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -41,9 +42,7 @@ class StudentMapperTest {
         Optional<Student> findById = studentMapper.findById(999);
         assertThat(findById).isEmpty();
     }
-
-    @Test
-    @DataSet(value = "datasets/students.yml")
+  
     @Transactional
     public void 全ての学生を取得すること() {
 
@@ -82,7 +81,6 @@ class StudentMapperTest {
         );
     }
 
-
     @Test
     @DataSet(value = "datasets/students.yml")
     @Transactional
@@ -93,5 +91,15 @@ class StudentMapperTest {
                 new Student(1, "清⽔圭吾", "一年生", "大分県"),
                 new Student(3, "岡崎徹", "二年生", "大分県")
         );
+    }  
+  
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/studentsToRegister.yml", ignoreCols = "id")
+    @Transactional
+    public void 新しい学生を登録すること() {
+
+        Student insertStudent = new Student("中田健太", "一年生", "福岡県");
+        studentMapper.insertStudent(insertStudent);
     }
 }
