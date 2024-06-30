@@ -2,7 +2,7 @@ package com.koichi.assignment8.mapper;
 
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import com.github.database.rider.junit5.api.DBRider;
+import com.github.database.rider.spring.api.DBRider;
 import com.koichi.assignment8.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -44,7 +44,8 @@ class StudentMapperTest {
 
     @Test
     @DataSet(value = "datasets/students.yml")
-    @ExpectedDataSet(value = "datasets/studentsToRegister.yml")
+    @ExpectedDataSet(value = "datasets/studentsToRegister.yml", ignoreCols = "id")
+    @Transactional
     public void 新しい学生を登録すること() {
 
         Student insertStudent = new Student("中田健太", "一年生", "福岡県");
