@@ -50,7 +50,7 @@ public class StudentService {
 
         List<Student> getAllStudent = this.studentMapper.findAllStudents();
         List<Student> getByGrade = this.studentMapper.findByGrade(gradeConvertedToString.get(grade));
-        List<Student> getByStartWith = this.studentMapper.findByName(startsWith);
+        List<Student> getByStartWith = this.studentMapper.findByStartWith(startsWith);
         List<Student> getByBirthPlace = this.studentMapper.findByBirthPlace(birthPlace);
 
         int count = 0;
