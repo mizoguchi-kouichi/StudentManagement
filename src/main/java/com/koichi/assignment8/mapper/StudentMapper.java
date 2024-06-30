@@ -1,7 +1,12 @@
 package com.koichi.assignment8.mapper;
 
 import com.koichi.assignment8.entity.Student;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +40,7 @@ public interface StudentMapper {
      * 指定した接頭辞のstudentのデータを全て取得します。
      */
     @Select("SELECT * FROM students WHERE name LIKE CONCAT(#{startsWith}, '%') ")
-    List<Student> findByName(String startsWith);
+    List<Student> findByStartWith(String startsWith);
 
     /**
      * SELECT用のMapper

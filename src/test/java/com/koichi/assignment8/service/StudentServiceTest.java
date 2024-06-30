@@ -62,9 +62,9 @@ class StudentServiceTest {
     }
 
     @Test
-    public void 人名の頭文字が溝である学生をクエリパラメータの検索を使用して複数取得することを修正() {
-        List<Student> getByStartWith = studentMapper.findByName("溝");
-        doReturn(getByStartWith).when(studentMapper).findByName("溝");
+    public void 人名の頭文字が溝である学生をクエリパラメータの検索を使用して複数取得すること() {
+        List<Student> getByStartWith = studentMapper.findByStartWith("溝");
+        doReturn(getByStartWith).when(studentMapper).findByStartWith("溝");
         List<Student> actualList = studentService.findAllStudents(null, "溝", null);
         assertThat(actualList).isEqualTo(getByStartWith);
     }
