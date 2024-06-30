@@ -42,7 +42,7 @@ class StudentMapperTest {
         Optional<Student> findById = studentMapper.findById(999);
         assertThat(findById).isEmpty();
     }
-  
+
     @Transactional
     public void 全ての学生を取得すること() {
 
@@ -91,8 +91,8 @@ class StudentMapperTest {
                 new Student(1, "清⽔圭吾", "一年生", "大分県"),
                 new Student(3, "岡崎徹", "二年生", "大分県")
         );
-    }  
-  
+    }
+
     @Test
     @DataSet(value = "datasets/students.yml")
     @ExpectedDataSet(value = "datasets/studentsToRegister.yml", ignoreCols = "id")
@@ -102,4 +102,6 @@ class StudentMapperTest {
         Student insertStudent = new Student("中田健太", "一年生", "福岡県");
         studentMapper.insertStudent(insertStudent);
     }
+
+
 }
