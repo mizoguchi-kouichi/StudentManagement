@@ -103,5 +103,13 @@ class StudentMapperTest {
         studentMapper.insertStudent(insertStudent);
     }
 
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/studentsToRenewing.yml")
+    @Transactional
+    public void IDに該当する学生のデータを更新出来ること() {
 
+        Student renewingStudent = new Student(1, "城野健一", "二年生", "福岡県");
+        studentMapper.updateStudent(renewingStudent);
+    }
 }
