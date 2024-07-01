@@ -43,6 +43,7 @@ class StudentMapperTest {
         assertThat(findById).isEmpty();
     }
 
+    @Test
     @Transactional
     public void 全ての学生を取得すること() {
 
