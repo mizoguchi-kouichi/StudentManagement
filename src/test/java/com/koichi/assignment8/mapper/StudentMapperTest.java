@@ -113,4 +113,15 @@ class StudentMapperTest {
         Student renewingStudent = new Student(1, "城野健一", "二年生", "福岡県");
         studentMapper.updateStudent(renewingStudent);
     }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/gradeAdvancement.yml")
+    @Transactional
+    public void 学生の学年を進級させること() {
+
+        studentMapper.updateGrade("卒業生", "三年生");
+        studentMapper.updateGrade("三年生", "二年生");
+        studentMapper.updateGrade("二年生", "一年生");
+    }
 }
