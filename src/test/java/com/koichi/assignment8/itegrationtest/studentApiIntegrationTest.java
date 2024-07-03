@@ -36,4 +36,21 @@ public class studentApiIntegrationTest {
                         }                                                          
                         """));
     }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @Transactional
+    void IDに該当する学生がいない時にStudentNotFoundExceptionのレスポンスボティが返却されること() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/students/999"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        {
+                          "error": "Not Found",
+                          "path": "/students/999",
+                          "status": "404",
+                          "message": "student not found"
+                        }                                                      
+                        """));
+    }
+
 }
