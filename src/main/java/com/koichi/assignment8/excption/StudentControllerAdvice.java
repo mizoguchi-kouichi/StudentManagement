@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,11 +17,13 @@ import java.util.Map;
 @ControllerAdvice
 public class StudentControllerAdvice {
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd 'T'HH:mm:ssZ'［'VV'］'");
+
     @ExceptionHandler(value = StudentNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleUserNotFoundException(
             StudentNotFoundException e, HttpServletRequest request) {
         Map<String, String> body = Map.of(
-                "timestamp", ZonedDateTime.now().toString(),
+                "timestamp", ZonedDateTime.now().format(formatter),
                 "status", String.valueOf(HttpStatus.NOT_FOUND.value()),
                 "error", HttpStatus.NOT_FOUND.getReasonPhrase(),
                 "message", e.getMessage(),
