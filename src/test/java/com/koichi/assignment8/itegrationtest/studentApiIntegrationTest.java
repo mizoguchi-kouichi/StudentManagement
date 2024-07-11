@@ -3,6 +3,8 @@ package com.koichi.assignment8.itegrationtest;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.spring.api.DBRider;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -11,6 +13,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -41,16 +46,23 @@ public class studentApiIntegrationTest {
     @DataSet(value = "datasets/students.yml")
     @Transactional
     void IDに該当する学生がいない時にStudentNotFoundExceptionのレスポンスボティが返却されること() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/students/999"))
-                .andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andExpect(MockMvcResultMatchers.content().json("""
-                        {
-                          "error": "Not Found",
-                          "path": "/students/999",
-                          "status": "404",
-                          "message": "student not found"
-                        }                                                      
-                        """));
+
+        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
+
+        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
+            mockMvc.perform(MockMvcRequestBuilders.get("/students/999"))
+                    .andExpect(MockMvcResultMatchers.status().isNotFound())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                              "error": "Not Found",
+                              "path": "/students/999",
+                              "status": "404",
+                              "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                              "message": "student not found"
+                            }                                                      
+                            """));
+        }
     }
 }
 
