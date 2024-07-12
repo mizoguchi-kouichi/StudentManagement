@@ -113,5 +113,29 @@ public class studentApiIntegrationTest {
                          """));
     }
 
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @Transactional
+    void 一年生の学生をクエリパラメータの検索を使用して取得すること() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/students?grade=1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        [
+                           {
+                             "id": 1,
+                             "name": "清⽔圭吾",
+                             "grade": "一年生",
+                             "birthPlace": "大分県"
+                           },
+                           {
+                             "id": 2,
+                             "name": "田中圭",
+                             "grade": "一年生",
+                             "birthPlace": "福岡県"
+                           }
+                        ]
+                         """));
+    }
+
 }
 
