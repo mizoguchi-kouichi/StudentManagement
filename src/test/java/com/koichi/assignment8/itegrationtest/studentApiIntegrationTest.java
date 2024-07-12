@@ -137,5 +137,28 @@ public class studentApiIntegrationTest {
                          """));
     }
 
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @Transactional
+    void 人名の頭文字が溝である学生をクエリパラメータの検索を使用して複数取得すること() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/students?startsWith=溝"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        [
+                           {
+                             "id": 4,
+                             "name": "溝口光一",
+                             "grade": "二年生",
+                             "birthPlace": "熊本県"
+                           },
+                           {
+                             "id": 5,
+                             "name": "溝谷望",
+                             "grade": "三年生",
+                             "birthPlace": "熊本県"
+                           }
+                        ]
+                         """));
+    }
 }
 
