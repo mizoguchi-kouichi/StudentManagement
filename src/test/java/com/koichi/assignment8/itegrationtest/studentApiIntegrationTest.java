@@ -160,5 +160,29 @@ public class studentApiIntegrationTest {
                         ]
                          """));
     }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @Transactional
+    void 大分県出身の学生をクエリパラメータの検索を使用して取得すること() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/students?birthPlace=大分県"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        [
+                           {
+                             "id": 1,
+                             "name": "清⽔圭吾",
+                             "grade": "一年生",
+                             "birthPlace": "大分県"
+                           },
+                           {
+                             "id": 3,
+                             "name": "岡崎徹",
+                             "grade": "二年生",
+                             "birthPlace": "大分県"
+                           }
+                        ]
+                         """));
+    }
 }
 
