@@ -64,5 +64,54 @@ public class studentApiIntegrationTest {
                             """));
         }
     }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @Transactional
+    void 全ての学生を取得すること() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/students"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        [
+                           {
+                             "id": 1,
+                             "name": "清⽔圭吾",
+                             "grade": "一年生",
+                             "birthPlace": "大分県"
+                           },
+                           {
+                             "id": 2,
+                             "name": "田中圭",
+                             "grade": "一年生",
+                             "birthPlace": "福岡県"
+                           },
+                           {
+                             "id": 3,
+                             "name": "岡崎徹",
+                             "grade": "二年生",
+                             "birthPlace": "大分県"
+                           },
+                           {
+                             "id": 4,
+                             "name": "溝口光一",
+                             "grade": "二年生",
+                             "birthPlace": "熊本県"
+                           },
+                           {
+                             "id": 5,
+                             "name": "溝谷望",
+                             "grade": "三年生",
+                             "birthPlace": "熊本県"
+                           },
+                           {
+                             "id": 6,
+                             "name": "安藤孝弘",
+                             "grade": "三年生",
+                             "birthPlace": "福岡県"
+                           }
+                        ]
+                         """));
+    }
+
 }
 
