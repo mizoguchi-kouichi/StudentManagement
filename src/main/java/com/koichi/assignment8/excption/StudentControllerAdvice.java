@@ -35,7 +35,7 @@ public class StudentControllerAdvice {
     public ResponseEntity<Map<String, String>> handleUserNotFoundException(
             MultipleMethodsException e, HttpServletRequest request) {
         Map<String, String> body = Map.of(
-                "timestamp", ZonedDateTime.now().toString(),
+                "timestamp", ZonedDateTime.now().format(formatter),
                 "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
                 "error", HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 "message", e.getMessage(),
@@ -55,7 +55,7 @@ public class StudentControllerAdvice {
         });
 
         ErrorResponse errorResponse =
-                new ErrorResponse(String.valueOf(HttpStatus.BAD_REQUEST.value()), "validation error", ZonedDateTime.now().toString(), errors);
+                new ErrorResponse(String.valueOf(HttpStatus.BAD_REQUEST.value()), "validation error", ZonedDateTime.now().format(formatter), errors);
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
