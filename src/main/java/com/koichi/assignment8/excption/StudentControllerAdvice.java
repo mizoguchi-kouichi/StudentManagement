@@ -32,7 +32,7 @@ public class StudentControllerAdvice {
     }
 
     @ExceptionHandler(value = MultipleMethodsException.class)
-    public ResponseEntity<Map<String, String>> handleUserNotFoundException(
+    public ResponseEntity<Map<String, String>> handleMultipleMethodsException(
             MultipleMethodsException e, HttpServletRequest request) {
         Map<String, String> body = Map.of(
                 "timestamp", ZonedDateTime.now().format(formatter),
