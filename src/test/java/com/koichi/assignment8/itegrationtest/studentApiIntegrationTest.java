@@ -278,5 +278,16 @@ public class studentApiIntegrationTest {
                              """));
         }
     }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @Transactional
+    void 実際にいない人名の頭文字でクエリパラメータの検索を使用したらEmptyを返すこと() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/students?startsWith=阿"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        []
+                         """));
+    }
 }
 
