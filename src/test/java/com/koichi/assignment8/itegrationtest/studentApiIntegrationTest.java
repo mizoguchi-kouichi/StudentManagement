@@ -289,5 +289,16 @@ public class studentApiIntegrationTest {
                         []
                          """));
     }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @Transactional
+    void 実際にいない出身地でクエリパラメータの検索を使用したらEmptyを返すこと() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/students?birthPlace=大阪府"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        []
+                         """));
+    }
 }
 
