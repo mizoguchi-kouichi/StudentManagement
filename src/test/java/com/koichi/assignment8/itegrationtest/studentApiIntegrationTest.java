@@ -184,7 +184,7 @@ public class studentApiIntegrationTest {
                         ]
                          """));
     }
-    
+
     @Test
     @DataSet(value = "datasets/students.yml")
     @Transactional
@@ -252,6 +252,29 @@ public class studentApiIntegrationTest {
                                "error": "Bad Request",
                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］"
                             }
+                             """));
+        }
+    }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @Transactional
+    void 学年でクエリパラメータの検索を使用する際に文字列を入力した時にMethodArgumentTypeMismatchExceptionのレスポンスボティが返却されること() throws Exception {
+
+        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
+
+        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
+            mockMvc.perform(MockMvcRequestBuilders.get("/students?grade=一年生"))
+                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                               "path": "/students",
+                               "status": "400",
+                               "message": "gradeは、1~4のどれかを入力してください",
+                               "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                               "error": "Bad Request"
+                             }
                              """));
         }
     }
