@@ -1,6 +1,7 @@
 package com.koichi.assignment8.itegrationtest;
 
 import com.github.database.rider.core.api.dataset.DataSet;
+import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -300,5 +302,29 @@ public class studentApiIntegrationTest {
                         []
                          """));
     }
-}
 
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/studentsToRegister.yml", ignoreCols = "id")
+    @Transactional
+    void 新しい学生を登録すること() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/students")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                 {
+                                   "name":"中田健太",
+                                   "grade":"一年生",
+                                   "birthPlace":"福岡県"
+                                 }
+                                """))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        {
+                            "message": "student created"
+                        }
+                        """));
+
+    }
+}
