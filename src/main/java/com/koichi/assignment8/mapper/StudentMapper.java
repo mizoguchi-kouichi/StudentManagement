@@ -46,7 +46,7 @@ public interface StudentMapper {
      * SELECT用のMapper
      * 指定した出身地のstudentのデータを全て取得します。
      */
-    @Select("SELECT * FROM students WHERE birth_place = #{birthplace}")
+    @Select("SELECT * FROM students WHERE birth_place = #{birthPlace}")
     List<Student> findByBirthPlace(String birthPlace);
 
     /**

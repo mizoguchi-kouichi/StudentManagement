@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,13 +33,25 @@ public class StudentControllerAdvice {
     }
 
     @ExceptionHandler(value = MultipleMethodsException.class)
-    public ResponseEntity<Map<String, String>> handleUserNotFoundException(
+    public ResponseEntity<Map<String, String>> handleMultipleMethodsException(
             MultipleMethodsException e, HttpServletRequest request) {
         Map<String, String> body = Map.of(
-                "timestamp", ZonedDateTime.now().toString(),
+                "timestamp", ZonedDateTime.now().format(formatter),
                 "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
                 "error", HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 "message", e.getMessage(),
+                "path", request.getRequestURI());
+        return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatchException(
+            MethodArgumentTypeMismatchException ex, HttpServletRequest request) {
+        Map<String, String> body = Map.of(
+                "timestamp", ZonedDateTime.now().format(formatter),
+                "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
+                "error", HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                "message", "gradeは、1~4のどれかを入力してください",
                 "path", request.getRequestURI());
         return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
     }
@@ -55,7 +68,7 @@ public class StudentControllerAdvice {
         });
 
         ErrorResponse errorResponse =
-                new ErrorResponse(String.valueOf(HttpStatus.BAD_REQUEST.value()), "validation error", ZonedDateTime.now().toString(), errors);
+                new ErrorResponse(String.valueOf(HttpStatus.BAD_REQUEST.value()), "validation error", ZonedDateTime.now().format(formatter), errors);
         return ResponseEntity.badRequest().body(errorResponse);
     }
 

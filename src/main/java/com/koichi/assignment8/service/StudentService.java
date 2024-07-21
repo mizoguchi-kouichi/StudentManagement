@@ -58,14 +58,15 @@ public class StudentService {
         if (grade != null) {
             count++;
         }
+
         if (startsWith != null) {
             count++;
         }
 
-
         if (birthPlace != null) {
             count++;
         }
+
 
         if (count >= 2) {
             throw new MultipleMethodsException("カラムはgrade・startsWith・birthPlaceの一つを選んでください");
