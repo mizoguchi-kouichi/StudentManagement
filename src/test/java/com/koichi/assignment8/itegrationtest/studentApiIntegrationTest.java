@@ -36,10 +36,10 @@ public class studentApiIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         {
-                          "id": 1,
-                          "name": "清⽔圭吾",
-                          "grade": "一年生",
-                          "birthPlace": "大分県"
+                            "id": 1,
+                            "name": "清⽔圭吾",
+                            "grade": "一年生",
+                            "birthPlace": "大分県"
                         }                                                          
                         """));
     }
@@ -57,11 +57,11 @@ public class studentApiIntegrationTest {
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                              "error": "Not Found",
-                              "path": "/students/999",
-                              "status": "404",
-                              "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                              "message": "student not found"
+                                "error": "Not Found",
+                                "path": "/students/999",
+                                "status": "404",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "message": "student not found"
                             }                                                      
                             """));
         }
@@ -75,42 +75,42 @@ public class studentApiIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         [
-                           {
-                             "id": 1,
-                             "name": "清⽔圭吾",
-                             "grade": "一年生",
-                             "birthPlace": "大分県"
-                           },
-                           {
-                             "id": 2,
-                             "name": "田中圭",
-                             "grade": "一年生",
-                             "birthPlace": "福岡県"
-                           },
-                           {
-                             "id": 3,
-                             "name": "岡崎徹",
-                             "grade": "二年生",
-                             "birthPlace": "大分県"
-                           },
-                           {
-                             "id": 4,
-                             "name": "溝口光一",
-                             "grade": "二年生",
-                             "birthPlace": "熊本県"
-                           },
-                           {
-                             "id": 5,
-                             "name": "溝谷望",
-                             "grade": "三年生",
-                             "birthPlace": "熊本県"
-                           },
-                           {
-                             "id": 6,
-                             "name": "安藤孝弘",
-                             "grade": "三年生",
-                             "birthPlace": "福岡県"
-                           }
+                            {
+                                "id": 1,
+                                "name": "清⽔圭吾",
+                                "grade": "一年生",
+                                "birthPlace": "大分県"
+                            },
+                            {
+                                "id": 2,
+                                "name": "田中圭",
+                                "grade": "一年生",
+                                "birthPlace": "福岡県"
+                            },
+                            {
+                                "id": 3,
+                                "name": "岡崎徹",
+                                "grade": "二年生",
+                                "birthPlace": "大分県"
+                            },
+                            {
+                                "id": 4,
+                                "name": "溝口光一",
+                                "grade": "二年生",
+                                "birthPlace": "熊本県"
+                            },
+                            {
+                                "id": 5,
+                                "name": "溝谷望",
+                                "grade": "三年生",
+                                "birthPlace": "熊本県"
+                            },
+                            {
+                                "id": 6,
+                                "name": "安藤孝弘",
+                                "grade": "三年生",
+                                "birthPlace": "福岡県"
+                            }
                         ]
                          """));
     }
@@ -123,18 +123,18 @@ public class studentApiIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         [
-                           {
-                             "id": 1,
-                             "name": "清⽔圭吾",
-                             "grade": "一年生",
-                             "birthPlace": "大分県"
-                           },
-                           {
-                             "id": 2,
-                             "name": "田中圭",
-                             "grade": "一年生",
-                             "birthPlace": "福岡県"
-                           }
+                            {
+                                "id": 1,
+                                "name": "清⽔圭吾",
+                                "grade": "一年生",
+                                "birthPlace": "大分県"
+                            },
+                            {
+                                "id": 2,
+                                "name": "田中圭",
+                                "grade": "一年生",
+                                "birthPlace": "福岡県"
+                            }
                         ]
                          """));
     }
@@ -147,18 +147,18 @@ public class studentApiIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         [
-                           {
-                             "id": 4,
-                             "name": "溝口光一",
-                             "grade": "二年生",
-                             "birthPlace": "熊本県"
-                           },
-                           {
-                             "id": 5,
-                             "name": "溝谷望",
-                             "grade": "三年生",
-                             "birthPlace": "熊本県"
-                           }
+                            {
+                                "id": 4,
+                                "name": "溝口光一",
+                                "grade": "二年生",
+                                "birthPlace": "熊本県"
+                            },
+                            {
+                                "id": 5,
+                                "name": "溝谷望",
+                                "grade": "三年生",
+                                "birthPlace": "熊本県"
+                            }
                         ]
                          """));
     }
@@ -171,18 +171,18 @@ public class studentApiIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         [
-                           {
-                             "id": 1,
-                             "name": "清⽔圭吾",
-                             "grade": "一年生",
-                             "birthPlace": "大分県"
-                           },
-                           {
-                             "id": 3,
-                             "name": "岡崎徹",
-                             "grade": "二年生",
-                             "birthPlace": "大分県"
-                           }
+                            {
+                                "id": 1,
+                                "name": "清⽔圭吾",
+                                "grade": "一年生",
+                                "birthPlace": "大分県"
+                            },
+                            {
+                                "id": 3,
+                                "name": "岡崎徹",
+                                "grade": "二年生",
+                                "birthPlace": "大分県"
+                            }
                         ]
                          """));
     }
@@ -195,42 +195,42 @@ public class studentApiIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         [
-                           {
-                             "id": 1,
-                             "name": "清⽔圭吾",
-                             "grade": "一年生",
-                             "birthPlace": "大分県"
-                           },
-                           {
-                             "id": 2,
-                             "name": "田中圭",
-                             "grade": "一年生",
-                             "birthPlace": "福岡県"
-                           },
-                           {
-                             "id": 3,
-                             "name": "岡崎徹",
-                             "grade": "二年生",
-                             "birthPlace": "大分県"
-                           },
-                           {
-                             "id": 4,
-                             "name": "溝口光一",
-                             "grade": "二年生",
-                             "birthPlace": "熊本県"
-                           },
-                           {
-                             "id": 5,
-                             "name": "溝谷望",
-                             "grade": "三年生",
-                             "birthPlace": "熊本県"
-                           },
-                           {
-                             "id": 6,
-                             "name": "安藤孝弘",
-                             "grade": "三年生",
-                             "birthPlace": "福岡県"
-                           }
+                            {
+                                "id": 1,
+                                "name": "清⽔圭吾",
+                                "grade": "一年生",
+                                "birthPlace": "大分県"
+                            },
+                            {
+                                "id": 2,
+                                "name": "田中圭",
+                                "grade": "一年生",
+                                "birthPlace": "福岡県"
+                            },
+                            {
+                                "id": 3,
+                                "name": "岡崎徹",
+                                "grade": "二年生",
+                                "birthPlace": "大分県"
+                            },
+                            {
+                                "id": 4,
+                                "name": "溝口光一",
+                                "grade": "二年生",
+                                "birthPlace": "熊本県"
+                            },
+                            {
+                                "id": 5,
+                                "name": "溝谷望",
+                                "grade": "三年生",
+                                "birthPlace": "熊本県"
+                            },
+                            {
+                                "id": 6,
+                                "name": "安藤孝弘",
+                                "grade": "三年生",
+                                "birthPlace": "福岡県"
+                            }
                         ]
                          """));
     }
@@ -248,11 +248,11 @@ public class studentApiIntegrationTest {
                     .andExpect(MockMvcResultMatchers.status().isBadRequest())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                               "message": "カラムはgrade・startsWith・birthPlaceの一つを選んでください",
-                               "status": "400",
-                               "path": "/students",
-                               "error": "Bad Request",
-                               "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］"
+                                "message": "カラムはgrade・startsWith・birthPlaceの一つを選んでください",
+                                "status": "400",
+                                "path": "/students",
+                                "error": "Bad Request",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］"
                             }
                              """));
         }
@@ -271,12 +271,12 @@ public class studentApiIntegrationTest {
                     .andExpect(MockMvcResultMatchers.status().isBadRequest())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                               "path": "/students",
-                               "status": "400",
-                               "message": "gradeは、1~4のどれかを入力してください",
-                               "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                               "error": "Bad Request"
-                             }
+                                "path": "/students",
+                                "status": "400",
+                                "message": "gradeは、1~4のどれかを入力してください",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "error": "Bad Request"
+                            }
                              """));
         }
     }
@@ -313,17 +313,17 @@ public class studentApiIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/students")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                 {
-                                   "name":"中田健太",
-                                   "grade":"一年生",
-                                   "birthPlace":"福岡県"
-                                 }
+                                {
+                                    "name":"中田健太",
+                                    "grade":"一年生",
+                                    "birthPlace":"福岡県"
+                                }
                                 """))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         {
-                            "message": "student created"
-                        }
+                             "message": "student created"
+                         }
                         """));
 
     }
@@ -342,25 +342,25 @@ public class studentApiIntegrationTest {
             mockMvc.perform(MockMvcRequestBuilders.post("/students")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content("""
-                                     {
-                                       "name":"",
-                                       "grade":"一年生",
-                                       "birthPlace":"福岡県"
-                                     }
+                                    {
+                                        "name":"",
+                                        "grade":"一年生",
+                                        "birthPlace":"福岡県"
+                                    } 
                                     """))
                     .andExpect(MockMvcResultMatchers.status().isBadRequest())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                                 "status": "400",
-                                 "message": "validation error",
-                                 "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                 "errors": [
+                                "status": "400",
+                                "message": "validation error",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "errors": [
                                      {
                                          "field": "name",
                                          "message": "nameを入力してください"
                                      }
-                                 ]
-                             }
+                                ]
+                            }
                             """));
         }
     }
@@ -379,25 +379,25 @@ public class studentApiIntegrationTest {
             mockMvc.perform(MockMvcRequestBuilders.post("/students")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content("""
-                                     {
-                                       "name":"中田健太",
-                                       "grade":"",
-                                       "birthPlace":"福岡県"
-                                     }
+                                    {
+                                        "name":"中田健太",
+                                        "grade":"",
+                                        "birthPlace":"福岡県"
+                                    }
                                     """))
                     .andExpect(MockMvcResultMatchers.status().isBadRequest())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                                  "status": "400",
-                                  "message": "validation error",
-                                  "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                  "errors": [
-                                      {
-                                          "field": "grade",
-                                          "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
-                                      }
-                                  ]
-                              }
+                                 "status": "400",
+                                 "message": "validation error",
+                                 "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                 "errors": [
+                                     {
+                                         "field": "grade",
+                                         "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
+                                     }
+                                 ]
+                            }
                             """));
         }
     }
@@ -416,25 +416,25 @@ public class studentApiIntegrationTest {
             mockMvc.perform(MockMvcRequestBuilders.post("/students")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content("""
-                                     {
-                                       "name":"中田健太",
-                                       "grade":"1",
-                                       "birthPlace":"福岡県"
+                                    {
+                                         "name":"中田健太",
+                                         "grade":"1",
+                                         "birthPlace":"福岡県"
                                      }
                                     """))
                     .andExpect(MockMvcResultMatchers.status().isBadRequest())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                                  "status": "400",
-                                  "message": "validation error",
-                                  "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                  "errors": [
-                                      {
-                                          "field": "grade",
-                                          "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
-                                      }
-                                  ]
-                              }
+                                 "status": "400",
+                                 "message": "validation error",
+                                 "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                 "errors": [
+                                     {
+                                         "field": "grade",
+                                         "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
+                                     }
+                                 ]
+                            }
                             """));
         }
     }
@@ -453,28 +453,26 @@ public class studentApiIntegrationTest {
             mockMvc.perform(MockMvcRequestBuilders.post("/students")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content("""
-                                     {
-                                       "name":"中田健太",
-                                       "grade":"一年生",
-                                       "birthPlace":""
-                                     }
+                                    {
+                                        "name":"中田健太",
+                                        "grade":"一年生",
+                                        "birthPlace":""
+                                    }                                    
                                     """))
                     .andExpect(MockMvcResultMatchers.status().isBadRequest())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                                   "status": "400",
-                                   "message": "validation error",
-                                   "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                   "errors": [
-                                       {
-                                           "field": "birthPlace",
-                                           "message": "birthPlaceを入力してください"
-                                       }
-                                   ]
-                               }
+                                 "status": "400",
+                                 "message": "validation error",
+                                 "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                 "errors": [
+                                     {
+                                         "field": "birthPlace",
+                                         "message": "birthPlaceを入力してください"
+                                     }
+                                 ]
+                            }
                             """));
         }
     }
-
-
 }
