@@ -332,7 +332,7 @@ public class studentApiIntegrationTest {
     @DataSet(value = "datasets/students.yml")
     @ExpectedDataSet(value = "datasets/students.yml")
     @Transactional
-    void 新しい学生を登録する際に名前がない時にvalidationerrorのレスポンスボティを返すこと() throws Exception {
+    void 新しい学生を登録する際に名前がない時にValidationErrorのレスポンスボティを返すこと() throws Exception {
 
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
@@ -369,7 +369,7 @@ public class studentApiIntegrationTest {
     @DataSet(value = "datasets/students.yml")
     @ExpectedDataSet(value = "datasets/students.yml")
     @Transactional
-    void 新しい学生を登録する際に学年がない時にvalidationerrorのレスポンスボティを返すこと() throws Exception {
+    void 新しい学生を登録する際に学年がない時にValidationErrorのレスポンスボティを返すこと() throws Exception {
 
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
@@ -406,7 +406,7 @@ public class studentApiIntegrationTest {
     @DataSet(value = "datasets/students.yml")
     @ExpectedDataSet(value = "datasets/students.yml")
     @Transactional
-    void 新しい学生を登録する際に学年が関係ない文字の時にvalidationerrorのレスポンスボティを返すこと() throws Exception {
+    void 新しい学生を登録する際に学年が関係ない文字の時にValidationErrorのレスポンスボティを返すこと() throws Exception {
 
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
@@ -443,7 +443,7 @@ public class studentApiIntegrationTest {
     @DataSet(value = "datasets/students.yml")
     @ExpectedDataSet(value = "datasets/students.yml")
     @Transactional
-    void 新しい学生を登録する際に出身地がない時にvalidationerrorのレスポンスボティを返すこと() throws Exception {
+    void 新しい学生を登録する際に出身地がない時にValidationErrorのレスポンスボティを返すこと() throws Exception {
 
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
@@ -475,4 +475,6 @@ public class studentApiIntegrationTest {
                             """));
         }
     }
+
+
 }
