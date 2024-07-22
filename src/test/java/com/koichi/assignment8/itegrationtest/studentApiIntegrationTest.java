@@ -303,7 +303,6 @@ public class studentApiIntegrationTest {
                          """));
     }
 
-
     @Test
     @DataSet(value = "datasets/students.yml")
     @ExpectedDataSet(value = "datasets/studentsToRegister.yml", ignoreCols = "id")
@@ -520,5 +519,29 @@ public class studentApiIntegrationTest {
                              }
                             """));
         }
+    }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/studentsToRenewing.yml", ignoreCols = "id")
+    @Transactional
+    void IDに該当する学生のデータを更新出来ること() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.patch("/students/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "name":"城野健一",
+                                    "grade":"二年生",
+                                    "birthPlace":"福岡県"
+                                }
+                                """))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        {
+                              "message": "Student updated"
+                        }
+                        """));
+
     }
 }
