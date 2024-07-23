@@ -321,7 +321,7 @@ public class studentApiIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         {
-                             "message": "student created"
+                            "message": "student created"
                          }
                         """));
 
@@ -387,15 +387,15 @@ public class studentApiIntegrationTest {
                     .andExpect(MockMvcResultMatchers.status().isBadRequest())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                                 "status": "400",
-                                 "message": "validation error",
-                                 "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                 "errors": [
-                                     {
-                                         "field": "grade",
-                                         "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
-                                     }
-                                 ]
+                                "status": "400",
+                                "message": "validation error",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "errors": [
+                                    {
+                                        "field": "grade",
+                                        "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
+                                    }
+                                ]
                             }
                             """));
         }
@@ -424,15 +424,15 @@ public class studentApiIntegrationTest {
                     .andExpect(MockMvcResultMatchers.status().isBadRequest())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                                 "status": "400",
-                                 "message": "validation error",
-                                 "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                 "errors": [
-                                     {
-                                         "field": "grade",
-                                         "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
-                                     }
-                                 ]
+                                "status": "400",
+                                "message": "validation error",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "errors": [
+                                    {
+                                        "field": "grade",
+                                        "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
+                                    }
+                                ]
                             }
                             """));
         }
@@ -461,15 +461,15 @@ public class studentApiIntegrationTest {
                     .andExpect(MockMvcResultMatchers.status().isBadRequest())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                                 "status": "400",
-                                 "message": "validation error",
-                                 "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                 "errors": [
-                                     {
-                                         "field": "birthPlace",
-                                         "message": "birthPlaceを入力してください"
-                                     }
-                                 ]
+                                "status": "400",
+                                "message": "validation error",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "errors": [
+                                    {
+                                        "field": "birthPlace",
+                                        "message": "birthPlaceを入力してください"
+                                    }
+                                ]
                             }
                             """));
         }
@@ -499,24 +499,24 @@ public class studentApiIntegrationTest {
                     .andExpect(MockMvcResultMatchers.status().isBadRequest())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                                 "status": "400",
-                                 "message": "validation error",
-                                 "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                 "errors": [
-                                     {
-                                         "field": "birthPlace",
-                                         "message": "birthPlaceを入力してください"
-                                     },
-                                     {
-                                         "field": "name",
-                                         "message": "nameを入力してください"
-                                     },
-                                     {
-                                         "field": "grade",
-                                         "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
-                                     }
-                                 ]
-                             }
+                                "status": "400",
+                                "message": "validation error",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "errors": [
+                                    {
+                                        "field": "name",
+                                        "message": "nameを入力してください"
+                                    },
+                                    {
+                                        "field": "grade",
+                                        "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
+                                    },
+                                    {
+                                        "field": "birthPlace",
+                                        "message": "birthPlaceを入力してください"
+                                    }
+                                ]
+                            }
                             """));
         }
     }
@@ -539,10 +539,9 @@ public class studentApiIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         {
-                              "message": "Student updated"
+                             "message": "Student updated"
                         }
                         """));
-
     }
 
     @Test
@@ -568,14 +567,13 @@ public class studentApiIntegrationTest {
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                                 "message": "student not found",
-                                 "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                 "error": "Not Found",
-                                 "path": "/students/0",
-                                 "status": "404"
-                             }
+                                "path": "/students/0",
+                                "status": "404",
+                                "message": "student not found",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "error": "Not Found"
+                            }
                             """));
-
         }
     }
 }
