@@ -601,7 +601,7 @@ public class studentApiIntegrationTest {
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
                                 "status": "400",
-                                "message": "IDまたは学年は半角の数字で入力してください",
+                                "message": "IDまたは学年を入力する際は、半角の数字で入力してください",
                                 "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
                                 "error": "Bad Request",
                                 "path": "/students/%E3%81%82"
