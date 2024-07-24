@@ -823,4 +823,49 @@ public class studentApiIntegrationTest {
                             """));
         }
     }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/students.yml")
+    @Transactional
+    void 学生のデータを更新する際に全てのカラムがない時にValidationErrorのレスポンスボティを返すこと() throws Exception {
+
+        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
+
+        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
+
+            mockMvc.perform(MockMvcRequestBuilders.patch("/students/1")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {
+                                        "name":"",
+                                        "grade":"",
+                                        "birthPlace":""
+                                    }
+                                    """))
+                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "status": "400",
+                                "message": "validation error",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "errors": [
+                                    {
+                                        "field": "birthPlace",
+                                        "message": "birthPlaceを入力してください"
+                                    },
+                                    {
+                                        "field": "grade",
+                                        "message": "有効な学年を指定してください（一年生, 二年生, 三年生,卒業生のいずれか）。"
+                                    },
+                                    {
+                                        "field": "name",
+                                        "message": "nameを入力してください"
+                                    }
+                                ]
+                            }
+                            """));
+        }
+    }
 }
