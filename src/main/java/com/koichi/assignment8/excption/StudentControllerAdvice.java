@@ -3,6 +3,7 @@ package com.koichi.assignment8.excption;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -69,6 +70,22 @@ public class StudentControllerAdvice {
     @ExceptionHandler(value = MissingPathVariableException.class)
     public ResponseEntity<Map<String, String>> handleMissingPathVariableException(
             MissingPathVariableException ex, HttpServletRequest request) {
+        Map<String, String> body = Map.of(
+                "timestamp", ZonedDateTime.now().format(formatter),
+                "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
+                "error", HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                "message", "学生のIDを入力してください",
+                "path", request.getRequestURI());
+        return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * 更新処理・削除処理の際に全学生がリクエストされた場合の
+     * 例外処理です。
+     */
+    @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<Map<String, String>> handleHttpRequestMethodNotSupportedException(
+            HttpRequestMethodNotSupportedException ex, HttpServletRequest request) {
         Map<String, String> body = Map.of(
                 "timestamp", ZonedDateTime.now().format(formatter),
                 "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),

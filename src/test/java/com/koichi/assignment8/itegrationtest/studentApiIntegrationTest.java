@@ -642,4 +642,38 @@ public class studentApiIntegrationTest {
                             """));
         }
     }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/students.yml")
+    @Transactional
+    void 学生のデータを更新する際に全学生をリクエストされたの場合handleHttpRequestMethodNotSupportedExceptionのレスポンスボティが返却されること() throws Exception {
+
+        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
+
+        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
+
+            mockMvc.perform(MockMvcRequestBuilders.patch("/students")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {
+                                        "name":"城野健一",
+                                        "grade":"二年生",
+                                        "birthPlace":"福岡県"
+                                    }
+                                    """))
+                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "status": "400",
+                                "message": "学生のIDを入力してください",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "error": "Bad Request",
+                                "path": "/students"
+                            }
+                            """));
+        }
+    }
+
 }
