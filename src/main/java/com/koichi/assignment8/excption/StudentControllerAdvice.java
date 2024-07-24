@@ -44,6 +44,12 @@ public class StudentControllerAdvice {
         return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
     }
 
+
+    /**
+     * 以下の二つについての例外処理です。
+     * 読み取り処理・登録処理・削除処理のID検索の際に文字列がリクエストされた場合
+     * 学生でクエリパラメータの検索をする際に文字列がリクエストされた場合
+     */
     @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatchException(
             MethodArgumentTypeMismatchException ex, HttpServletRequest request) {
@@ -51,7 +57,7 @@ public class StudentControllerAdvice {
                 "timestamp", ZonedDateTime.now().format(formatter),
                 "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
                 "error", HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                "message", "gradeは、1~4のどれかを入力してください",
+                "message", "IDまたは学年を入力する際は、半角の数字で入力してください",
                 "path", request.getRequestURI());
         return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
     }
