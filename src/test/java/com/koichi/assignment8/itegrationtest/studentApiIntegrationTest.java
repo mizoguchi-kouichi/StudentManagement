@@ -261,7 +261,7 @@ public class studentApiIntegrationTest {
     @Test
     @DataSet(value = "datasets/students.yml")
     @Transactional
-    void 学年でクエリパラメータの検索を使用する際に文字列を入力した時にMethodArgumentTypeMismatchExceptionのレスポンスボティが返却されること() throws Exception {
+    void 学年でクエリパラメータの検索を使用する際に文字列を入力した時にhandleMethodArgumentTypeMismatchExceptionのレスポンスボティが返却されること() throws Exception {
 
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
@@ -273,7 +273,7 @@ public class studentApiIntegrationTest {
                             {
                                 "path": "/students",
                                 "status": "400",
-                                "message": "gradeは、1~4のどれかを入力してください",
+                                "message": "IDまたは学年を入力する際は、半角の数字で入力してください",
                                 "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
                                 "error": "Bad Request"
                             }
@@ -303,7 +303,6 @@ public class studentApiIntegrationTest {
                          """));
     }
 
-
     @Test
     @DataSet(value = "datasets/students.yml")
     @ExpectedDataSet(value = "datasets/studentsToRegister.yml", ignoreCols = "id")
@@ -322,7 +321,7 @@ public class studentApiIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         {
-                             "message": "student created"
+                            "message": "student created"
                          }
                         """));
 
@@ -388,15 +387,15 @@ public class studentApiIntegrationTest {
                     .andExpect(MockMvcResultMatchers.status().isBadRequest())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                                 "status": "400",
-                                 "message": "validation error",
-                                 "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                 "errors": [
-                                     {
-                                         "field": "grade",
-                                         "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
-                                     }
-                                 ]
+                                "status": "400",
+                                "message": "validation error",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "errors": [
+                                    {
+                                        "field": "grade",
+                                        "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
+                                    }
+                                ]
                             }
                             """));
         }
@@ -425,15 +424,15 @@ public class studentApiIntegrationTest {
                     .andExpect(MockMvcResultMatchers.status().isBadRequest())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                                 "status": "400",
-                                 "message": "validation error",
-                                 "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                 "errors": [
-                                     {
-                                         "field": "grade",
-                                         "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
-                                     }
-                                 ]
+                                "status": "400",
+                                "message": "validation error",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "errors": [
+                                    {
+                                        "field": "grade",
+                                        "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
+                                    }
+                                ]
                             }
                             """));
         }
@@ -462,15 +461,15 @@ public class studentApiIntegrationTest {
                     .andExpect(MockMvcResultMatchers.status().isBadRequest())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                                 "status": "400",
-                                 "message": "validation error",
-                                 "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                 "errors": [
-                                     {
-                                         "field": "birthPlace",
-                                         "message": "birthPlaceを入力してください"
-                                     }
-                                 ]
+                                "status": "400",
+                                "message": "validation error",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "errors": [
+                                    {
+                                        "field": "birthPlace",
+                                        "message": "birthPlaceを入力してください"
+                                    }
+                                ]
                             }
                             """));
         }
@@ -500,24 +499,372 @@ public class studentApiIntegrationTest {
                     .andExpect(MockMvcResultMatchers.status().isBadRequest())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                                 "status": "400",
-                                 "message": "validation error",
-                                 "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                 "errors": [
-                                     {
-                                         "field": "birthPlace",
-                                         "message": "birthPlaceを入力してください"
-                                     },
-                                     {
-                                         "field": "name",
-                                         "message": "nameを入力してください"
-                                     },
-                                     {
-                                         "field": "grade",
-                                         "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
-                                     }
-                                 ]
-                             }
+                                "status": "400",
+                                "message": "validation error",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "errors": [
+                                    {
+                                        "field": "name",
+                                        "message": "nameを入力してください"
+                                    },
+                                    {
+                                        "field": "grade",
+                                        "message": "有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。"
+                                    },
+                                    {
+                                        "field": "birthPlace",
+                                        "message": "birthPlaceを入力してください"
+                                    }
+                                ]
+                            }
+                            """));
+        }
+    }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/studentsToRenewing.yml", ignoreCols = "id")
+    @Transactional
+    void IDに該当する学生のデータを更新出来ること() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.patch("/students/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "name":"城野健一",
+                                    "grade":"二年生",
+                                    "birthPlace":"福岡県"
+                                }
+                                """))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        {
+                             "message": "Student updated"
+                        }
+                        """));
+    }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/students.yml")
+    @Transactional
+    void 学生のデータを更新する際に該当するIDの学生がいない場合StudentNotFoundExceptionのレスポンスボティが返却されること() throws Exception {
+
+        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
+
+        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
+
+            mockMvc.perform(MockMvcRequestBuilders.patch("/students/0")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {
+                                        "name":"城野健一",
+                                        "grade":"二年生",
+                                        "birthPlace":"福岡県"
+                                    }
+                                    """))
+                    .andExpect(MockMvcResultMatchers.status().isNotFound())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "path": "/students/0",
+                                "status": "404",
+                                "message": "student not found",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "error": "Not Found"
+                            }
+                            """));
+        }
+    }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/students.yml")
+    @Transactional
+    void 学生のデータを更新する際にリクエストされたIDが文字列の場合handleMethodArgumentTypeMismatchExceptionのレスポンスボティが返却されること() throws Exception {
+
+        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
+
+        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
+
+            mockMvc.perform(MockMvcRequestBuilders.patch("/students/あ")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {
+                                        "name":"城野健一",
+                                        "grade":"二年生",
+                                        "birthPlace":"福岡県"
+                                    }
+                                    """))
+                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "status": "400",
+                                "message": "IDまたは学年を入力する際は、半角の数字で入力してください",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "error": "Bad Request",
+                                "path": "/students/%E3%81%82"
+                            }
+                            """));
+        }
+    }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/students.yml")
+    @Transactional
+    void 学生のデータを更新する際にリクエストされたIDが空白の場合handleMissingPathVariableExceptionのレスポンスボティが返却されること() throws Exception {
+
+        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
+
+        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
+
+            mockMvc.perform(MockMvcRequestBuilders.patch("/students/ ")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {
+                                        "name":"城野健一",
+                                        "grade":"二年生",
+                                        "birthPlace":"福岡県"
+                                    }
+                                    """))
+                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "error": "Bad Request",
+                                "path": "/students/%20",
+                                "status": "400",
+                                "message": "学生のIDを入力してください"
+                            }
+                            """));
+        }
+    }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/students.yml")
+    @Transactional
+    void 学生のデータを更新する際に全学生をリクエストされたの場合handleHttpRequestMethodNotSupportedExceptionのレスポンスボティが返却されること() throws Exception {
+
+        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
+
+        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
+
+            mockMvc.perform(MockMvcRequestBuilders.patch("/students")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {
+                                        "name":"城野健一",
+                                        "grade":"二年生",
+                                        "birthPlace":"福岡県"
+                                    }
+                                    """))
+                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "status": "400",
+                                "message": "学生のIDを入力してください",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "error": "Bad Request",
+                                "path": "/students"
+                            }
+                            """));
+        }
+    }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/students.yml")
+    @Transactional
+    void 学生のデータを更新する際に名前がない場合ValidationErrorのレスポンスボティを返すこと() throws Exception {
+
+        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
+
+        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
+
+            mockMvc.perform(MockMvcRequestBuilders.patch("/students/1")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {
+                                        "name":"",
+                                        "grade":"二年生",
+                                        "birthPlace":"福岡県"
+                                    }
+                                    """))
+                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "status": "400",
+                                "message": "validation error",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "errors": [
+                                    {
+                                        "field": "name",
+                                        "message": "nameを入力してください"
+                                    }
+                                ]
+                            }
+                            """));
+        }
+    }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/students.yml")
+    @Transactional
+    void 学生のデータを更新する際に学年がない時にValidationErrorのレスポンスボティを返すこと() throws Exception {
+
+        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
+
+        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
+
+            mockMvc.perform(MockMvcRequestBuilders.patch("/students/1")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {
+                                        "name":"城野健一",
+                                        "grade":"",
+                                        "birthPlace":"福岡県"
+                                    }
+                                    """))
+                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "status": "400",
+                                "message": "validation error",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "errors": [
+                                    {
+                                        "field": "grade",
+                                        "message": "有効な学年を指定してください（一年生, 二年生, 三年生,卒業生のいずれか）。"
+                                    }
+                                ]
+                            }
+                            """));
+        }
+    }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/students.yml")
+    @Transactional
+    void 学生のデータを更新する際に学年が関係ない文字の時にValidationErrorのレスポンスボティを返すこと() throws Exception {
+
+        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
+
+        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
+
+            mockMvc.perform(MockMvcRequestBuilders.patch("/students/1")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {
+                                        "name":"城野健一",
+                                        "grade":"1",
+                                        "birthPlace":"福岡県"
+                                    }
+                                    """))
+                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "status": "400",
+                                "message": "validation error",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "errors": [
+                                    {
+                                        "field": "grade",
+                                        "message": "有効な学年を指定してください（一年生, 二年生, 三年生,卒業生のいずれか）。"
+                                    }
+                                ]
+                            }
+                            """));
+        }
+    }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/students.yml")
+    @Transactional
+    void 学生のデータを更新する際に出身地がない時にValidationErrorのレスポンスボティを返すこと() throws Exception {
+
+        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
+
+        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
+
+            mockMvc.perform(MockMvcRequestBuilders.patch("/students/1")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {
+                                        "name":"城野健一",
+                                        "grade":"二年生",
+                                        "birthPlace":""
+                                    }
+                                    """))
+                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "status": "400",
+                                "message": "validation error",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "errors": [
+                                    {
+                                        "field": "birthPlace",
+                                        "message": "birthPlaceを入力してください"
+                                    }
+                                ]
+                            }
+                            """));
+        }
+    }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/students.yml")
+    @Transactional
+    void 学生のデータを更新する際に全てのカラムがない時にValidationErrorのレスポンスボティを返すこと() throws Exception {
+
+        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
+
+        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
+
+            mockMvc.perform(MockMvcRequestBuilders.patch("/students/1")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {
+                                        "name":"",
+                                        "grade":"",
+                                        "birthPlace":""
+                                    }
+                                    """))
+                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "status": "400",
+                                "message": "validation error",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+                                "errors": [
+                                    {
+                                        "field": "birthPlace",
+                                        "message": "birthPlaceを入力してください"
+                                    },
+                                    {
+                                        "field": "grade",
+                                        "message": "有効な学年を指定してください（一年生, 二年生, 三年生,卒業生のいずれか）。"
+                                    },
+                                    {
+                                        "field": "name",
+                                        "message": "nameを入力してください"
+                                    }
+                                ]
+                            }
                             """));
         }
     }
