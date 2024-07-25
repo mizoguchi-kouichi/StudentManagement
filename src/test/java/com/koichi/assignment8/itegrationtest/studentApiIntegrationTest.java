@@ -70,6 +70,29 @@ public class studentApiIntegrationTest {
     @Test
     @DataSet(value = "datasets/students.yml")
     @Transactional
+    void 学生のデータを取得する際にIDが文字列の場合handleMethodArgumentTypeMismatchExceptionのレスポンスボティが返却されること() throws Exception {
+
+        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
+
+        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
+            mockMvc.perform(MockMvcRequestBuilders.get("/students/あ"))
+                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "message": "IDまたは学年を入力する際は、半角の数字で入力してください",
+                                "status": "400",
+                                "path": "/students/%E3%81%82",
+                                "error": "Bad Request",
+                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］"
+                            }                                                     
+                            """));
+        }
+    }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @Transactional
     void 全ての学生を取得すること() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/students"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
