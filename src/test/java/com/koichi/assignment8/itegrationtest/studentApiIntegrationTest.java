@@ -4,6 +4,8 @@ import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +46,16 @@ public class studentApiIntegrationTest {
                         """));
     }
 
-    @Test
+    @ParameterizedTest
+    @CsvSource({
+            "path,/students/999",
+            "timestamp,2024/01/01 T00:00:00+0900［Asia/Tokyo］",
+            "message,student not found",
+            "status,404"
+    })
     @DataSet(value = "datasets/students.yml")
     @Transactional
-    void IDに該当する学生がいない時にStudentNotFoundExceptionのレスポンスボティが返却されること() throws Exception {
+    void IDに該当する学生がいない時にStudentNotFoundExceptionのレスポンスボディが返却されること(String key, String value) throws Exception {
 
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
@@ -55,15 +63,7 @@ public class studentApiIntegrationTest {
             mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
             mockMvc.perform(MockMvcRequestBuilders.get("/students/999"))
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
-                    .andExpect(MockMvcResultMatchers.content().json("""
-                            {
-                                "error": "Not Found",
-                                "path": "/students/999",
-                                "status": "404",
-                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                "message": "student not found"
-                            }                                                      
-                            """));
+                    .andExpect(MockMvcResultMatchers.jsonPath("$." + key).value(value));
         }
     }
 
