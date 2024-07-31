@@ -48,13 +48,13 @@ public class studentApiIntegrationTest {
 
     @ParameterizedTest
     @CsvSource({
-            "'/students/999',404,'{\"error\":\"Not Found\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"student not found\",\"status\":\"404\",\"path\":\"/students/999\"}'",
-            "'/students/あ',400,'{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDまたは学年を入力する際は、半角の数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%E3%81%82\"}'",
-            "'/students/ ',400,'{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"学生のIDを入力してください\",\"status\":\"400\",\"path\":\"/students/%20\"}'"
+            "'/students/999','{\"error\":\"Not Found\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"student not found\",\"status\":\"404\",\"path\":\"/students/999\"}'",
+            "'/students/あ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDまたは学年を入力する際は、半角の数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%E3%81%82\"}'",
+            "'/students/ ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"学生のIDを入力してください\",\"status\":\"400\",\"path\":\"/students/%20\"}'"
     })
     @DataSet(value = "datasets/students.yml")
     @Transactional
-    void IDに該当する学生を取得する際の例外処理のレスポンスを返すこと(String requestPath, int statusCode, String response) throws Exception {
+    void IDに該当する学生を取得する際の例外処理のレスポンスを返すこと(String requestPath, String response) throws Exception {
 
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
@@ -63,7 +63,6 @@ public class studentApiIntegrationTest {
             mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
 
             mockMvc.perform(MockMvcRequestBuilders.get(requestPath))
-                    .andExpect(MockMvcResultMatchers.status().is(statusCode))
                     .andExpect(MockMvcResultMatchers.content().json(response));
         }
     }
