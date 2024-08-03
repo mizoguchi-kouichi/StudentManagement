@@ -4,6 +4,8 @@ import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,74 +46,27 @@ public class studentApiIntegrationTest {
                         """));
     }
 
-    @Test
+    @ParameterizedTest
+    @CsvSource({
+            "'/students/999','{\"error\":\"Not Found\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"student not found\",\"status\":\"404\",\"path\":\"/students/999\"}'",
+            "'/students/あ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDまたは学年を入力する際は、半角の数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%E3%81%82\"}'",
+            "'/students/ ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"学生のIDを入力してください\",\"status\":\"400\",\"path\":\"/students/%20\"}'"
+    })
     @DataSet(value = "datasets/students.yml")
     @Transactional
-    void IDに該当する学生がいない時にStudentNotFoundExceptionのレスポンスボティが返却されること() throws Exception {
+    void IDに該当する学生を取得する際の例外処理のレスポンスを返すこと(String requestPath, String response) throws Exception {
 
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
         try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+
             mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
-            mockMvc.perform(MockMvcRequestBuilders.get("/students/999"))
-                    .andExpect(MockMvcResultMatchers.status().isNotFound())
-                    .andExpect(MockMvcResultMatchers.content().json("""
-                            {
-                                "error": "Not Found",
-                                "path": "/students/999",
-                                "status": "404",
-                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                "message": "student not found"
-                            }                                                      
-                            """));
+
+            mockMvc.perform(MockMvcRequestBuilders.get(requestPath))
+                    .andExpect(MockMvcResultMatchers.content().json(response));
         }
     }
 
-    @Test
-    @DataSet(value = "datasets/students.yml")
-    @Transactional
-    void 学生のデータを取得する際にIDが文字列の場合handleMethodArgumentTypeMismatchExceptionのレスポンスボティが返却されること() throws Exception {
-
-        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
-
-        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
-            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
-            mockMvc.perform(MockMvcRequestBuilders.get("/students/あ"))
-                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                    .andExpect(MockMvcResultMatchers.content().json("""
-                            {
-                                "message": "IDまたは学年を入力する際は、半角の数字で入力してください",
-                                "status": "400",
-                                "path": "/students/%E3%81%82",
-                                "error": "Bad Request",
-                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］"
-                            }                                                     
-                            """));
-        }
-    }
-
-    @Test
-    @DataSet(value = "datasets/students.yml")
-    @Transactional
-    void 学生のデータを取得する際にIDが空白の場合handleMissingPathVariableExceptionのレスポンスボティが返却されること() throws Exception {
-
-        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
-
-        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
-            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
-            mockMvc.perform(MockMvcRequestBuilders.get("/students/ "))
-                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                    .andExpect(MockMvcResultMatchers.content().json("""
-                            {
-                                "message": "学生のIDを入力してください",
-                                "status": "400",
-                                "path": "/students/%20",
-                                "error": "Bad Request",
-                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］"
-                            }                                                  
-                            """));
-        }
-    }
 
     @Test
     @DataSet(value = "datasets/students.yml")
