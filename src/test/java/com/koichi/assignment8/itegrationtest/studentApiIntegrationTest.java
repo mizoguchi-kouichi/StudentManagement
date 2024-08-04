@@ -281,40 +281,28 @@ public class studentApiIntegrationTest {
 
     }
 
-    @Test
+    @ParameterizedTest
+    @CsvSource({
+            "/students,'{\"name\":\"\" ,\"grade\":\"一年生\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"name\", \"message\": \"nameを入力してください\"}]}'",
+            "/students,'{\"name\":\"中田健太\" ,\"grade\":\"\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"grade\", \"message\": \"有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。\"}]}'",
+            "/students,'{\"name\":\"中田健太\" ,\"grade\":\"1\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"grade\", \"message\": \"有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。\"}]}'",
+            "/students,'{\"name\":\"中田健太\" ,\"grade\":\"一年生\",\"birthPlace\":\"\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"birthPlace\", \"message\": \"birthPlaceを入力してください\"}]}'",
+            "/students,'{\"name\":\"\" ,\"grade\":\"\",\"birthPlace\":\"\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"name\", \"message\": \"nameを入力してください\"},{\"field\": \"grade\", \"message\": \"有効な学年を指定してください（一年生, 二年生, 三年生のいずれか）。\"},{\"field\": \"birthPlace\", \"message\": \"birthPlaceを入力してください\"}]}'"
+    })
     @DataSet(value = "datasets/students.yml")
     @ExpectedDataSet(value = "datasets/students.yml")
     @Transactional
-    void 新しい学生を登録する際に名前がない時にValidationErrorのレスポンスボティを返すこと() throws Exception {
+    void 新しい学生を登録する際の例外処理のレスポンスを返却すること(String path, String requestBody, String response) throws Exception {
 
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
         try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
             mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
 
-            mockMvc.perform(MockMvcRequestBuilders.post("/students")
+            mockMvc.perform(MockMvcRequestBuilders.post(path)
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content("""
-                                    {
-                                        "name":"",
-                                        "grade":"一年生",
-                                        "birthPlace":"福岡県"
-                                    } 
-                                    """))
-                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                    .andExpect(MockMvcResultMatchers.content().json("""
-                            {
-                                "status": "400",
-                                "message": "validation error",
-                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                "errors": [
-                                     {
-                                         "field": "name",
-                                         "message": "nameを入力してください"
-                                     }
-                                ]
-                            }
-                            """));
+                            .content(requestBody))
+                    .andExpect(MockMvcResultMatchers.content().json(response));
         }
     }
 
