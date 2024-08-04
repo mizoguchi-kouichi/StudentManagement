@@ -236,73 +236,26 @@ public class studentApiIntegrationTest {
                          """));
     }
 
-    @Test
+    @ParameterizedTest
+    @CsvSource({
+            "/students?grade=1&birthPlace=大分県,'{\"message\": \"カラムはgrade・startsWith・birthPlaceの一つを選んでください\",\"status\": \"400\", \"path\": \"/students\", \"error\": \"Bad Request\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\"}'",
+            "/students?grade=一年生,'{\"path\": \"/students\", \"status\": \"400\", \"message\": \"IDまたは学年を入力する際は、半角の数字で入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}'",
+            "/students?startsWith=阿,[]",
+            "/students?birthPlace=大阪府,[]"
+    })
     @DataSet(value = "datasets/students.yml")
     @Transactional
-    void クエリパラメータの検索を使用してカラムを2つ以上を選んだ時にMultipleMethodsExceptionのレスポンスボティが返却されること() throws Exception {
+    void クエリパラメータの検索の際の例外処理のレスポンスを返却すること(String path, String response) throws Exception {
 
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
         try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
             mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
-            mockMvc.perform(MockMvcRequestBuilders.get("/students?grade=1&birthPlace=大分県"))
-                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                    .andExpect(MockMvcResultMatchers.content().json("""
-                            {
-                                "message": "カラムはgrade・startsWith・birthPlaceの一つを選んでください",
-                                "status": "400",
-                                "path": "/students",
-                                "error": "Bad Request",
-                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］"
-                            }
-                             """));
+            mockMvc.perform(MockMvcRequestBuilders.get(path))
+                    .andExpect(MockMvcResultMatchers.content().json(response));
         }
     }
 
-    @Test
-    @DataSet(value = "datasets/students.yml")
-    @Transactional
-    void 学年でクエリパラメータの検索を使用する際に文字列を入力した時にhandleMethodArgumentTypeMismatchExceptionのレスポンスボティが返却されること() throws Exception {
-
-        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
-
-        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
-            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
-            mockMvc.perform(MockMvcRequestBuilders.get("/students?grade=一年生"))
-                    .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                    .andExpect(MockMvcResultMatchers.content().json("""
-                            {
-                                "path": "/students",
-                                "status": "400",
-                                "message": "IDまたは学年を入力する際は、半角の数字で入力してください",
-                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                "error": "Bad Request"
-                            }
-                             """));
-        }
-    }
-
-    @Test
-    @DataSet(value = "datasets/students.yml")
-    @Transactional
-    void 実際にいない人名の頭文字でクエリパラメータの検索を使用したらEmptyを返すこと() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/students?startsWith=阿"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("""
-                        []
-                         """));
-    }
-
-    @Test
-    @DataSet(value = "datasets/students.yml")
-    @Transactional
-    void 実際にいない出身地でクエリパラメータの検索を使用したらEmptyを返すこと() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/students?birthPlace=大阪府"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("""
-                        []
-                         """));
-    }
 
     @Test
     @DataSet(value = "datasets/students.yml")
