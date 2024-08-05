@@ -329,36 +329,33 @@ public class studentApiIntegrationTest {
                         """));
     }
 
-    @Test
+    @ParameterizedTest
+    @CsvSource({
+            "/students/0,'{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students/0\", \"status\": \"404\", \"message\": \"student not found\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Not Found\"}'",
+            "/students/あ,'{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students/%E3%81%82\", \"status\": \"400\", \"message\": \"IDまたは学年を入力する際は、半角の数字で入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}'",
+            "'/students/ ','{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students/%20\", \"status\": \"400\", \"message\": \"学生のIDを入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}'",
+            "/students,'{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students\", \"status\": \"400\", \"message\": \"学生のIDを入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}'",
+            "/students/1,'{\"name\":\"\" ,\"grade\":\"一年生\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"name\", \"message\": \"nameを入力してください\"}]}'",
+            "/students/1,'{\"name\":\"\" ,\"grade\":\"一年生\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"name\", \"message\": \"nameを入力してください\"}]}'",
+            "/students/1,'{\"name\":\"中田健太\" ,\"grade\":\"\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"grade\", \"message\": \"有効な学年を指定してください（一年生, 二年生, 三年生,卒業生のいずれか）。\"}]}'",
+            "/students/1,'{\"name\":\"中田健太\" ,\"grade\":\"1\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"grade\", \"message\": \"有効な学年を指定してください（一年生, 二年生, 三年生,卒業生のいずれか）。\"}]}'",
+            "/students/1,'{\"name\":\"中田健太\" ,\"grade\":\"一年生\",\"birthPlace\":\"\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"birthPlace\", \"message\": \"birthPlaceを入力してください\"}]}'",
+            "/students/1,'{\"name\":\"\" ,\"grade\":\"\",\"birthPlace\":\"\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"name\", \"message\": \"nameを入力してください\"},{\"field\": \"grade\", \"message\": \"有効な学年を指定してください（一年生, 二年生, 三年生,卒業生のいずれか）。\"},{\"field\": \"birthPlace\", \"message\": \"birthPlaceを入力してください\"}]}'"
+    })
     @DataSet(value = "datasets/students.yml")
     @ExpectedDataSet(value = "datasets/students.yml")
     @Transactional
-    void 学生のデータを更新する際に該当するIDの学生がいない場合StudentNotFoundExceptionのレスポンスボティが返却されること() throws Exception {
+    void 学生のデータを更新する際の例外処理のレスポンスボティが返却されること(String path, String request, String response) throws Exception {
 
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
         try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
             mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
 
-            mockMvc.perform(MockMvcRequestBuilders.patch("/students/0")
+            mockMvc.perform(MockMvcRequestBuilders.patch(path)
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content("""
-                                    {
-                                        "name":"城野健一",
-                                        "grade":"二年生",
-                                        "birthPlace":"福岡県"
-                                    }
-                                    """))
-                    .andExpect(MockMvcResultMatchers.status().isNotFound())
-                    .andExpect(MockMvcResultMatchers.content().json("""
-                            {
-                                "path": "/students/0",
-                                "status": "404",
-                                "message": "student not found",
-                                "timestamp": "2024/01/01 T00:00:00+0900［Asia/Tokyo］",
-                                "error": "Not Found"
-                            }
-                            """));
+                            .content(request))
+                    .andExpect(MockMvcResultMatchers.content().json(response));
         }
     }
 
