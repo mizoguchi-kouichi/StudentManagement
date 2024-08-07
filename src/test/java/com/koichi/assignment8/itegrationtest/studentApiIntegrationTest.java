@@ -373,4 +373,19 @@ public class studentApiIntegrationTest {
                         }
                         """));
     }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/studentsToRemoved.yml")
+    @Transactional
+    void IDに該当する学生のデータを削除出来ること() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/students/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        {
+                            "message": "Student deleted"
+                        }
+                        """));
+    }
 }
