@@ -373,4 +373,40 @@ public class studentApiIntegrationTest {
                         }
                         """));
     }
+
+    @Test
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/studentsToRemoved.yml")
+    @Transactional
+    void IDに該当する学生のデータを削除出来ること() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/students/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        {
+                            "message": "Student deleted"
+                        }
+                        """));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'/students/999','{\"error\":\"Not Found\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"student not found\",\"status\":\"404\",\"path\":\"/students/999\"}'",
+            "'/students/あ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDまたは学年を入力する際は、半角の数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%E3%81%82\"}'",
+            "'/students/ ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"学生のIDを入力してください\",\"status\":\"400\",\"path\":\"/students/%20\"}'"
+    })
+    @DataSet(value = "datasets/students.yml")
+    @ExpectedDataSet(value = "datasets/students.yml")
+    @Transactional
+    void IDに該当する学生のデータを削除する際の例外処理のレスポンスを返却すること(String path, String response) throws Exception {
+        
+        final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
+
+        try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {
+            mockClock.when(ZonedDateTime::now).thenReturn(fixedClock);
+
+            mockMvc.perform(MockMvcRequestBuilders.delete(path))
+                    .andExpect(MockMvcResultMatchers.content().json(response));
+        }
+    }
 }
