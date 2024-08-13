@@ -8,7 +8,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -52,15 +51,15 @@ public class StudentControllerAdvice {
      * 学生でクエリパラメータの検索をする際に文字列がリクエストされた場合
      */
     @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatchException(
-            MethodArgumentTypeMismatchException ex, HttpServletRequest request) {
+    public ResponseEntity<Map<String, String>> handleUserNotFoundException(
+            MethodArgumentTypeMismatchException e, HttpServletRequest request) {
         Map<String, String> body = Map.of(
                 "timestamp", ZonedDateTime.now().format(formatter),
-                "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
-                "error", HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                "message", "IDまたは学年を入力する際は、半角の数字で入力してください",
+                "status", String.valueOf(HttpStatus.NOT_FOUND.value()),
+                "error", HttpStatus.NOT_FOUND.getReasonPhrase(),
+                "message", e.getMessage(),
                 "path", request.getRequestURI());
-        return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(body, HttpStatus.NOT_FOUND);
     }
 
     /**

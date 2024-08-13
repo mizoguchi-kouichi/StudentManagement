@@ -4,6 +4,7 @@ import com.koichi.assignment8.controller.request.StudentPostRequest;
 import com.koichi.assignment8.controller.request.StudentUpdateRequest;
 import com.koichi.assignment8.controller.response.StudentResponse;
 import com.koichi.assignment8.entity.Student;
+import com.koichi.assignment8.excption.MethodArgumentTypeMismatchException;
 import com.koichi.assignment8.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +35,14 @@ public class StudentController {
      * 指定したidのstudentのデータを全て取得します。
      */
     @GetMapping("/students/{id}")
-    public Student findById(@PathVariable("id") Integer id) {
-        return studentService.findStudent(id);
+    public Student findById(@PathVariable("id") String id) {
+        try {
+            int intTypeConvertedId = Integer.parseInt(id);
+            return studentService.findStudent(intTypeConvertedId);
+        } catch (NumberFormatException e) {
+            throw new MethodArgumentTypeMismatchException("IDが文字列になっています");
+        }
+
     }
 
     /**
