@@ -40,7 +40,7 @@ public class StudentController {
             int intTypeConvertedId = Integer.parseInt(id);
             return studentService.findStudent(intTypeConvertedId);
         } catch (NumberFormatException e) {
-            throw new MethodArgumentTypeMismatchException("IDが文字列になっています");
+            throw new MethodArgumentTypeMismatchException("IDは数字で入力してください");
         }
 
     }
