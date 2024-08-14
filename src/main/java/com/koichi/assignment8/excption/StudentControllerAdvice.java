@@ -51,7 +51,7 @@ public class StudentControllerAdvice {
      * 学生でクエリパラメータの検索をする際に文字列がリクエストされた場合
      */
     @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<Map<String, String>> handleUserNotFoundException(
+    public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatchException(
             MethodArgumentTypeMismatchException e, HttpServletRequest request) {
         Map<String, String> body = Map.of(
                 "timestamp", ZonedDateTime.now().format(formatter),
