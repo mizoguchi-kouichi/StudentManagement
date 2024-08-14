@@ -36,13 +36,13 @@ public class StudentController {
      */
     @GetMapping("/students/{id}")
     public Student findById(@PathVariable("id") String id) {
+        int intTypeConvertedId;
         try {
-            int intTypeConvertedId = Integer.parseInt(id);
-            return studentService.findStudent(intTypeConvertedId);
+            intTypeConvertedId = Integer.parseInt(id);
         } catch (NumberFormatException e) {
             throw new MethodArgumentTypeMismatchException("IDは数字で入力してください");
         }
-
+        return studentService.findStudent(intTypeConvertedId);
     }
 
     /**
