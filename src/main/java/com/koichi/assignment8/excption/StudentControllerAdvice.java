@@ -5,10 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -53,28 +51,12 @@ public class StudentControllerAdvice {
      */
     @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatchException(
-            MethodArgumentTypeMismatchException ex, HttpServletRequest request) {
+            MethodArgumentTypeMismatchException e, HttpServletRequest request) {
         Map<String, String> body = Map.of(
                 "timestamp", ZonedDateTime.now().format(formatter),
                 "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
                 "error", HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                "message", "IDまたは学年を入力する際は、半角の数字で入力してください",
-                "path", request.getRequestURI());
-        return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
-    }
-
-    /**
-     * 更新処理・削除処理のID検索の際空白がリクエストされた場合の
-     * 例外処理です。
-     */
-    @ExceptionHandler(value = MissingPathVariableException.class)
-    public ResponseEntity<Map<String, String>> handleMissingPathVariableException(
-            MissingPathVariableException ex, HttpServletRequest request) {
-        Map<String, String> body = Map.of(
-                "timestamp", ZonedDateTime.now().format(formatter),
-                "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
-                "error", HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                "message", "学生のIDを入力してください",
+                "message", e.getMessage(),
                 "path", request.getRequestURI());
         return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
     }
