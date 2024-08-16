@@ -40,13 +40,14 @@ public class StudentService {
      * 指定した検索パラメータに一致するstudentのデータを取得します。
      * 指定するパラメータがない場合、全てのstudentのデータを取得します。
      */
-    public List<Student> findAllStudents(Integer grade, String startsWith, String birthPlace) {
+    public List<Student> findAllStudents(String grade, String startsWith, String birthPlace) {
 
-        Map<Integer, String> gradeConvertedToString = new HashMap<>();
-        gradeConvertedToString.put(1, "一年生");
-        gradeConvertedToString.put(2, "二年生");
-        gradeConvertedToString.put(3, "三年生");
-        gradeConvertedToString.put(4, "卒業生");
+        Map<String, String> gradeConvertedToString = new HashMap<>();
+        gradeConvertedToString.put("1", "一年生");
+        gradeConvertedToString.put("2", "二年生");
+        gradeConvertedToString.put("3", "三年生");
+        gradeConvertedToString.put("4", "卒業生");
+
 
         List<Student> getAllStudent = this.studentMapper.findAllStudents();
         List<Student> getByGrade = this.studentMapper.findByGrade(gradeConvertedToString.get(grade));
@@ -66,7 +67,6 @@ public class StudentService {
         if (birthPlace != null) {
             count++;
         }
-
 
         if (count >= 2) {
             throw new MultipleMethodsException("カラムはgrade・startsWith・birthPlaceの一つを選んでください");

@@ -50,7 +50,15 @@ public class StudentController {
      * 指定した検索パラメータに一致するstudentのデータを取得します。
      */
     @GetMapping("/students")
-    public List<Student> getStudents(@RequestParam(required = false) Integer grade, String startsWith, String birthPlace) {
+    public List<Student> getStudents(@RequestParam(required = false) String grade, String startsWith, String birthPlace) {
+
+        if (grade != null) {
+            try {
+                Integer.parseInt(grade);
+            } catch (NumberFormatException e) {
+                throw new MethodArgumentTypeMismatchException("学年は半角数字で入力してください");
+            }
+        }
         return studentService.findAllStudents(grade, startsWith, birthPlace);
     }
 
