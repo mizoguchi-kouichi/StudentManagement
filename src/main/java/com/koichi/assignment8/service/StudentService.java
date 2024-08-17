@@ -25,7 +25,7 @@ public class StudentService {
      * SELECT用のService
      * 指定したidのstudentのデータを全て取得します。
      */
-    public Student findStudent(Integer id) {
+    public Student findStudent(int id) {
         Optional<Student> findById = this.studentMapper.findById(id);
         if (findById.isPresent()) {
             return findById.get();

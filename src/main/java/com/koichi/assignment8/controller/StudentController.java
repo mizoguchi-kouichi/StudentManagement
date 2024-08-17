@@ -21,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class StudentController {
@@ -51,8 +52,7 @@ public class StudentController {
      */
     @GetMapping("/students")
     public List<Student> getStudents(@RequestParam(required = false) String grade, String startsWith, String birthPlace) {
-
-        if (grade != null) {
+        if (Objects.nonNull(grade)) {
             try {
                 Integer.parseInt(grade);
             } catch (NumberFormatException e) {
@@ -61,7 +61,6 @@ public class StudentController {
         }
         return studentService.findAllStudents(grade, startsWith, birthPlace);
     }
-
 
     /**
      * INSERT用のController
