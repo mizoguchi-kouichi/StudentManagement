@@ -78,8 +78,14 @@ public class StudentController {
      * 指定したidのstudentの name,grade,birthplaceを更新します。
      */
     @PatchMapping("/students/{id}")
-    public ResponseEntity<StudentResponse> updateStudent(@PathVariable("id") Integer id, @RequestBody @Validated StudentUpdateRequest studentUpdateRequest) {
-        studentService.updateStudent(id, studentUpdateRequest.getName(), studentUpdateRequest.getGrade(), studentUpdateRequest.getBirthPlace());
+    public ResponseEntity<StudentResponse> updateStudent(@PathVariable("id") String id, @RequestBody @Validated StudentUpdateRequest studentUpdateRequest) {
+        int intTypeConvertedId;
+        try {
+            intTypeConvertedId = Integer.parseInt(id);
+            studentService.updateStudent(intTypeConvertedId, studentUpdateRequest.getName(), studentUpdateRequest.getGrade(), studentUpdateRequest.getBirthPlace());
+        } catch (NumberFormatException e) {
+            throw new MethodArgumentTypeMismatchException("IDは数字で入力してください");
+        }
         StudentResponse body = new StudentResponse("Student updated");
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }

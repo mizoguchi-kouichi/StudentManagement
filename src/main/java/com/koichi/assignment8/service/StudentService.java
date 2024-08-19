@@ -94,7 +94,7 @@ public class StudentService {
      * PATCH用のService
      * 指定したidのstudentの name,grade,birthplaceを更新します。
      */
-    public void updateStudent(Integer id, String name, String grade, String birthPlace) {
+    public void updateStudent(int id, String name, String grade, String birthPlace) {
         Optional<Student> optionalStudent = studentMapper.findById(id);
 
         Student student = optionalStudent.orElseThrow(() -> new StudentNotFoundException("student not found"));
