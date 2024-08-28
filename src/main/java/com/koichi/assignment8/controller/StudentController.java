@@ -94,7 +94,7 @@ public class StudentController {
      * PATCH用のController
      * 指定したgradeを進級します。
      */
-    @PatchMapping("/students/grade:batchUpdate")
+    @PatchMapping("/students/grade/_batchUpdate")
     public ResponseEntity<StudentResponse> updateGrade() {
         studentService.updateGrade();
         StudentResponse body = new StudentResponse("Grade updated");
