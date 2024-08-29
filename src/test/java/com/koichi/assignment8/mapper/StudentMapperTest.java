@@ -44,6 +44,7 @@ class StudentMapperTest {
     }
 
     @Test
+    @DataSet(value = "datasets/students.yml")
     @Transactional
     public void 全ての学生を取得すること() {
 
