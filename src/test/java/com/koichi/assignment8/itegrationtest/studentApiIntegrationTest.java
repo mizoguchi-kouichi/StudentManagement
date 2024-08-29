@@ -392,8 +392,8 @@ public class studentApiIntegrationTest {
     @ParameterizedTest
     @CsvSource({
             "'/students/999','{\"error\":\"Not Found\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"student not found\",\"status\":\"404\",\"path\":\"/students/999\"}'",
-            "'/students/あ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDまたは学年を入力する際は、半角の数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%E3%81%82\"}'",
-            "'/students/ ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"学生のIDを入力してください\",\"status\":\"400\",\"path\":\"/students/%20\"}'"
+            "'/students/あ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDは数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%E3%81%82\"}'",
+            "'/students/ ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDは数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%20\"}'"
     })
     @DataSet(value = "datasets/students.yml")
     @ExpectedDataSet(value = "datasets/students.yml")
