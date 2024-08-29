@@ -365,7 +365,7 @@ public class studentApiIntegrationTest {
     @Transactional
     void 学生の学年を進級させること() throws Exception {
 
-        mockMvc.perform(MockMvcRequestBuilders.patch("/students/grade:batchUpdate"))
+        mockMvc.perform(MockMvcRequestBuilders.patch("/students/grade/_batchUpdate"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         {
