@@ -106,8 +106,14 @@ public class StudentController {
      * 指定したidのstudentのデータを削除します。
      */
     @DeleteMapping("/students/{id}")
-    public ResponseEntity<StudentResponse> deleteStudent(@PathVariable("id") Integer id) {
-        studentService.deleteStudent(id);
+    public ResponseEntity<StudentResponse> deleteStudent(@PathVariable("id") String id) {
+        int intTypeConvertedId;
+        try {
+            intTypeConvertedId = Integer.parseInt(id);
+            studentService.deleteStudent(intTypeConvertedId);
+        } catch (NumberFormatException e) {
+            throw new MethodArgumentTypeMismatchException("IDは数字で入力してください");
+        }
         StudentResponse body = new StudentResponse("Student deleted");
         return ResponseEntity.ok(body);
     }
