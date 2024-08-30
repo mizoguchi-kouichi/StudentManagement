@@ -49,8 +49,8 @@ public class studentApiIntegrationTest {
     @ParameterizedTest
     @CsvSource({
             "'/students/999','{\"error\":\"Not Found\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"student not found\",\"status\":\"404\",\"path\":\"/students/999\"}'",
-            "'/students/あ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDまたは学年を入力する際は、半角の数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%E3%81%82\"}'",
-            "'/students/ ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"学生のIDを入力してください\",\"status\":\"400\",\"path\":\"/students/%20\"}'"
+            "'/students/あ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDは数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%E3%81%82\"}'",
+            "'/students/ ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDは数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%20\"}'"
     })
     @DataSet(value = "datasets/students.yml")
     @Transactional
@@ -239,7 +239,7 @@ public class studentApiIntegrationTest {
     @ParameterizedTest
     @CsvSource({
             "/students?grade=1&birthPlace=大分県,'{\"message\": \"カラムはgrade・startsWith・birthPlaceの一つを選んでください\",\"status\": \"400\", \"path\": \"/students\", \"error\": \"Bad Request\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\"}'",
-            "/students?grade=一年生,'{\"path\": \"/students\", \"status\": \"400\", \"message\": \"IDまたは学年を入力する際は、半角の数字で入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}'",
+            "/students?grade=一年生,'{\"path\": \"/students\", \"status\": \"400\", \"message\": \"学年は半角数字で入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}'",
             "/students?startsWith=阿,[]",
             "/students?birthPlace=大阪府,[]"
     })
@@ -332,8 +332,8 @@ public class studentApiIntegrationTest {
     @ParameterizedTest
     @CsvSource({
             "/students/0,'{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students/0\", \"status\": \"404\", \"message\": \"student not found\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Not Found\"}'",
-            "/students/あ,'{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students/%E3%81%82\", \"status\": \"400\", \"message\": \"IDまたは学年を入力する際は、半角の数字で入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}'",
-            "'/students/ ','{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students/%20\", \"status\": \"400\", \"message\": \"学生のIDを入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}'",
+            "/students/あ,'{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students/%E3%81%82\", \"status\": \"400\", \"message\": \"IDは数字で入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}'",
+            "'/students/ ','{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students/%20\", \"status\": \"400\", \"message\": \"IDは数字で入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}'",
             "/students,'{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students\", \"status\": \"400\", \"message\": \"学生のIDを入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}'",
             "/students/1,'{\"name\":\"\" ,\"grade\":\"一年生\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"name\", \"message\": \"nameを入力してください\"}]}'",
             "/students/1,'{\"name\":\"\" ,\"grade\":\"一年生\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"name\", \"message\": \"nameを入力してください\"}]}'",
@@ -365,7 +365,7 @@ public class studentApiIntegrationTest {
     @Transactional
     void 学生の学年を進級させること() throws Exception {
 
-        mockMvc.perform(MockMvcRequestBuilders.patch("/students/grade:batchUpdate"))
+        mockMvc.perform(MockMvcRequestBuilders.patch("/students/grade/_batchUpdate"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         {
@@ -392,14 +392,14 @@ public class studentApiIntegrationTest {
     @ParameterizedTest
     @CsvSource({
             "'/students/999','{\"error\":\"Not Found\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"student not found\",\"status\":\"404\",\"path\":\"/students/999\"}'",
-            "'/students/あ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDまたは学年を入力する際は、半角の数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%E3%81%82\"}'",
-            "'/students/ ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"学生のIDを入力してください\",\"status\":\"400\",\"path\":\"/students/%20\"}'"
+            "'/students/あ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDは数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%E3%81%82\"}'",
+            "'/students/ ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDは数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%20\"}'"
     })
     @DataSet(value = "datasets/students.yml")
     @ExpectedDataSet(value = "datasets/students.yml")
     @Transactional
     void IDに該当する学生のデータを削除する際の例外処理のレスポンスを返却すること(String path, String response) throws Exception {
-        
+
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
         try (MockedStatic<ZonedDateTime> mockClock = Mockito.mockStatic(ZonedDateTime.class)) {

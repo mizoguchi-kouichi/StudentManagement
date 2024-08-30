@@ -52,14 +52,15 @@ public class StudentController {
      */
     @GetMapping("/students")
     public List<Student> getStudents(@RequestParam(required = false) String grade, String startsWith, String birthPlace) {
+        Integer integerTypeConvertedId = null;
         if (Objects.nonNull(grade)) {
             try {
-                Integer.parseInt(grade);
+                integerTypeConvertedId = Integer.valueOf(grade);
             } catch (NumberFormatException e) {
                 throw new MethodArgumentTypeMismatchException("学年は半角数字で入力してください");
             }
         }
-        return studentService.findAllStudents(grade, startsWith, birthPlace);
+        return studentService.findStudents(integerTypeConvertedId, startsWith, birthPlace);
     }
 
     /**
