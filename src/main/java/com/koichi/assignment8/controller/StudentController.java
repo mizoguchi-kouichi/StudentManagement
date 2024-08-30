@@ -60,7 +60,7 @@ public class StudentController {
                 throw new MethodArgumentTypeMismatchException("学年は半角数字で入力してください");
             }
         }
-        return studentService.findAllStudents(integerTypeConvertedId, startsWith, birthPlace);
+        return studentService.findStudents(integerTypeConvertedId, startsWith, birthPlace);
     }
 
     /**
