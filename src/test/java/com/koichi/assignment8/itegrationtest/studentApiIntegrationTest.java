@@ -328,23 +328,22 @@ public class studentApiIntegrationTest {
                         """));
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{3}")
     @CsvSource({
-            "/students/0,'{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students/0\", \"status\": \"404\", \"message\": \"student not found\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Not Found\"}'",
-            "/students/あ,'{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students/%E3%81%82\", \"status\": \"400\", \"message\": \"IDは数字で入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}'",
-            "'/students/ ','{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students/%20\", \"status\": \"400\", \"message\": \"IDは数字で入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}'",
-            "/students,'{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students\", \"status\": \"400\", \"message\": \"学生のIDを入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}'",
-            "/students/1,'{\"name\":\"\" ,\"grade\":\"一年生\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"name\", \"message\": \"nameを入力してください\"}]}'",
-            "/students/1,'{\"name\":\"\" ,\"grade\":\"一年生\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"name\", \"message\": \"nameを入力してください\"}]}'",
-            "/students/1,'{\"name\":\"中田健太\" ,\"grade\":\"\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"grade\", \"message\": \"有効な学年を指定してください（一年生, 二年生, 三年生,卒業生のいずれか）。\"}]}'",
-            "/students/1,'{\"name\":\"中田健太\" ,\"grade\":\"1\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"grade\", \"message\": \"有効な学年を指定してください（一年生, 二年生, 三年生,卒業生のいずれか）。\"}]}'",
-            "/students/1,'{\"name\":\"中田健太\" ,\"grade\":\"一年生\",\"birthPlace\":\"\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"birthPlace\", \"message\": \"birthPlaceを入力してください\"}]}'",
-            "/students/1,'{\"name\":\"\" ,\"grade\":\"\",\"birthPlace\":\"\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"name\", \"message\": \"nameを入力してください\"},{\"field\": \"grade\", \"message\": \"有効な学年を指定してください（一年生, 二年生, 三年生,卒業生のいずれか）。\"},{\"field\": \"birthPlace\", \"message\": \"birthPlaceを入力してください\"}]}'"
+            "/students/0,'{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students/0\", \"status\": \"404\", \"message\": \"student not found\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Not Found\"}',指定したIDの学生がいない場合に、handleUserNotFoundExceptionを返す",
+            "/students/あ,'{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students/%E3%81%82\", \"status\": \"400\", \"message\": \"IDは数字で入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}',指定したIDが文字列の場合にhandleMethodArgumentTypeMismatchExceptionを返す",
+            "'/students/ ','{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students/%20\", \"status\": \"400\", \"message\": \"IDは数字で入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}',指定したIDが空白の場合にhandleMethodArgumentTypeMismatchExceptionを返す",
+            "/students,'{\"name\":\"城野健一\",\"grade\":\"二年生\", \"birthPlace\":\"福岡県\"}','{ \"path\": \"/students\", \"status\": \"400\", \"message\": \"学生のIDを入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}',指定したIDの学生のデータを更新する際に全学生が指定されている場合、handleHttpRequestMethodNotSupportedExceptionを返す",
+            "/students/1,'{\"name\":\"\" ,\"grade\":\"一年生\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"name\", \"message\": \"nameを入力してください\"}]}',指定したIDの学生のデータを更新する際に名前が空白の場合、handleMethodArgumentNotValidExceptionを返す",
+            "/students/1,'{\"name\":\"中田健太\" ,\"grade\":\"\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"grade\", \"message\": \"有効な学年を指定してください（一年生, 二年生, 三年生,卒業生のいずれか）。\"}]}',指定したIDの学生のデータを更新する際に学年が空白の場合、handleMethodArgumentNotValidExceptionを返す",
+            "/students/1,'{\"name\":\"中田健太\" ,\"grade\":\"あ\",\"birthPlace\":\"福岡県\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"grade\", \"message\": \"有効な学年を指定してください（一年生, 二年生, 三年生,卒業生のいずれか）。\"}]}',指定したIDの学生のデータを更新する際に学年が文字列の場合、handleMethodArgumentNotValidExceptionを返す",
+            "/students/1,'{\"name\":\"中田健太\" ,\"grade\":\"一年生\",\"birthPlace\":\"\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"birthPlace\", \"message\": \"birthPlaceを入力してください\"}]}',指定したIDの学生のデータを更新する際に出身地が空白の場合、handleMethodArgumentNotValidExceptionを返す",
+            "/students/1,'{\"name\":\"\" ,\"grade\":\"\",\"birthPlace\":\"\"}','{ \"status\": \"400\", \"message\": \"validation error\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"errors\": [{\"field\": \"name\", \"message\": \"nameを入力してください\"},{\"field\": \"grade\", \"message\": \"有効な学年を指定してください（一年生, 二年生, 三年生,卒業生のいずれか）。\"},{\"field\": \"birthPlace\", \"message\": \"birthPlaceを入力してください\"}]}',指定したIDの学生のデータを更新する際に全てのカラムがない場合、handleMethodArgumentNotValidExceptionを返す"
     })
     @DataSet(value = "datasets/students.yml")
     @ExpectedDataSet(value = "datasets/students.yml")
     @Transactional
-    void 学生のデータを更新する際の例外処理のレスポンスが返却されること(String path, String request, String response) throws Exception {
+    void 指定したIDの学生のデータを更新する際の例外処理のレスポンスが返却されること(String path, String request, String response, String testName) throws Exception {
 
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
