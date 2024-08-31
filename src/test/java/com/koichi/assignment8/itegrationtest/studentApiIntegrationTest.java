@@ -46,15 +46,15 @@ public class studentApiIntegrationTest {
                         """));
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{2}")
     @CsvSource({
-            "'/students/999','{\"error\":\"Not Found\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"student not found\",\"status\":\"404\",\"path\":\"/students/999\"}'",
-            "'/students/あ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDは数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%E3%81%82\"}'",
-            "'/students/ ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDは数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%20\"}'"
+            "'/students/999','{\"error\":\"Not Found\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"student not found\",\"status\":\"404\",\"path\":\"/students/999\"}',存在しない学生を取得する際にhandleUserNotFoundExceptionを返す",
+            "'/students/あ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDは数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%E3%81%82\"}',IDが文字列の場合にhandleMethodArgumentTypeMismatchExceptionを返す",
+            "'/students/ ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDは数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%20\"}',IDが空白の場合にhandleMethodArgumentTypeMismatchExceptionを返す"
     })
     @DataSet(value = "datasets/students.yml")
     @Transactional
-    void IDに該当する学生を取得する際の例外処理のレスポンスを返すこと(String requestPath, String response) throws Exception {
+    void IDに該当する学生を取得する際の例外処理のレスポンスを返すこと(String requestPath, String response, String testName) throws Exception {
 
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
@@ -66,7 +66,6 @@ public class studentApiIntegrationTest {
                     .andExpect(MockMvcResultMatchers.content().json(response));
         }
     }
-
 
     @Test
     @DataSet(value = "datasets/students.yml")
