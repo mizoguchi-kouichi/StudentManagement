@@ -387,16 +387,17 @@ public class studentApiIntegrationTest {
                         """));
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{2}")
     @CsvSource({
-            "'/students/999','{\"error\":\"Not Found\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"student not found\",\"status\":\"404\",\"path\":\"/students/999\"}'",
-            "'/students/あ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDは数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%E3%81%82\"}'",
-            "'/students/ ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDは数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%20\"}'"
+            "'/students/999','{\"error\":\"Not Found\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"student not found\",\"status\":\"404\",\"path\":\"/students/999\"}',存在しない学生を削除する際にhandleUserNotFoundExceptionを返す",
+            "'/students/あ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDは数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%E3%81%82\"}',指定したIDが文字列の場合にhandleMethodArgumentTypeMismatchExceptionを返す",
+            "'/students/ ','{\"error\":\"Bad Request\",\"timestamp\":\"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\":\"IDは数字で入力してください\",\"status\":\"400\",\"path\":\"/students/%20\"}',指定したIDが空白の場合にhandleMethodArgumentTypeMismatchExceptionを返す",
+            "/students,'{\"status\": \"400\",\"path\": \"/students\",\"error\": \"Bad Request\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\",\"message\": \"学生のIDを入力してください\" }',指定したIDの学生のデータを削除する際に全学生が指定されている場合、handleHttpRequestMethodNotSupportedExceptionを返す"
     })
     @DataSet(value = "datasets/students.yml")
     @ExpectedDataSet(value = "datasets/students.yml")
     @Transactional
-    void IDに該当する学生のデータを削除する際の例外処理のレスポンスを返却すること(String path, String response) throws Exception {
+    void IDに該当する学生のデータを削除する際の例外処理のレスポンスを返却すること(String path, String response, String testName) throws Exception {
 
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
