@@ -235,16 +235,16 @@ public class studentApiIntegrationTest {
                          """));
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{2}")
     @CsvSource({
-            "/students?grade=1&birthPlace=大分県,'{\"message\": \"カラムはgrade・startsWith・birthPlaceの一つを選んでください\",\"status\": \"400\", \"path\": \"/students\", \"error\": \"Bad Request\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\"}'",
-            "/students?grade=一年生,'{\"path\": \"/students\", \"status\": \"400\", \"message\": \"学年は半角数字で入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}'",
-            "/students?startsWith=阿,[]",
-            "/students?birthPlace=大阪府,[]"
+            "/students?grade=1&birthPlace=大分県,'{\"message\": \"カラムはgrade・startsWith・birthPlaceの一つを選んでください\",\"status\": \"400\", \"path\": \"/students\", \"error\": \"Bad Request\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\"}',複数のカラムで検索した場合handleMultipleMethodsExceptionを返す",
+            "/students?grade=一年生,'{\"path\": \"/students\", \"status\": \"400\", \"message\": \"学年は半角数字で入力してください\", \"timestamp\": \"2024/01/01 T00:00:00+0900［Asia/Tokyo］\", \"error\": \"Bad Request\"}',学年での検索時に文字列を入力した場合handleMethodArgumentTypeMismatchExceptionを返す",
+            "/students?startsWith=阿,[],実際にいない人名の頭文字でクエリパラメータの検索をしたらEmptyを返す",
+            "/students?birthPlace=大阪府,[],実際にいない出身地でクエリパラメータの検索を使用したらEmptyを返す"
     })
     @DataSet(value = "datasets/students.yml")
     @Transactional
-    void クエリパラメータの検索の際の例外処理のレスポンスを返却すること(String path, String response) throws Exception {
+    void クエリパラメータの検索の際の例外処理のレスポンスを返却すること(String path, String response, String testName) throws Exception {
 
         final ZonedDateTime fixedClock = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Tokyo"));
 
