@@ -144,6 +144,9 @@ public class StudentController {
      * PATCH用のController
      * 指定したgradeを進級します。
      */
+    @Operation(summary = "全学年更新API",
+            description = "全生徒の学年を更新できます。"
+    )
     @PatchMapping("/students/grade/_batchUpdate")
     public ResponseEntity<StudentResponse> updateGrade() {
         studentService.updateGrade();
