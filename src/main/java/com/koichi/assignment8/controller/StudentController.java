@@ -158,6 +158,9 @@ public class StudentController {
      * DELETE用のController
      * 指定したidのstudentのデータを削除します。
      */
+    @Operation(summary = "学生削除API",
+            description = "指定したidの学生を削除出来ます。"
+    )
     @DeleteMapping("/students/{id}")
     public ResponseEntity<StudentResponse> deleteStudent(@PathVariable("id") String id) {
         int intTypeConvertedId;
