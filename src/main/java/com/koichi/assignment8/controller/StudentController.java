@@ -7,6 +7,7 @@ import com.koichi.assignment8.entity.Student;
 import com.koichi.assignment8.excption.MethodArgumentTypeMismatchException;
 import com.koichi.assignment8.excption.StudentControllerAdvice;
 import com.koichi.assignment8.service.StudentService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -71,6 +72,9 @@ public class StudentController {
      * SELECT用のController
      * 指定したidのstudentのデータを全て取得します。
      */
+    @Operation(summary = "生徒取得API",
+            description = "指定したidのstudentのデータを全て取得します"
+    )
     @GetMapping("/students/{id}")
     public Student findById(@PathVariable("id") String id) {
         int intTypeConvertedId;

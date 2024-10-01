@@ -19,7 +19,7 @@ public class SwaggerConfig {
                         .version("1.0")
                         .description("中学校および高校の学生データを管理するためのCRUD処理を実装しています。"))
                 .servers(List.of(
-                        new Server().url("http://localhost:8080/students").description("ローカル開発環境")
+                        new Server().url("http://localhost:8080/").description("ローカル開発環境")
                 ));
     }
 }
