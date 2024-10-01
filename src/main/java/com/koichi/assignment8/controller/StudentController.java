@@ -124,6 +124,9 @@ public class StudentController {
      * PATCH用のController
      * 指定したidのstudentの name,grade,birthplaceを更新します。
      */
+    @Operation(summary = "学生更新API",
+            description = "指定したidの生徒の情報を更新できます。"
+    )
     @PatchMapping("/students/{id}")
     public ResponseEntity<StudentResponse> updateStudent(@PathVariable("id") String id, @RequestBody @Validated StudentUpdateRequest studentUpdateRequest) {
         int intTypeConvertedId;
