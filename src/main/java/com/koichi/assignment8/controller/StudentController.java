@@ -5,10 +5,16 @@ import com.koichi.assignment8.controller.request.StudentUpdateRequest;
 import com.koichi.assignment8.controller.response.StudentResponse;
 import com.koichi.assignment8.entity.Student;
 import com.koichi.assignment8.excption.MethodArgumentTypeMismatchException;
+import com.koichi.assignment8.excption.StudentControllerAdvice;
 import com.koichi.assignment8.service.StudentService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -23,6 +29,36 @@ import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
+@ApiResponses(
+        {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "ok",
+                        content = @Content(
+                                mediaType = "application/json",
+                                schema = @Schema(implementation = Student.class))),
+
+                @ApiResponse(
+                        responseCode = "400",
+                        description = "Bat Request",
+                        content = @Content(
+                                mediaType = "application/json",
+                                schema = @Schema(implementation = StudentControllerAdvice.ErrorResponse.class))),
+
+                @ApiResponse(
+                        responseCode = "404",
+                        description = "student not found",
+                        content = @Content(
+                                mediaType = "application/json",
+                                schema = @Schema(implementation = StudentControllerAdvice.ErrorResponse.class))),
+                @ApiResponse(
+                        responseCode = "500",
+                        description = "Internal server error",
+                        content = @Content(
+                                mediaType = "application/json",
+                                schema = @Schema(implementation = ErrorResponse.class)))
+        }
+)
 @RestController
 public class StudentController {
     private final StudentService studentService;
