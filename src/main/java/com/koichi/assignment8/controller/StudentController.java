@@ -90,8 +90,11 @@ public class StudentController {
      * SELECT用のController
      * 指定した検索パラメータに一致するstudentのデータを取得します。
      */
+    @Operation(summary = "詳細検索API",
+            description = "このエンドポイントでは全学生の情報を取得できます。また、特定のカラムを指定して学生を検索することも可能です。ただし、検索に使用できるカラムは一度に1つのみです。"
+    )
     @GetMapping("/students")
-    public List<Student> getStudents(@RequestParam(required = false) String grade, String startsWith, String birthPlace) {
+    public List<Student> getStudents(@RequestParam(required = false) String grade, @RequestParam(required = false) String startsWith, @RequestParam(required = false) String birthPlace) {
         Integer integerTypeConvertedId = null;
         if (Objects.nonNull(grade)) {
             try {
