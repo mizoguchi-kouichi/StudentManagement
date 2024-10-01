@@ -109,6 +109,9 @@ public class StudentController {
     /**
      * INSERT用のController
      */
+    @Operation(summary = "学生追加API",
+            description = "名前、学年、出身地を入力してリクエストすると、新しい学生を追加できます。"
+    )
     @PostMapping("/students")
     public ResponseEntity<StudentResponse> insertStudent(@RequestBody @Validated StudentPostRequest studentPostRequest, UriComponentsBuilder uriBuilder) {
         Student student = studentService.insertStudent(studentPostRequest.getName(), studentPostRequest.getGrade(), studentPostRequest.getBirthPlace());
