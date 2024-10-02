@@ -44,14 +44,14 @@ import java.util.Objects;
                         description = "Bat Request",
                         content = @Content(
                                 mediaType = "application/json",
-                                schema = @Schema(implementation = StudentControllerAdvice.ErrorResponse.class))),
+                                schema = @Schema(implementation = StudentControllerAdvice.ValidationErrorResponse.class))),
 
                 @ApiResponse(
                         responseCode = "404",
                         description = "student not found",
                         content = @Content(
                                 mediaType = "application/json",
-                                schema = @Schema(implementation = StudentControllerAdvice.ErrorResponse.class))),
+                                schema = @Schema(implementation = StudentControllerAdvice.ValidationErrorResponse.class))),
                 @ApiResponse(
                         responseCode = "500",
                         description = "Internal server error",

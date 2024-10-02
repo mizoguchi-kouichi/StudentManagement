@@ -21,26 +21,26 @@ public class StudentControllerAdvice {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd 'T'HH:mm:ssZ'［'VV'］'");
 
     @ExceptionHandler(value = StudentNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleUserNotFoundException(
+    public ResponseEntity<Map<String, String>> handleStudentNotFoundException(
             StudentNotFoundException e, HttpServletRequest request) {
-        Map<String, String> body = Map.of(
-                "timestamp", ZonedDateTime.now().format(formatter),
-                "status", String.valueOf(HttpStatus.NOT_FOUND.value()),
-                "error", HttpStatus.NOT_FOUND.getReasonPhrase(),
-                "message", e.getMessage(),
-                "path", request.getRequestURI());
+        ErrorResponse body = new ErrorResponse(
+                ZonedDateTime.now().format(formatter),
+                String.valueOf(HttpStatus.NOT_FOUND.value()),
+                HttpStatus.NOT_FOUND.getReasonPhrase(),
+                e.getMessage(),
+                request.getRequestURI());
         return new ResponseEntity(body, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = MultipleMethodsException.class)
     public ResponseEntity<Map<String, String>> handleMultipleMethodsException(
             MultipleMethodsException e, HttpServletRequest request) {
-        Map<String, String> body = Map.of(
-                "timestamp", ZonedDateTime.now().format(formatter),
-                "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
-                "error", HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                "message", e.getMessage(),
-                "path", request.getRequestURI());
+        ErrorResponse body = new ErrorResponse(
+                ZonedDateTime.now().format(formatter),
+                String.valueOf(HttpStatus.BAD_REQUEST.value()),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                e.getMessage(),
+                request.getRequestURI());
         return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
     }
 
@@ -52,12 +52,12 @@ public class StudentControllerAdvice {
     @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatchException(
             MethodArgumentTypeMismatchException e, HttpServletRequest request) {
-        Map<String, String> body = Map.of(
-                "timestamp", ZonedDateTime.now().format(formatter),
-                "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
-                "error", HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                "message", e.getMessage(),
-                "path", request.getRequestURI());
+        ErrorResponse body = new ErrorResponse(
+                ZonedDateTime.now().format(formatter),
+                String.valueOf(HttpStatus.BAD_REQUEST.value()),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                e.getMessage(),
+                request.getRequestURI());
         return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
     }
 
@@ -68,17 +68,20 @@ public class StudentControllerAdvice {
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<Map<String, String>> handleHttpRequestMethodNotSupportedException(
             HttpRequestMethodNotSupportedException ex, HttpServletRequest request) {
-        Map<String, String> body = Map.of(
-                "timestamp", ZonedDateTime.now().format(formatter),
-                "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
-                "error", HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                "message", "学生のIDを入力してください",
-                "path", request.getRequestURI());
+        ErrorResponse body = new ErrorResponse(
+                ZonedDateTime.now().format(formatter),
+                String.valueOf(HttpStatus.BAD_REQUEST.value()),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                "学生のIDを入力してください",
+                request.getRequestURI());
         return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * バリデーションの例外処理です。
+     */
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ResponseEntity<ValidationErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         List<Map<String, String>> errors = new ArrayList<>();
 
         e.getBindingResult().getFieldErrors().forEach(fieldError -> {
@@ -88,21 +91,61 @@ public class StudentControllerAdvice {
             errors.add(error);
         });
 
-        ErrorResponse errorResponse =
-                new ErrorResponse(String.valueOf(HttpStatus.BAD_REQUEST.value()), "validation error", ZonedDateTime.now().format(formatter), errors);
-        return ResponseEntity.badRequest().body(errorResponse);
+        ValidationErrorResponse validationErrorResponse =
+                new ValidationErrorResponse(String.valueOf(HttpStatus.BAD_REQUEST.value()), "validation error", ZonedDateTime.now().format(formatter), errors);
+        return ResponseEntity.badRequest().body(validationErrorResponse);
     }
 
     /**
      * エラーレスポンスのクラス
      */
-    public static final class ErrorResponse {
+    public static class ErrorResponse {
+
+        private String timestamp;
+        private String status;
+        private String error;
+        private String message;
+        private String path;
+
+        public ErrorResponse(String timestamp, String status, String error, String message, String path) {
+            this.timestamp = timestamp;
+            this.status = status;
+            this.error = error;
+            this.message = message;
+            this.path = path;
+        }
+
+        public String getTimestamp() {
+            return timestamp;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public String getError() {
+            return error;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public String getPath() {
+            return path;
+        }
+    }
+
+    /**
+     * バリデーションエラーレスポンスのクラス
+     */
+    public static final class ValidationErrorResponse {
         private final String status;
         private final String message;
         private final String timestamp;
         private final List<Map<String, String>> errors;
 
-        public ErrorResponse(String status, String message, String timestamp, List<Map<String, String>> errors) {
+        public ValidationErrorResponse(String status, String message, String timestamp, List<Map<String, String>> errors) {
             this.status = status;
             this.message = message;
             this.timestamp = timestamp;
