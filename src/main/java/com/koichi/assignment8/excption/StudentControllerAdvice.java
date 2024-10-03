@@ -1,5 +1,6 @@
 package com.koichi.assignment8.excption;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -99,13 +100,23 @@ public class StudentControllerAdvice {
     /**
      * エラーレスポンスのクラス
      */
+    @Schema(description = "エラーレスポンス")
     public static class ErrorResponse {
-
+        @Schema(description = "エラー発生時刻")
         private String timestamp;
+
+        @Schema(description = "HTTPステータス")
         private String status;
+
+        @Schema(description = "エラータイプ")
         private String error;
+
+        @Schema(description = "エラーメッセージ")
         private String message;
+
+        @Schema(description = "エラーが発生したパス")
         private String path;
+
 
         public ErrorResponse(String timestamp, String status, String error, String message, String path) {
             this.timestamp = timestamp;
@@ -139,11 +150,20 @@ public class StudentControllerAdvice {
     /**
      * バリデーションエラーレスポンスのクラス
      */
+    @Schema(description = "バリデーションエラーレスポンス")
     public static final class ValidationErrorResponse {
+        @Schema(description = "HTTPステータス")
         private final String status;
+
+        @Schema(description = "エラーメッセージ")
         private final String message;
+
+        @Schema(description = "エラー発生時刻")
         private final String timestamp;
+
+        @Schema(description = "バリデーションエラーの詳細リスト")
         private final List<Map<String, String>> errors;
+
 
         public ValidationErrorResponse(String status, String message, String timestamp, List<Map<String, String>> errors) {
             this.status = status;
