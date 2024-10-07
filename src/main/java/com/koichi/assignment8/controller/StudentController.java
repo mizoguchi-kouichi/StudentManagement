@@ -48,7 +48,7 @@ public class StudentController {
      * SELECT用のController
      * 指定したidのstudentのデータを全て取得します。
      */
-    @Operation(summary = "生徒取得API",
+    @Operation(summary = "学生取得API",
             description = "指定したidのstudentのデータを全て取得します"
     )
     @ApiResponses(
