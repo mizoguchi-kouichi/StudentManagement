@@ -146,11 +146,15 @@ public class StudentController {
                                     examples = {
                                             @ExampleObject(
                                                     name = "ErrorResponse",
-                                                    value = "{\"timestamp\":\"string\",\"status\":\"string\",\"error\":\"string\",\"message\":\"string\",\"path\":\"string\"}"
+                                                    value = """
+                                                            {\"timestamp\":\"string\",\"status\":\"string\",\"error\":\"string\",\"message\":\"string\",\"path\":\"string\"}
+                                                            """
                                             ),
                                             @ExampleObject(
                                                     name = "ValidationErrorResponse",
-                                                    value = "{\"status\":\"string\",\"message\":\"string\",\"timestamp\":\"string\",\"errors\":[{\"additionalProp1\":\"string\",\"additionalProp2\":\"string\",\"additionalProp3\":\"string\"}]}"
+                                                    value = """
+                                                            {\"status\":\"string\",\"message\":\"string\",\"timestamp\":\"string\",\"errors\":[{\"additionalProp1\":\"string\",\"additionalProp2\":\"string\",\"additionalProp3\":\"string\"}]}
+                                                            """
                                             )
                                     }
                             )
@@ -192,11 +196,15 @@ public class StudentController {
                                     examples = {
                                             @ExampleObject(
                                                     name = "ErrorResponse",
-                                                    value = "{\"timestamp\":\"string\",\"status\":\"string\",\"error\":\"string\",\"message\":\"string\",\"path\":\"string\"}"
+                                                    value = """
+                                                            {\"timestamp\":\"string\",\"status\":\"string\",\"error\":\"string\",\"message\":\"string\",\"path\":\"string\"}
+                                                            """
                                             ),
                                             @ExampleObject(
                                                     name = "ValidationErrorResponse",
-                                                    value = "{\"status\":\"string\",\"message\":\"string\",\"timestamp\":\"string\",\"errors\":[{\"additionalProp1\":\"string\",\"additionalProp2\":\"string\",\"additionalProp3\":\"string\"}]}"
+                                                    value = """
+                                                            {\"status\":\"string\",\"message\":\"string\",\"timestamp\":\"string\",\"errors\":[{\"additionalProp1\":\"string\",\"additionalProp2\":\"string\",\"additionalProp3\":\"string\"}]}
+                                                            """
                                             )
                                     }
                             )
