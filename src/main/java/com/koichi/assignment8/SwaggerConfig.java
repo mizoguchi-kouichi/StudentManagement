@@ -17,7 +17,7 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("学生リスト管理API")
                         .version("1.0")
-                        .description("中学校および高校の学生データを管理するためのCRUD処理を実装しています。"))
+                        .description("中学校および高校の学生データを管理する機能を提供しています。"))
                 .servers(List.of(
                         new Server().url("http://localhost:8080/").description("ローカル開発環境")
                 ));
