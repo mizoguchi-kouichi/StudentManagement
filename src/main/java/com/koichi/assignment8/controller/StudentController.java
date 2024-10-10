@@ -147,13 +147,29 @@ public class StudentController {
                                             @ExampleObject(
                                                     name = "ErrorResponse",
                                                     value = """
-                                                            {\"timestamp\":\"string\",\"status\":\"string\",\"error\":\"string\",\"message\":\"string\",\"path\":\"string\"}
+                                                            {
+                                                                "timestamp": "string" ,
+                                                                "status": "string",
+                                                                "error": "string",
+                                                                "message": "string",
+                                                                "path": "string"
+                                                            }
                                                             """
                                             ),
                                             @ExampleObject(
                                                     name = "ValidationErrorResponse",
                                                     value = """
-                                                            {\"status\":\"string\",\"message\":\"string\",\"timestamp\":\"string\",\"errors\":[{\"additionalProp1\":\"string\",\"additionalProp2\":\"string\",\"additionalProp3\":\"string\"}]}
+                                                            {
+                                                                "status": "string",
+                                                                "message": "string",
+                                                                "timestamp": "string",
+                                                                "errors": [
+                                                                    {
+                                                                        "field": "string",
+                                                                        "message": "string"
+                                                                    }
+                                                                ]
+                                                            }
                                                             """
                                             )
                                     }
@@ -197,13 +213,29 @@ public class StudentController {
                                             @ExampleObject(
                                                     name = "ErrorResponse",
                                                     value = """
-                                                            {\"timestamp\":\"string\",\"status\":\"string\",\"error\":\"string\",\"message\":\"string\",\"path\":\"string\"}
+                                                            {
+                                                                "timestamp": "string" ,
+                                                                "status": "string",
+                                                                "error": "string",
+                                                                "message": "string",
+                                                                "path": "string"
+                                                            }
                                                             """
                                             ),
                                             @ExampleObject(
                                                     name = "ValidationErrorResponse",
                                                     value = """
-                                                            {\"status\":\"string\",\"message\":\"string\",\"timestamp\":\"string\",\"errors\":[{\"additionalProp1\":\"string\",\"additionalProp2\":\"string\",\"additionalProp3\":\"string\"}]}
+                                                            {
+                                                                "status": "string",
+                                                                "message": "string",
+                                                                "timestamp": "string",
+                                                                "errors": [
+                                                                    {
+                                                                        "field": "string",
+                                                                        "message": "string"
+                                                                    }
+                                                                ]
+                                                            }
                                                             """
                                             )
                                     }
