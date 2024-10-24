@@ -19,4 +19,4 @@
 
 APIの詳細な仕様については、以下のSwagger UIを参照してください。
 
-[Swagger UI](http://localhost:8080/swagger-ui.html)
+[Swagger UI](https://mizoguchi-kouichi.github.io/assignment8/)

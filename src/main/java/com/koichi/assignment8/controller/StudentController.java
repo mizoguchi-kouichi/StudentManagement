@@ -45,11 +45,10 @@ public class StudentController {
     }
 
     /**
-     * SELECT用のController
-     * 指定したidのstudentのデータを全て取得します。
+     * 指定したidの学生のデータを全て取得します。
      */
     @Operation(summary = "学生取得API",
-            description = "指定したidのstudentのデータを全て取得します"
+            description = "指定したidの学生のデータを取得できます。"
     )
     @ApiResponses(
             value = {
@@ -85,11 +84,12 @@ public class StudentController {
     }
 
     /**
-     * SELECT用のController
-     * 指定した検索パラメータに一致するstudentのデータを取得します。
+     * 特定のカラムを指定して学生のデータを取得します。
+     * ただし、検索に使用できるカラムは一度に1つのみです。
+     * 指定するカラムがない場合は、全ての学生のデータを取得します。
      */
     @Operation(summary = "詳細検索API",
-            description = "このエンドポイントでは全学生の情報を取得できます。また、特定のカラムを指定して学生を検索することも可能です。ただし、検索に使用できるカラムは一度に1つのみです。"
+            description = "このエンドポイントでは全ての学生のデータを取得できます。また、特定のカラムを指定して学生を取得することも可能です。ただし、検索に使用できるカラムは一度に1つのみです。"
     )
     @ApiResponses(
             value = {
@@ -121,10 +121,10 @@ public class StudentController {
     }
 
     /**
-     * INSERT用のController
+     * 学生を登録します。
      */
-    @Operation(summary = "学生追加API",
-            description = "名前、学年、出身地を入力してリクエストすると、新しい学生を追加できます。"
+    @Operation(summary = "学生登録API",
+            description = "名前、学年、出身地を入力してリクエストすると、新しい学生を登録できます。"
     )
     @ApiResponses(
             value = {
@@ -186,11 +186,10 @@ public class StudentController {
     }
 
     /**
-     * PATCH用のController
-     * 指定したidのstudentの name,grade,birthplaceを更新します。
+     * 指定したidの学生の名前、学年、出身地を更新します。
      */
     @Operation(summary = "学生更新API",
-            description = "指定したidの生徒の情報を更新できます。"
+            description = "指定したidの生徒のデータを更新できます。"
     )
     @ApiResponses(
             value = {
@@ -263,11 +262,10 @@ public class StudentController {
     }
 
     /**
-     * PATCH用のController
-     * 指定したgradeを進級します。
+     * 全学生の学年を一斉に進級させます。
      */
     @Operation(summary = "全学年更新API",
-            description = "全生徒の学年を更新できます。"
+            description = "全学生の学年を一斉に進級ができます。"
     )
     @ApiResponse(
             responseCode = "200",
@@ -283,11 +281,10 @@ public class StudentController {
     }
 
     /**
-     * DELETE用のController
-     * 指定したidのstudentのデータを削除します。
+     * 指定したidの学生のデータを削除します。
      */
     @Operation(summary = "学生削除API",
-            description = "指定したidの学生を削除出来ます。"
+            description = "指定したidの学生を削除できます。"
     )
     @ApiResponses(
             value = {

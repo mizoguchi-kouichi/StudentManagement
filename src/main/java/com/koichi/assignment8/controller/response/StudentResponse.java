@@ -2,7 +2,10 @@ package com.koichi.assignment8.controller.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-@Schema(description = "成功した際のレスポンスメッセージ")
+/**
+ * 登録・更新・削除の各処理で、リクエストが正常に完了した際のレスポンスメッセージです。
+ */
+@Schema(description = "登録・更新・削除の各処理で、リクエストが正常に完了した際のレスポンスメッセージ")
 public class StudentResponse {
     @Schema(description = "レスポンスメッセージ")
     private String message;

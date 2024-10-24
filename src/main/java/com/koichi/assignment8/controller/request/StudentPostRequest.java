@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 import java.util.Optional;
 
 /**
- * INSERTの際に使用するRequestです。
+ * 学生登録に使用するリクエストです。
  */
 @Schema(description = "学生登録リクエスト")
 public class StudentPostRequest {
