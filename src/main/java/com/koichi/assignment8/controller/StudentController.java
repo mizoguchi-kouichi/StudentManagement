@@ -121,7 +121,7 @@ public class StudentController {
     }
 
     /**
-     * 学生を登録します。
+     * 新しい学生を登録します。
      */
     @Operation(summary = "学生登録API",
             description = "名前、学年、出身地を入力してリクエストすると、新しい学生を登録できます。"

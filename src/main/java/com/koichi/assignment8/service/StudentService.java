@@ -22,8 +22,7 @@ public class StudentService {
     }
 
     /**
-     * SELECT用のService
-     * 指定したidのstudentのデータを全て取得します。
+     * 指定したidの学生のデータを全て取得します。
      */
     public Student findStudent(int id) {
         Optional<Student> findById = this.studentMapper.findById(id);
@@ -34,11 +33,10 @@ public class StudentService {
         }
     }
 
-
     /**
-     * SELECT用のMapper
-     * 指定した検索パラメータに一致するstudentのデータを取得します。
-     * 指定するパラメータがない場合、全てのstudentのデータを取得します。
+     * 特定のカラムを指定して学生のデータを取得します。
+     * ただし、検索に使用できるカラムは一度に1つのみです。
+     * 指定するカラムがない場合は、全ての学生のデータを取得します。
      */
     public List<Student> findStudents(Integer grade, String startsWith, String birthPlace) {
 
@@ -47,7 +45,6 @@ public class StudentService {
         gradeConvertedToString.put(2, "二年生");
         gradeConvertedToString.put(3, "三年生");
         gradeConvertedToString.put(4, "卒業生");
-
 
         List<Student> getAllStudent = this.studentMapper.findAllStudents();
         List<Student> getByGrade = this.studentMapper.findByGrade(gradeConvertedToString.get(grade));
@@ -82,7 +79,7 @@ public class StudentService {
     }
 
     /**
-     * INSERT用のService
+     * 新しい学生を登録します。
      */
     public Student insertStudent(String name, String grade, String birthPlace) {
         Student student = new Student(name, grade, birthPlace);
@@ -91,8 +88,7 @@ public class StudentService {
     }
 
     /**
-     * PATCH用のService
-     * 指定したidのstudentの name,grade,birthplaceを更新します。
+     * 指定したidの学生の名前、学年、出身地を更新します。
      */
     public void updateStudent(int id, String name, String grade, String birthPlace) {
         Optional<Student> optionalStudent = studentMapper.findById(id);
@@ -105,8 +101,7 @@ public class StudentService {
     }
 
     /**
-     * PATCH用のService
-     * 指定したgradeを進級します。
+     * 全学生の学年を一斉に進級させます。
      */
     @Transactional()
     public void updateGrade() {
@@ -116,13 +111,11 @@ public class StudentService {
     }
 
     /**
-     * DELETE用のService
-     * 指定したidのstudentのデータを削除します。
+     * 指定したidの学生のデータを削除します。
      */
     public void deleteStudent(Integer id) {
         Optional<Student> findById = this.studentMapper.findById(id);
         Student deleteStudent = findById.orElseThrow(() -> new StudentNotFoundException("student not found"));
         studentMapper.deleteStudent(id);
     }
-
 }
