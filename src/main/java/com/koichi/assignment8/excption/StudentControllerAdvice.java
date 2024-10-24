@@ -21,6 +21,9 @@ public class StudentControllerAdvice {
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd 'T'HH:mm:ssZ'［'VV'］'");
 
+    /**
+     * idを指定するCLOD処理で学生が見つからない場合の例外処理になります。
+     */
     @ExceptionHandler(value = StudentNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleStudentNotFoundException(
             StudentNotFoundException e, HttpServletRequest request) {
@@ -33,6 +36,9 @@ public class StudentControllerAdvice {
         return new ResponseEntity(body, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * READ処理のクエリパラメータ検索で、2つ以上のカラムを同時に指定した場合の例外処理です。
+     */
     @ExceptionHandler(value = MultipleMethodsException.class)
     public ResponseEntity<Map<String, String>> handleMultipleMethodsException(
             MultipleMethodsException e, HttpServletRequest request) {
@@ -46,9 +52,7 @@ public class StudentControllerAdvice {
     }
 
     /**
-     * 以下の二つについての例外処理です。
-     * 読み取り処理・登録処理・削除処理のID検索の際に文字列がリクエストされた場合
-     * 学生でクエリパラメータの検索をする際に文字列がリクエストされた場合
+     * idを指定するCRUD処理やクエリパラメータ検索するREAD処理の際に、指定する数値が数字以外でリクエストされた時の例外処理です。
      */
     @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Map<String, String>> handleMethodArgumentTypeMismatchException(
@@ -63,8 +67,7 @@ public class StudentControllerAdvice {
     }
 
     /**
-     * 更新処理・削除処理の際に全学生がリクエストされた場合の
-     * 例外処理です。
+     * 更新処理・削除処理の際に全学生がリクエストされた場合の例外処理です。
      */
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<Map<String, String>> handleHttpRequestMethodNotSupportedException(
@@ -116,7 +119,6 @@ public class StudentControllerAdvice {
 
         @Schema(description = "エラーが発生したパス")
         private String path;
-
 
         public ErrorResponse(String timestamp, String status, String error, String message, String path) {
             this.timestamp = timestamp;
@@ -188,8 +190,4 @@ public class StudentControllerAdvice {
             return errors;
         }
     }
-
 }
-
-
-

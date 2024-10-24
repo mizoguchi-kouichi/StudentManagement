@@ -5,7 +5,10 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.util.Objects;
 
-@Schema(description = "学生情報")
+/**
+ * 学生データ用のエンティティクラスです。
+ */
+@Schema(description = "学生データ")
 public class Student {
     @Schema(description = "学生ID")
     private Integer id;

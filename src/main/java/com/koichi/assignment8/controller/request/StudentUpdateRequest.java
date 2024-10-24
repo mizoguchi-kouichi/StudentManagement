@@ -15,8 +15,7 @@ import java.lang.annotation.Target;
 import java.util.Optional;
 
 /**
- * 指定したidのstudentの name,grade,birthplaceを更新するREAD処理
- * で使用するRequestです。
+ * 指定したIDの学生の名前、学年、出身地を更新する際に使用するリクエストです。
  */
 @Schema(description = "生徒情報更新リクエスト")
 public class StudentUpdateRequest {

@@ -15,64 +15,56 @@ import java.util.Optional;
 public interface StudentMapper {
 
     /**
-     * SELECT用のMapper
-     * 指定したidのstudentのデータを全て取得します。
+     * 指定したidの学生のデータを取得します。
      */
     @Select("SELECT * FROM students WHERE id = #{id} ")
     Optional<Student> findById(Integer id);
 
     /**
-     * SELECT用のMapper
-     * 全てのstudentのデータを全て取得します。
+     * 全ての学生のデータを取得します。
      */
     @Select("SELECT * FROM students")
     List<Student> findAllStudents();
 
     /**
-     * SELECT用のMapper
-     * 指定した学年のstudentのデータを全て取得します。
+     * 指定した学年の学生のデータを取得します。
      */
     @Select("SELECT *  from students WHERE grade = #{grade} ")
     List<Student> findByGrade(String grade);
 
     /**
-     * SELECT用のMapper
-     * 指定した接頭辞のstudentのデータを全て取得します。
+     * 指定した接頭辞の学生のデータを取得します。
      */
     @Select("SELECT * FROM students WHERE name LIKE CONCAT(#{startsWith}, '%') ")
     List<Student> findByStartWith(String startsWith);
 
     /**
-     * SELECT用のMapper
-     * 指定した出身地のstudentのデータを全て取得します。
+     * 指定した出身地の学生のデータを取得します。
      */
     @Select("SELECT * FROM students WHERE birth_place = #{birthPlace}")
     List<Student> findByBirthPlace(String birthPlace);
 
     /**
-     * INSERT用のMapper
+     * 新しい学生を登録します。
      */
     @Insert("INSERT INTO students (name,grade,birth_place) VALUES (#{name}, #{grade},#{birthPlace})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insertStudent(Student student);
 
     /**
-     * PATCH用のMapper
-     * 指定したidのstudentの name,grade,birthplaceを更新します。
+     * 指定したidの学生の名前、学年、出身地を更新します。
      */
     @Update("UPDATE students SET name = #{name}, grade = #{grade},birth_Place = #{birthPlace} WHERE id =#{id}")
     void updateStudent(Student student);
 
     /**
-     * PATCH用のMapper
-     * 指定したgradeを進級します。
+     * 全学生の学年を一斉に進級させます。
      */
     @Update("UPDATE students SET grade = #{newGrade} WHERE grade =#{grade} ")
     void updateGrade(String newGrade, String grade);
 
     /**
-     * DELETE用のMapper
-     * 指定したidのstudentのデータを削除します。
+     * 指定したidの学生のデータを削除します。
      */
     @Delete(" DELETE FROM students WHERE id =#{id}")
     void deleteStudent(Integer id);
