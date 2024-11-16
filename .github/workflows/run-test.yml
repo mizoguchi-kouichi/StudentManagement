@@ -56,28 +56,6 @@ jobs:
           envs: DEST_PATH
           script: |
             sudo yum update -y
-            if [ -f /etc/systemd/system/assignment8.service ]; then
-              echo "already exists Service File"
-            else
-            cat <<EDL | sudo tee -a /etc/systemd/system/assignment8.service
-            [Unit]
-            Description = assignment8 app
-            
-            [Service]
-            ExecStart = java -jar ${DEST_PATH}
-            EnvironmentFile = /etc/sysconfig/assignment8
-            Restart = no
-            Type = simple
-            User = ec2-user
-            Group = ec2-user
-            SuccessExitStatus =143
-            
-            [Install]
-            WantedBy = multi-user.target
-            EDL
-            fi
-            
-            sudo systemctl daemon-reload
             if sudo systemctl status assignment8 2>&1 | grep "Active: active (running)";then
               sudo systemctl restart assignment8
             else
