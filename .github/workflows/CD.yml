@@ -3,8 +3,6 @@ name: Run CD with Gradle
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 env:
   EC2_USER: 'ec2-user'
