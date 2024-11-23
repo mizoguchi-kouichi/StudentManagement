@@ -55,17 +55,14 @@
 
 ### 実装機能の種類
 
-| No | CRUD   | エンドポイント                               | 機能        | 機能について                                 |
-|----|--------|---------------------------------------|-----------|----------------------------------------|
-| ①  | Read   | GET /students/{id}                    | 学生ID参照    | 指定したIDの学生のデータを参照します                    |
-| ②  | Read   | GET students                          | 全学生参照     | 全学生のデータを参照します                          |
-| ③  | Read   | GET /students?grade={grade}           | 学年参照      | URLのクエリパラメータ検索で指定した学年の学生のデータを参照します     |
-| ④  | Read   | GET /students?startsWith={startsWith} | 頭文字参照     | URLのクエリパラメータ検索で指定した名前の頭文字の学生のデータを参照します |
-| ⑤  | Read   | GET /students?birthPlace={birthPlace} | 出身地参照     | URLのクエリパラメータ検索で指定した出身地の学生のデータを参照します    |
-| ⑥  | Create | POST /students                        | 新規学生登録    | 新しい学生を登録します                            |
-| ⑦  | Update | PATCH /students/{id}                  | 学生IDデータ更新 | 指定した学生のデータを更新します                       |
-| ⑧  | update | PATCH /students/grade/_batchUpdate    | 全学生学年更新   | 全学生の学年を一斉に更新します                        |
-| ⑨  | delete | DELETE /students/{id}                 | 学生ID削除    | 指定したIDの学生のデータを削除します                    |
+| No | CRUD   | エンドポイント                            | 機能        | 機能について              | その他のコメント                          |
+|----|--------|------------------------------------|-----------|---------------------|-----------------------------------|
+| ①  | Read   | GET /students/{id}                 | 学生ID参照    | 指定したIDの学生のデータを参照します |                                   |
+| ②  | Read   | GET students                       | 全学生参照     | 全学生のデータを参照します       | クエリ文字列で学年・頭文字・出身地を指定して参照することも出来ます |
+| ③  | Create | POST /students                     | 新規学生登録    | 新しい学生を登録します         |                                   |
+| ④  | Update | PATCH /students/{id}               | 学生IDデータ更新 | 指定した学生のデータを更新します    |                                   |
+| ⑤  | update | PATCH /students/grade/_batchUpdate | 全学生学年更新   | 全学生の学年を一斉に更新します     |                                   |
+| ⑥  | delete | DELETE /students/{id}              | 学生ID削除    | 指定したIDの学生のデータを削除します |                                   |
 
 ### API仕様書
 
