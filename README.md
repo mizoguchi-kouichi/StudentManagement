@@ -112,13 +112,13 @@ APIの詳細な仕様については、以下のSwagger UIを参照してくだ�
 
 ## AWS構成図
 
-![StudentManagementAWS構成図.drawio (1).png](..%2F..%2F..%2FDownloads%2FStudentManagementAWS%E6%A7%8B%E6%88%90%E5%9B%B3.drawio%20%281%29.png)
+![StudentManagementAWS構成図](media/images/StudentManagementAWS%E6%A7%8B%E6%88%90%E5%9B%B3.drawio.png)
 
 ## 動作確認
 
 - デプロイ後にPostmanを使用してAPIが正常動作していることが確認できました。
 
-![Deployment Status.gif](..%2FDeployment%20Status.gif)
+![動画確認](media/videos/動画確認.gif)
 
 ## 工夫した点
 
