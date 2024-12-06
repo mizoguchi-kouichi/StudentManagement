@@ -94,7 +94,7 @@
 ***
 APIの詳細な仕様については、以下のSwagger UIを参照してください。
 
-[API仕様書](https://mizoguchi-kouichi.github.io/assignment8/)
+[API仕様書](https://mizoguchi-kouichi.github.io/StudentManagement/)
 
 ## レスポンスハンドリング
 
