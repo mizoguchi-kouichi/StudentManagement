@@ -112,7 +112,8 @@ APIの詳細な仕様については、以下のSwagger UIを参照してくだ�
 
 ## AWS構成図
 
-![StudentManagementAWS構成図](media/images/StudentManagementAWS%E6%A7%8B%E6%88%90%E5%9B%B3.drawio.png)
+![StudentManagementAWS構成図](media/images/AWSConfigurationDiagram.png)
+
 
 ## 動作確認
 
