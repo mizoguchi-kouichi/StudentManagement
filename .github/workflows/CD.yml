@@ -6,7 +6,7 @@ on:
 
 env:
   EC2_USER: 'ec2-user'
-  EC2_HOST: '52.192.185.252'
+  EC2_HOST: '3.112.236.95'
   SRC_PATH: 'build/libs/*.jar'
   DEST_PATH: '/home/ec2-user/assignment8.jar'
 
